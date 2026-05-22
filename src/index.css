@@ -1,0 +1,175 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-primary: #030712;
+    --bg-card: #0B1120;
+    --accent: #818CF8;
+    --accent-2: #22D3EE;
+    --text-primary: #EEF2FF;
+    --text-secondary: #8899BB;
+    --border: rgba(129, 140, 248, 0.1);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Inter', system-ui, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: rgba(129, 140, 248, 0.25);
+    color: #fff;
+  }
+
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--bg-primary); }
+  ::-webkit-scrollbar-thumb { background: rgba(129,140,248,0.25); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(129,140,248,0.5); }
+}
+
+@layer components {
+  .gradient-text {
+    background: linear-gradient(135deg, #818CF8 0%, #22D3EE 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-warm {
+    background: linear-gradient(135deg, #F59E0B 0%, #EC4899 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glass-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .glass-card:hover {
+    border-color: rgba(129, 140, 248, 0.3);
+    transform: translateY(-4px);
+    box-shadow: 0 24px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(129,140,248,0.05);
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #6366F1, #818CF8);
+    color: #fff;
+    font-weight: 600;
+    padding: 0.75rem 1.75rem;
+    border-radius: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.25s ease;
+    text-decoration: none;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(99,102,241,0.35);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text-primary);
+    font-weight: 600;
+    padding: 0.75rem 1.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.25s ease;
+    text-decoration: none;
+  }
+
+  .btn-secondary:hover {
+    border-color: rgba(129, 140, 248, 0.45);
+    background: rgba(129, 140, 248, 0.05);
+    transform: translateY(-2px);
+  }
+
+  .section-tag {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .section-heading {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Dot grid background */
+.dot-grid {
+  background-image: radial-gradient(rgba(129,140,248,0.12) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* Glow orbs */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Terminal cursor blink */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.cursor-blink { animation: blink 1s step-end infinite; }
+
+/* Reveal on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delays */
+.delay-100 { transition-delay: 0.1s; }
+.delay-200 { transition-delay: 0.2s; }
+.delay-300 { transition-delay: 0.3s; }
+.delay-400 { transition-delay: 0.4s; }
+.delay-500 { transition-delay: 0.5s; }
+
+/* Shimmer for skeleton loading feel on tags */
+.tech-badge {
+  background: rgba(129,140,248,0.06);
+  border: 1px solid rgba(129,140,248,0.14);
+  color: #a5b4fc;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.tech-badge:hover {
+  background: rgba(129,140,248,0.12);
+  border-color: rgba(129,140,248,0.3);
+}
