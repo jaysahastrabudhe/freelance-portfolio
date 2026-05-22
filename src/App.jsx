@@ -8,6 +8,8 @@ import Projects from './pages/Projects'
 import ProjectDetail from './pages/ProjectDetail'
 import Services from './pages/Services'
 import Contact from './pages/Contact'
+import Samples from './pages/Samples'
+import SampleDetail from './pages/SampleDetail'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -15,7 +17,8 @@ function ScrollToTop() {
   return null
 }
 
-function Layout() {
+// Portfolio layout — with nav + footer
+function PortfolioLayout() {
   return (
     <>
       <ScrollToTop />
@@ -27,6 +30,7 @@ function Layout() {
           <Route path="/projects" element={<Projects />} />
           <Route path="/projects/:id" element={<ProjectDetail />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/samples" element={<Samples />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<Home />} />
         </Routes>
@@ -39,7 +43,12 @@ function Layout() {
 export default function App() {
   return (
     <BrowserRouter>
-      <Layout />
+      <Routes>
+        {/* Sample detail pages are standalone — no portfolio nav/footer */}
+        <Route path="/samples/:id" element={<SampleDetail />} />
+        {/* Everything else uses the portfolio layout */}
+        <Route path="*" element={<PortfolioLayout />} />
+      </Routes>
     </BrowserRouter>
   )
 }

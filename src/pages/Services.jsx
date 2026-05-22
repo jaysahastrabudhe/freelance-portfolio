@@ -132,9 +132,80 @@ export default function Services() {
         </div>
       </section>
 
+      {/* ── Starter Package ── */}
+      <section className="py-16 bg-[#060C18]">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-8">
+            <p className="section-tag reveal">Introductory Offer</p>
+            <h2 className="section-heading text-white mt-2 reveal delay-100">Getting Started Has Never Been Easier</h2>
+          </div>
+          <div className="relative glass-card rounded-3xl p-8 md:p-10 border border-cyan-500/30 bg-gradient-to-br from-cyan-500/5 to-indigo-500/5 overflow-hidden reveal">
+            {/* Glow */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="relative grid md:grid-cols-2 gap-8 items-center">
+              {/* Left */}
+              <div>
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="px-3 py-1 rounded-full text-xs font-bold bg-cyan-500/15 text-cyan-400 border border-cyan-500/25 tracking-wide">
+                    ⭐ INTRODUCTORY PRICE
+                  </span>
+                  <span className="text-xs text-[#8899BB]">Limited offer for new clients</span>
+                </div>
+                <h3 className="text-white font-black text-2xl md:text-3xl leading-tight">
+                  3-Page Website<br />
+                  <span className="gradient-text">Non E-commerce</span>
+                </h3>
+                <p className="text-[#8899BB] mt-3 leading-relaxed">
+                  Home, About & Contact — everything a local business, freelancer, or professional needs to establish a polished web presence. Mobile-first, fast, and built to last.
+                </p>
+                <ul className="grid sm:grid-cols-2 gap-2 mt-5">
+                  {[
+                    'Home page — hero, services & CTA',
+                    'About page with your story',
+                    'Contact page with form',
+                    'Mobile responsive & fast',
+                    'WhatsApp chat button',
+                    'Delivered in 1 week',
+                    'Free domain advice',
+                    '30-day post-launch support',
+                  ].map((item) => (
+                    <li key={item} className="flex items-center gap-2 text-sm text-[#CBD5E1]">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 flex-shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              {/* Right */}
+              <div className="text-center md:text-right flex flex-col items-center md:items-end gap-5">
+                <div>
+                  <div className="text-6xl font-black" style={{ background: 'linear-gradient(135deg, #22D3EE, #818CF8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                    ₹5,000
+                  </div>
+                  <div className="text-[#8899BB] text-sm mt-1">one-time · no hidden fees</div>
+                </div>
+                <Link to="/contact" className="btn-primary whitespace-nowrap">
+                  Claim This Offer <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link to="/samples" className="text-sm text-cyan-400 hover:text-cyan-300 transition-colors flex items-center gap-1.5">
+                  See sample designs first →
+                </Link>
+                <div className="text-xs text-[#8899BB] max-w-[220px]">
+                  Want e-commerce or more pages? Let's talk — custom quotes available.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Detailed services */}
       <section className="py-16">
         <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-10">
+            <p className="section-tag reveal">Full Service Menu</p>
+            <h2 className="section-heading text-white mt-2 reveal delay-100">All Services & Pricing</h2>
+          </div>
           <div className="grid md:grid-cols-2 gap-6">
             {detailedServices.map((s, i) => {
               const Icon = serviceIcons[s.icon]

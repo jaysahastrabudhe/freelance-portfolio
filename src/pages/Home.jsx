@@ -5,6 +5,7 @@ import {
   CheckCircle2, ExternalLink, ChevronRight,
 } from 'lucide-react'
 import { projects, services } from '../data/projects'
+import { samples } from '../data/samples'
 import ProjectCard from '../components/ProjectCard'
 import { useScrollRevealAll } from '../hooks/useScrollReveal'
 
@@ -308,6 +309,67 @@ export default function Home() {
                   More About Me <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SAMPLE DESIGNS ── */}
+      <section className="py-24">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="flex items-end justify-between mb-10">
+            <div>
+              <p className="section-tag reveal">Sample Designs</p>
+              <h2 className="section-heading text-white mt-2 reveal delay-100">
+                See What I Can Build<br />
+                <span className="gradient-text">For Your Industry</span>
+              </h2>
+              <p className="text-[#8899BB] mt-3 max-w-md reveal delay-200">
+                Six live demo websites — restaurant, real estate, fitness, photography, law, and healthcare.
+                Starting at <span className="text-cyan-400 font-bold">₹5,000</span> for a 3-page site.
+              </p>
+            </div>
+            <Link
+              to="/samples"
+              className="hidden md:flex items-center gap-1.5 text-sm font-semibold text-indigo-400 hover:text-indigo-300 transition-colors reveal"
+            >
+              All Samples <ChevronRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {samples.slice(0, 3).map((s, i) => (
+              <Link
+                key={s.id}
+                to={`/samples/${s.id}`}
+                className="glass-card rounded-2xl overflow-hidden group reveal"
+                style={{ transitionDelay: `${i * 0.1}s` }}
+              >
+                <div
+                  className="h-32 flex flex-col items-center justify-center text-white relative"
+                  style={{ background: s.bgGradient }}
+                >
+                  <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(rgba(255,255,255,0.07) 1px, transparent 1px)', backgroundSize: '18px 18px' }} />
+                  <span className="text-4xl mb-1.5 relative">{s.emoji}</span>
+                  <span className="font-bold relative text-sm">{s.businessName}</span>
+                </div>
+                <div className="px-5 py-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-white font-semibold text-sm">{s.industry}</span>
+                    <span className="text-indigo-400 text-xs font-semibold group-hover:text-indigo-300 transition-colors">View Demo →</span>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
+            <Link to="/samples" className="btn-secondary text-sm reveal">
+              View All 6 Industry Demos <ChevronRight className="w-4 h-4" />
+            </Link>
+            <div className="flex items-center gap-2 text-sm reveal delay-100">
+              <span className="text-[#8899BB]">3-page non-ecom from</span>
+              <span className="text-cyan-400 font-black text-lg">₹5,000</span>
             </div>
           </div>
         </div>
