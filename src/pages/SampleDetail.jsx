@@ -27,7 +27,7 @@ export default function SampleDetail() {
     if (idx !== -1) {
       document.title = `${samples[idx].businessName} — Sample Design by Jay`
     }
-    return () => { document.title = 'Jay Sahastrabudhe | Freelance Web Developer' }
+    return () => { document.title = 'Scrpt | Freelance Web Developer' }
   }, [id, idx])
 
   if (idx === -1) return <Navigate to="/samples" replace />

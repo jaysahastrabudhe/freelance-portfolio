@@ -182,8 +182,8 @@ export default function RestaurantSample({ sample, prev, next }) {
             <div style={{ fontFamily: "'Inter', sans-serif" }}>
               <div style={{ fontWeight: 600, fontSize: '11px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#A0816A', marginBottom: '16px' }}>Website by</div>
               <div style={{ color: '#A0816A', fontSize: '13px', lineHeight: 1.8 }}>
-                <Link to="/" style={{ color: '#818CF8', fontWeight: 700, textDecoration: 'none' }}>Jay Sahastrabudhe</Link>
-                <div>Freelance Web Developer · Pune</div>
+                <Link to="/" style={{ color: '#818CF8', fontWeight: 700, textDecoration: 'none' }}>Scrpt</Link>
+                <div>Web Development Studio · Pune</div>
                 <Link to="/contact" style={{ color: amber, fontWeight: 600, textDecoration: 'none', display: 'inline-block', marginTop: '8px' }}>Get yours from ₹5,000 →</Link>
               </div>
             </div>

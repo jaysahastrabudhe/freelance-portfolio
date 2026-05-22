@@ -186,8 +186,8 @@ export default function PhotographySample({ sample, prev, next }) {
             <div>
               <div style={{ fontWeight: 600, fontSize: '11px', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(232,224,240,0.3)', marginBottom: '16px' }}>Website by</div>
               <div style={{ color: 'rgba(232,224,240,0.4)', fontSize: '13px', lineHeight: 1.8 }}>
-                <Link to="/" style={{ color: '#818CF8', fontWeight: 700, textDecoration: 'none' }}>Jay Sahastrabudhe</Link>
-                <div>Freelance Web Developer · Pune</div>
+                <Link to="/" style={{ color: '#818CF8', fontWeight: 700, textDecoration: 'none' }}>Scrpt</Link>
+                <div>Web Development Studio · Pune</div>
                 <Link to="/contact" style={{ color: pink, fontWeight: 600, textDecoration: 'none', display: 'inline-block', marginTop: '8px' }}>Get yours from ₹5,000 →</Link>
               </div>
             </div>

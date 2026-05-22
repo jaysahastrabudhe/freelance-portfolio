@@ -242,8 +242,8 @@ export default function RealEstateSample({ sample, prev, next }) {
             <div>
               <div style={{ fontWeight: 600, fontSize: '11px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#64748B', marginBottom: '14px' }}>Website by</div>
               <div style={{ color: '#94A3B8', fontSize: '13px', lineHeight: 1.8 }}>
-                <Link to="/" style={{ color: '#818CF8', fontWeight: 700, textDecoration: 'none' }}>Jay Sahastrabudhe</Link>
-                <div>Freelance Web Developer · Pune</div>
+                <Link to="/" style={{ color: '#818CF8', fontWeight: 700, textDecoration: 'none' }}>Scrpt</Link>
+                <div>Web Development Studio · Pune</div>
                 <Link to="/contact" style={{ color: '#22D3EE', fontWeight: 600, textDecoration: 'none', display: 'inline-block', marginTop: '8px' }}>Get yours from ₹5,000 →</Link>
               </div>
             </div>

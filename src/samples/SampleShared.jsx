@@ -10,7 +10,7 @@ export function PortfolioBanner() {
       padding: '10px 16px', display: 'flex', flexWrap: 'wrap',
       alignItems: 'center', justifyContent: 'center', gap: '6px', zIndex: 100,
     }}>
-      <span>🎨 <strong>Sample Design</strong> — Jay Sahastrabudhe</span>
+      <span>🎨 <strong>Sample Design</strong> — Scrpt</span>
       <span style={{ opacity: 0.5 }}>·</span>
       <span>Want a website like this for your business?</span>
       <Link to="/contact" style={{ color: '#C7D2FE', fontWeight: 700, textDecoration: 'underline', whiteSpace: 'nowrap' }}>

@@ -38,8 +38,8 @@ export default function Navbar() {
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-cyan-400 flex items-center justify-center">
             <Code2 className="w-4 h-4 text-white" />
           </div>
-          <span className="font-bold text-white tracking-tight">
-            Jay<span className="gradient-text">Dev</span>
+          <span className="font-bold text-white tracking-tight text-lg">
+            Scr<span className="gradient-text">pt</span>
           </span>
         </Link>
 

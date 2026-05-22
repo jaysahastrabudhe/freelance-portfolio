@@ -212,8 +212,8 @@ export default function LawFirmSample({ sample, prev, next }) {
             <div style={{ fontFamily: "'Inter', sans-serif" }}>
               <div style={{ fontWeight: 600, fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)', marginBottom: '16px' }}>Website by</div>
               <div style={{ color: 'rgba(255,255,255,0.45)', fontSize: '13px', lineHeight: 1.8 }}>
-                <Link to="/" style={{ color: '#818CF8', fontWeight: 700, textDecoration: 'none' }}>Jay Sahastrabudhe</Link>
-                <div>Freelance Web Developer · Pune</div>
+                <Link to="/" style={{ color: '#818CF8', fontWeight: 700, textDecoration: 'none' }}>Scrpt</Link>
+                <div>Web Development Studio · Pune</div>
                 <Link to="/contact" style={{ color: gold, fontWeight: 600, textDecoration: 'none', display: 'inline-block', marginTop: '8px' }}>Get yours from ₹5,000 →</Link>
               </div>
             </div>

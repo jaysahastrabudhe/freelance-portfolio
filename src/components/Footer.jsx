@@ -24,7 +24,7 @@ export default function Footer() {
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-cyan-400 flex items-center justify-center">
                 <Code2 className="w-4 h-4 text-white" />
               </div>
-              <span className="font-bold text-white">Jay<span className="gradient-text">Dev</span></span>
+              <span className="font-bold text-white text-lg">Scr<span className="gradient-text">pt</span></span>
             </Link>
             <p className="text-[#8899BB] text-sm leading-relaxed max-w-xs">
               Freelance web developer based in Pune, Maharashtra. Building fast, modern web experiences for businesses across India.
@@ -89,7 +89,7 @@ export default function Footer() {
 
         <div className="border-t border-white/5 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-[#8899BB] text-xs">
-            © {new Date().getFullYear()} Jay Sahastrabudhe. All rights reserved.
+            © {new Date().getFullYear()} Scrpt. All rights reserved.
           </p>
           <p className="text-[#8899BB] text-xs">
             Built with React + Vite + Tailwind CSS
