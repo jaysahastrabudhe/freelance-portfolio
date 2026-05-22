@@ -176,7 +176,7 @@ export default function SampleTemplate({ sample, prev, next }) {
               <div style={{ color: '#9CA3AF', fontSize: '13px', lineHeight: 1.8 }}>
                 <Link to="/" style={{ color: '#818CF8', fontWeight: 700, textDecoration: 'none' }}>Jay Sahastrabudhe</Link>
                 <div>Freelance Web Developer</div>
-                <div>Dharwad, Karnataka</div>
+                <div>Pune, Maharashtra</div>
                 <Link to="/contact" style={{ color: '#22D3EE', fontWeight: 600, textDecoration: 'none', display: 'inline-block', marginTop: '8px' }}>Get yours from ₹5,000 →</Link>
               </div>
             </div>

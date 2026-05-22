@@ -86,7 +86,7 @@ export default function Contact() {
                   {
                     icon: MapPin,
                     label: 'Location',
-                    value: 'Dharwad, Karnataka, India',
+                    value: 'Pune, Maharashtra, India',
                     href: null,
                   },
                   {

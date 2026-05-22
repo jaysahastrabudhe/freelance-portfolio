@@ -279,8 +279,8 @@ export default function Services() {
           <div className="space-y-4">
             {[
               {
-                q: 'Do you work with clients outside Dharwad?',
-                a: 'Absolutely. I work remotely with clients across India. All communication happens over WhatsApp, email, or video call.',
+                q: 'Do you work with clients outside Pune?',
+                a: 'Absolutely. I work remotely with clients across India. All communication happens over WhatsApp, email, or video call. I work with clients all across India.',
               },
               {
                 q: 'What\'s included after the project launches?',

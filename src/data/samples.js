@@ -18,7 +18,7 @@ export const samples = [
     ],
     stats: [{ v: '15+', l: 'Years' }, { v: '500+', l: 'Reviews' }, { v: '4.9★', l: 'Google' }],
     about:
-      'For over 15 years, Spice Garden has been the most loved restaurant in Dharwad. Our chefs use traditional recipes passed down through generations, cooked with locally sourced vegetables and hand-ground spices. Every dish is made fresh to order — no freezer, no shortcuts.',
+      'For over 15 years, Spice Garden has been the most loved restaurant in Pune. Our chefs use traditional recipes passed down through generations, cooked with locally sourced vegetables and hand-ground spices. Every dish is made fresh to order — no freezer, no shortcuts.',
     testimonial: {
       name: 'Priya M.',
       text: 'Best biriyani I have ever had! The ambiance is wonderful and the staff are so friendly. My whole family loves this place.',
@@ -26,7 +26,7 @@ export const samples = [
     ctaHeadline: 'Reserve Your Table Today',
     ctaText: 'Book a Table',
     phone: '+91 98765 43210',
-    address: 'MG Road, Dharwad, Karnataka 580001',
+    address: 'FC Road, Pune, Maharashtra 411004',
     email: 'hello@spicegarden.in',
   },
   {
@@ -34,21 +34,21 @@ export const samples = [
     industry: 'Real Estate Agency',
     emoji: '🏡',
     businessName: 'Prime Realty',
-    tagline: 'Your Trusted Property Partner in Karnataka',
-    headline: 'Find Your Dream Home in Karnataka',
+    tagline: 'Your Trusted Property Partner in Pune',
+    headline: 'Find Your Dream Home in Pune',
     subheadline:
       '500+ properties listed. Expert agents. Transparent process. Whether you\'re buying, selling, or renting — we make it effortless.',
     primaryColor: '#3B82F6',
     bgGradient: 'linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)',
     accentLight: '#EFF6FF',
     services: [
-      { icon: '🔑', title: 'Buy Property', desc: 'Residential and commercial properties across Dharwad, Hubli, and Bangalore.' },
+      { icon: '🔑', title: 'Buy Property', desc: 'Residential and commercial properties across Pune, Mumbai, and Nashik.' },
       { icon: '📋', title: 'Sell Fast', desc: 'We get you the best price. Average close time: 22 days.' },
       { icon: '🏠', title: 'Rental Management', desc: 'End-to-end property management for landlords and investors.' },
     ],
     stats: [{ v: '500+', l: 'Properties' }, { v: '200+', l: 'Deals/yr' }, { v: '10', l: 'Agents' }],
     about:
-      'Prime Realty has been the most trusted name in Karnataka real estate since 2015. With a network of 10 experienced agents and 200+ successful deals annually, we simplify the most important financial transaction of your life. Zero hidden fees, full transparency.',
+      'Prime Realty has been the most trusted name in Pune real estate since 2015. With a network of 10 experienced agents and 200+ successful deals annually, we simplify the most important financial transaction of your life. Zero hidden fees, full transparency.',
     testimonial: {
       name: 'Rahul S.',
       text: 'They found us the perfect 3BHK within our budget in just two weeks! Very professional team, zero hidden fees. Highly recommended.',
@@ -56,7 +56,7 @@ export const samples = [
     ctaHeadline: 'Ready to Make Your Move?',
     ctaText: 'Talk to an Agent',
     phone: '+91 98765 43210',
-    address: 'Sadashivanagar, Dharwad, Karnataka',
+    address: 'Aundh, Pune, Maharashtra',
     email: 'info@primerealty.in',
   },
   {
@@ -78,7 +78,7 @@ export const samples = [
     ],
     stats: [{ v: '1,200+', l: 'Members' }, { v: '5,000', l: 'Sq. ft.' }, { v: '6 AM–10 PM', l: 'Daily' }],
     about:
-      'IronForge has helped over 1,200 members transform their bodies and lives since 2019. With 5,000 sq ft of AC-equipped training space and trainers certified by NSCA and ACE, we\'re Dharwad\'s most equipped gym. Results, or your money back.',
+      'IronForge has helped over 1,200 members transform their bodies and lives since 2019. With 5,000 sq ft of AC-equipped training space and trainers certified by NSCA and ACE, we\'re Pune\'s most equipped gym. Results, or your money back.',
     testimonial: {
       name: 'Arjun K.',
       text: 'Lost 18 kg in 5 months with my personal trainer at IronForge. Best decision of my life. The coaches actually care about your progress.',
@@ -86,7 +86,7 @@ export const samples = [
     ctaHeadline: 'Start Your 7-Day Free Trial',
     ctaText: 'Claim Free Trial',
     phone: '+91 98765 43210',
-    address: 'Vidyanagar, Dharwad, Karnataka',
+    address: 'Baner, Pune, Maharashtra',
     email: 'join@ironforge.in',
   },
   {
@@ -108,7 +108,7 @@ export const samples = [
     ],
     stats: [{ v: '300+', l: 'Weddings' }, { v: '8', l: 'Years Exp.' }, { v: '500+', l: 'Edited/shoot' }],
     about:
-      'Frame & Focus is a boutique photography studio founded by Ananya Rao. With 8 years of experience and 300+ weddings captured across Karnataka, every shoot is approached with patience, creativity, and deep respect for the moments that matter most.',
+      'Frame & Focus is a boutique photography studio founded by Ananya Rao. With 8 years of experience and 300+ weddings captured across Maharashtra, every shoot is approached with patience, creativity, and deep respect for the moments that matter most.',
     testimonial: {
       name: 'Meera & Karthik',
       text: 'Ananya captured our wedding so beautifully. Every photo feels like a painting. We cried going through the album. Worth every rupee.',
@@ -116,7 +116,7 @@ export const samples = [
     ctaHeadline: 'Book Your Session Today',
     ctaText: 'Check Availability',
     phone: '+91 98765 43210',
-    address: 'Shivaji Nagar, Dharwad, Karnataka',
+    address: 'Shivajinagar, Pune, Maharashtra',
     email: 'bookings@frameandfocus.in',
   },
   {
@@ -127,18 +127,18 @@ export const samples = [
     tagline: 'Justice. Integrity. Results.',
     headline: 'Expert Legal Counsel You Can Trust',
     subheadline:
-      '25+ years across civil, corporate, and family law. We protect your rights and interests with unwavering commitment and deep Karnataka expertise.',
+      '25+ years across civil, corporate, and family law. We protect your rights and interests with unwavering commitment and deep Maharashtra expertise.',
     primaryColor: '#1E40AF',
     bgGradient: 'linear-gradient(135deg, #1E40AF 0%, #1E3A8A 100%)',
     accentLight: '#EFF6FF',
     services: [
       { icon: '🏢', title: 'Corporate Law', desc: 'Company registration, contracts, compliance, and business dispute resolution.' },
       { icon: '👨‍👩‍👧', title: 'Family Law', desc: 'Divorce, child custody, property disputes, and succession matters handled with sensitivity.' },
-      { icon: '🏛️', title: 'Civil Litigation', desc: 'Court representation for property, consumer, and civil matters across Karnataka.' },
+      { icon: '🏛️', title: 'Civil Litigation', desc: 'Court representation for property, consumer, and civil matters across Maharashtra.' },
     ],
     stats: [{ v: '25+', l: 'Years' }, { v: '200+', l: 'Cases/yr' }, { v: '94%', l: 'Win Rate' }],
     about:
-      'Sharma & Associates was founded in 1999 by Advocate Mohan Sharma, a former High Court clerk. Our 6-member team handles 200+ cases annually with a 94% success rate across Karnataka courts. We are known for transparent fees, clear communication, and tireless advocacy.',
+      'Sharma & Associates was founded in 1999 by Advocate Mohan Sharma, a former High Court clerk. Our 6-member team handles 200+ cases annually with a 94% success rate across Maharashtra courts. We are known for transparent fees, clear communication, and tireless advocacy.',
     testimonial: {
       name: 'Vijay R.',
       text: 'Sharma sir handled my property dispute with absolute professionalism. He explained every step clearly and we won the case in 8 months. Highly trustworthy firm.',
@@ -146,7 +146,7 @@ export const samples = [
     ctaHeadline: 'Book a Free Consultation',
     ctaText: 'Schedule Consultation',
     phone: '+91 98765 43210',
-    address: 'Court Road, Dharwad, Karnataka 580001',
+    address: 'Law College Road, Pune, Maharashtra 411004',
     email: 'consult@sharmalaw.in',
   },
   {
@@ -171,12 +171,12 @@ export const samples = [
       'CareFirst Clinic was established in 2012 by Dr. Deepa Nair, MD (AIIMS Delhi). With a team of 8 doctors across 6 specialities and 15 support staff, we serve 80+ patients daily. Our focus is on thorough diagnosis, clear communication, and compassionate care.',
     testimonial: {
       name: 'Sunita B.',
-      text: 'Dr. Nair is incredibly thorough and patient. She explains everything clearly and the clinic is very clean and organised. Best clinic in Dharwad.',
+      text: 'Dr. Nair is incredibly thorough and patient. She explains everything clearly and the clinic is very clean and organised. Best clinic in Pune.',
     },
     ctaHeadline: 'Book an Appointment',
     ctaText: 'Book Now',
     phone: '+91 98765 43210',
-    address: 'Beside Bus Stand, Dharwad, Karnataka',
+    address: 'Near Pune Station, Pune, Maharashtra',
     email: 'appointments@carefirst.in',
   },
 ]

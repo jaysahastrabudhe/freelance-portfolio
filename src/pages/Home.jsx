@@ -13,7 +13,7 @@ import { useScrollRevealAll } from '../hooks/useScrollReveal'
 const codeLines = [
   { indent: 0, text: 'const jay = {' },
   { indent: 1, text: "  role: 'Freelance Web Developer'," },
-  { indent: 1, text: "  location: 'Dharwad, Karnataka'," },
+  { indent: 1, text: "  location: 'Pune, Maharashtra'," },
   { indent: 1, text: '  stack: [' },
   { indent: 2, text: "    'React', 'WordPress'," },
   { indent: 2, text: "    'Supabase', 'Resend'," },
@@ -121,7 +121,7 @@ export default function Home() {
             </h1>
 
             <p className="text-[#8899BB] text-lg leading-relaxed max-w-md">
-              I'm <strong className="text-white">Jay Sahastrabudhe</strong>, a freelance web developer from Dharwad, Karnataka. I build fast, scalable web applications using React, WordPress, Supabase, and Resend.
+              I'm <strong className="text-white">Jay Sahastrabudhe</strong>, a freelance web developer from Pune, Maharashtra. I build fast, scalable web applications using React, WordPress, Supabase, and Resend.
             </p>
 
             <div className="flex flex-wrap gap-3 pt-2">
@@ -280,7 +280,7 @@ export default function Home() {
               </div>
               <div>
                 <h3 className="text-white font-bold text-xl">Jay Sahastrabudhe</h3>
-                <p className="text-[#8899BB] text-sm mt-1">Freelance Web Developer · Dharwad, KA</p>
+                <p className="text-[#8899BB] text-sm mt-1">Freelance Web Developer · Pune, MH</p>
                 <a
                   href="https://www.linkedin.com/in/jaysahastrabudhe/"
                   target="_blank"

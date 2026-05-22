@@ -41,7 +41,7 @@ export default function About() {
               <span className="gradient-text">actually work.</span>
             </h1>
             <p className="text-[#8899BB] mt-5 leading-relaxed reveal delay-200">
-              Hi, I'm <strong className="text-white">Jay Sahastrabudhe</strong> — a freelance web developer based in Dharwad, Karnataka. I specialize in React, WordPress, Supabase, and Resend, turning ideas into production-ready web applications.
+              Hi, I'm <strong className="text-white">Jay Sahastrabudhe</strong> — a freelance web developer based in Pune, Maharashtra. I specialize in React, WordPress, Supabase, and Resend, turning ideas into production-ready web applications.
             </p>
             <p className="text-[#8899BB] mt-4 leading-relaxed reveal delay-300">
               My background spans education institutions, e-commerce platforms, and B2B consulting websites. I treat every project as a product: thinking about the end user, conversion goals, and long-term maintainability before writing a single line of code.
@@ -71,7 +71,7 @@ export default function About() {
               <p className="text-[#8899BB] text-sm mt-1">Freelance Web Developer</p>
               <div className="mt-4 pt-4 border-t border-white/5 space-y-2 text-sm text-left">
                 {[
-                  ['📍', 'Dharwad, Karnataka'],
+                  ['📍', 'Pune, Maharashtra'],
                   ['💻', 'React · WordPress · Supabase'],
                   ['✉️', 'Resend · Email Infra'],
                   ['🟢', 'Available for projects'],

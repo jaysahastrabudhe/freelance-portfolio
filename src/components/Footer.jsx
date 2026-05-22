@@ -27,7 +27,7 @@ export default function Footer() {
               <span className="font-bold text-white">Jay<span className="gradient-text">Dev</span></span>
             </Link>
             <p className="text-[#8899BB] text-sm leading-relaxed max-w-xs">
-              Freelance web developer based in Dharwad, Karnataka. Building fast, modern web experiences for businesses across India.
+              Freelance web developer based in Pune, Maharashtra. Building fast, modern web experiences for businesses across India.
             </p>
             <div className="flex items-center gap-3 mt-6">
               {socials.map(({ href, icon: Icon, label }) => (
