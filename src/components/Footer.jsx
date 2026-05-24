@@ -10,7 +10,7 @@ const nav = [
 
 const socials = [
   { href: 'https://www.linkedin.com/in/jaysahastrabudhe/', icon: Linkedin, label: 'LinkedIn' },
-  { href: 'mailto:hello@jaysahastrabudhe.dev', icon: Mail, label: 'Email' },
+  { href: 'mailto:jay@scrpt.in', icon: Mail, label: 'Email' },
 ]
 
 export default function Footer() {

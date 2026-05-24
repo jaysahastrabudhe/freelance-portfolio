@@ -47,7 +47,7 @@ export default function Contact() {
       if (!res.ok) throw new Error(data.error || 'Something went wrong')
       setSubmitted(true)
     } catch (err) {
-      alert(err.message || 'Failed to send. Please email directly at hello@jaysahastrabudhe.dev')
+      alert(err.message || 'Failed to send. Please email directly at jay@scrpt.in')
     } finally {
       setLoading(false)
     }
@@ -83,8 +83,8 @@ export default function Contact() {
                   {
                     icon: Mail,
                     label: 'Email',
-                    value: 'hello@jaysahastrabudhe.dev',
-                    href: 'mailto:hello@jaysahastrabudhe.dev',
+                    value: 'jay@scrpt.in',
+                    href: 'mailto:jay@scrpt.in',
                   },
                   {
                     icon: Linkedin,
