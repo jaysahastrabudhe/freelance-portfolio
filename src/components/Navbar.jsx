@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X, Code2 } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 
 const links = [
   { to: '/', label: 'Home' },
@@ -35,11 +35,12 @@ export default function Navbar() {
       <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-cyan-400 flex items-center justify-center">
-            <Code2 className="w-4 h-4 text-white" />
+          <div className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black text-white"
+            style={{ background: 'linear-gradient(135deg,#6366F1,#06B6D4)' }}>
+            JS
           </div>
-          <span className="font-bold text-white tracking-tight text-lg">
-            Scr<span className="gradient-text">pt</span>
+          <span className="font-bold text-white tracking-tight text-sm">
+            Jay <span className="gradient-text">Sahastrabudhe</span>
           </span>
         </Link>
 

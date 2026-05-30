@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Github, Linkedin, Mail, Code2, ArrowUpRight } from 'lucide-react'
+import { Github, Linkedin, Mail, ArrowUpRight } from 'lucide-react'
 
 const nav = [
   { to: '/about', label: 'About' },
@@ -21,13 +21,14 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-cyan-400 flex items-center justify-center">
-                <Code2 className="w-4 h-4 text-white" />
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black text-white"
+                style={{ background: 'linear-gradient(135deg,#6366F1,#06B6D4)' }}>
+                JS
               </div>
-              <span className="font-bold text-white text-lg">Scr<span className="gradient-text">pt</span></span>
+              <span className="font-bold text-white text-sm">Jay <span className="gradient-text">Sahastrabudhe</span></span>
             </Link>
             <p className="text-[#8899BB] text-sm leading-relaxed max-w-xs">
-              Freelance web developer based in Pune, Maharashtra. Building fast, modern web experiences for businesses across India.
+              Performance Marketer · Content Creator · Web Developer. Based in Pune, Maharashtra.
             </p>
             <div className="flex items-center gap-3 mt-6">
               {socials.map(({ href, icon: Icon, label }) => (
