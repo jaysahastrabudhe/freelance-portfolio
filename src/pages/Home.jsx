@@ -3,94 +3,11 @@ import { Link } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ArrowRight, ExternalLink, Play, MapPin } from 'lucide-react'
+import GrowthSection from '../components/GrowthSection'
 
 gsap.registerPlugin(ScrollTrigger)
 
 /* ─────────────────────────── DATA ─────────────────────────── */
-const timelineData = [
-  {
-    year: '2015',
-    title: 'The Army Public School, Pune',
-    detail: 'Class 12th in Arts with IP. Discipline, structure, and a seed of curiosity about technology.',
-    type: 'education',
-  },
-  {
-    year: '2017',
-    title: "St. Xavier's College",
-    detail: "Bachelor's in Computer Software Technology. Code became a language he could speak.",
-    type: 'education',
-  },
-  {
-    year: 'Apr 2020',
-    title: 'COVID. Lockdown. A YouTube Channel.',
-    detail: 'Nothing to do — so Jay started Rom Guruji. A tech channel. In a bedroom. During a pandemic. It grew.',
-    type: 'milestone',
-  },
-  {
-    year: '2021',
-    title: 'Vadoo',
-    detail: 'Video Content Intern → Content Writer. First real taste of building audience from scratch.',
-    type: 'work',
-  },
-  {
-    year: 'Apr 2021',
-    title: 'Jaljeevika',
-    detail: 'Video Editor. Learning post-production and visual storytelling.',
-    type: 'work',
-  },
-  {
-    year: 'Feb 2022',
-    title: 'The Teal Mango',
-    detail: 'Content Writer covering tech. SEO, keyword research, and making complex topics readable.',
-    type: 'work',
-  },
-  {
-    year: 'Mar 2022',
-    title: 'Macmerise',
-    detail: 'Content Creator & Creative Social Media Head. Celebrity clients. Real paid campaigns. 40% brand awareness growth.',
-    type: 'work',
-  },
-  {
-    year: 'Jan 2023',
-    title: 'MeRise',
-    detail: 'Social Media Specialist. Deepening performance marketing chops.',
-    type: 'work',
-  },
-  {
-    year: 'Aug 2023',
-    title: 'Nirva Health',
-    detail: 'Organic Growth Expert. Content strategy that moved the needle — 20% traffic growth.',
-    type: 'work',
-  },
-  {
-    year: 'Jun 2024',
-    title: 'Symbiosis Institute of Management Studies',
-    detail: 'Executive MBA in Business Administration begins. Marketing meets management.',
-    type: 'education',
-  },
-  {
-    year: 'Sep 2024',
-    title: 'FullHouse Entertainment & Media',
-    detail: 'Social Media Manager → Head of Department. Leading a team. Managing 8+ brands. Building client websites alongside digital campaigns.',
-    type: 'work',
-    highlight: true,
-  },
-  {
-    year: '2024',
-    title: 'JawanDrop · Jay Defence Academy · BLiive',
-    detail: '3 live client websites shipped. Real payments. Real users. Full-stack development alongside full-funnel marketing.',
-    type: 'project',
-    highlight: true,
-  },
-  {
-    year: 'Jan 2026',
-    title: "Let's Enterprise",
-    detail: 'Performance Marketing Manager. Meta Ads → MQL → enrolled student. Full funnel ownership. 6× ROI.',
-    type: 'current',
-    highlight: true,
-  },
-]
-
 const projects = [
   {
     title: 'JawanDrop',
@@ -115,13 +32,6 @@ const projects = [
   },
 ]
 
-const typeColors = {
-  education: '#6366F1',
-  work: '#F59E0B',
-  project: '#10B981',
-  milestone: '#EC4899',
-  current: '#06B6D4',
-}
 
 /* ─────────────────────────── COMPONENT ─────────────────────────── */
 export default function Home() {
@@ -256,12 +166,11 @@ export default function Home() {
         },
       })
 
-      /* ── CTA section ── */
-      gsap.from('.cta-content > *', {
-        opacity: 0,
+      /* ── CTA section — fade the whole block as one unit (robust: never leaves a child stuck hidden) ── */
+      gsap.from('.cta-content', {
+        autoAlpha: 0,
         y: 30,
-        stagger: 0.15,
-        duration: 0.8,
+        duration: 0.9,
         ease: 'power3.out',
         scrollTrigger: {
           trigger: '.cta-section',
@@ -276,7 +185,7 @@ export default function Home() {
   }, [])
 
   return (
-    <div ref={containerRef} className="bg-[#060A14] min-h-screen overflow-x-hidden">
+    <div ref={containerRef} className="bg-[#060A14] min-h-screen" style={{ overflowX: 'clip' }}>
 
       {/* ═══════════ HERO ═══════════ */}
       <section className="hero-section relative min-h-screen flex flex-col justify-center pt-20 pb-16 overflow-hidden">
@@ -291,10 +200,10 @@ export default function Home() {
           style={{ background: 'radial-gradient(circle, rgba(245,158,11,0.08) 0%, transparent 65%)' }} />
 
         <div className="relative max-w-6xl mx-auto px-6 w-full">
-          {/* Available badge */}
-          <div className="hero-tag inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/8 mb-8">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-emerald-400 text-xs font-semibold tracking-wide">Available for work · Pune, Maharashtra</span>
+          {/* Location badge */}
+          <div className="hero-tag inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/4 mb-8">
+            <MapPin className="w-3.5 h-3.5 text-[#818CF8]" />
+            <span className="text-[#CBD5E1] text-xs font-semibold tracking-wide">Pune, Maharashtra · Content, Marketing &amp; Code</span>
           </div>
 
           {/* Name — word-by-word slide up */}
@@ -332,31 +241,33 @@ export default function Home() {
             ))}
           </div>
 
-          {/* CTAs */}
-          <div className="hero-cta flex flex-wrap gap-3">
+          {/* Single CTA — scroll into the story */}
+          <div className="hero-cta flex flex-wrap items-center gap-4">
             <a href="#story"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold text-sm text-white transition-all"
               style={{ background: 'linear-gradient(135deg,#6366F1,#06B6D4)' }}>
-              Read My Story <ArrowRight className="w-4 h-4" />
+              Begin the story <ArrowRight className="w-4 h-4" />
             </a>
-            <Link to="/contact" className="btn-secondary text-sm">
-              Work With Me
-            </Link>
             <a href="https://www.linkedin.com/in/jaysahastrabudhe/" target="_blank" rel="noopener noreferrer"
-              className="btn-secondary text-sm">
-              LinkedIn <ExternalLink className="w-3.5 h-3.5" />
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#818CF8] hover:text-[#a5b4fc] transition-colors">
+              Connect on LinkedIn <ExternalLink className="w-3.5 h-3.5" />
             </a>
           </div>
         </div>
 
         {/* Scroll hint */}
         <div className="scroll-hint absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-          <span className="text-[10px] text-[#8899BB] tracking-[0.25em] uppercase">Scroll to explore</span>
+          <span className="text-[10px] text-[#8899BB] tracking-[0.25em] uppercase">Four chapters · one journey</span>
           <div className="w-px h-10 bg-gradient-to-b from-indigo-400/70 to-transparent" />
         </div>
       </section>
 
-      {/* ═══════════ STATS STRIP ═══════════ */}
+      {/* ═══════════ GROWTH / SILHOUETTE STORY ═══════════ */}
+      <div id="story">
+        <GrowthSection />
+      </div>
+
+      {/* ═══════════ STATS STRIP — by the numbers ═══════════ */}
       <section className="py-14 border-y border-white/5" style={{ background: '#040710' }}>
         <div className="max-w-4xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {[
@@ -374,83 +285,6 @@ export default function Home() {
               <p className="text-[#8899BB] text-xs mt-2 leading-snug">{label}</p>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* ═══════════ TIMELINE ═══════════ */}
-      <section id="story" className="py-28 relative">
-        <div className="max-w-5xl mx-auto px-6">
-          {/* Heading */}
-          <div className="text-center mb-20">
-            <p className="section-tag mb-3">The Journey</p>
-            <h2 className="text-4xl md:text-5xl font-black text-white leading-tight">
-              From a lockdown bedroom<br />
-              <span style={{ background: 'linear-gradient(135deg,#6366F1,#06B6D4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                to 15 million views.
-              </span>
-            </h2>
-          </div>
-
-          {/* Timeline container */}
-          <div className="tl-container relative">
-            {/* Track */}
-            <div className="absolute left-6 md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-px bg-white/5" />
-            {/* Animated fill */}
-            <div className="tl-line-fill absolute left-6 md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-px origin-top"
-              style={{ background: 'linear-gradient(to bottom, #6366F1 0%, #F59E0B 40%, #10B981 70%, #06B6D4 100%)' }} />
-
-            {/* Items */}
-            <div className="space-y-10 md:space-y-12">
-              {timelineData.map((item, i) => {
-                const color = typeColors[item.type]
-                const isRight = i % 2 !== 0 // desktop: alternate sides
-
-                return (
-                  <div key={i} className={`tl-item relative flex items-start gap-5
-                    pl-16 md:pl-0
-                    ${isRight ? 'md:flex-row-reverse' : 'md:flex-row'}
-                  `}>
-
-                    {/* Content — 45% width on desktop */}
-                    <div className={`md:w-[45%] ${isRight ? 'md:text-left md:pl-12' : 'md:text-right md:pr-12'}`}>
-                      <span className="inline-block text-xs font-bold px-2.5 py-1 rounded-full mb-2"
-                        style={{ background: color + '1A', color, border: `1px solid ${color}40` }}>
-                        {item.year}
-                      </span>
-                      <h3 className={`font-bold text-white mb-1 ${item.highlight ? 'text-lg' : 'text-base'}`}>
-                        {item.title}
-                      </h3>
-                      <p className="text-[#8899BB] text-sm leading-relaxed">{item.detail}</p>
-                    </div>
-
-                    {/* Center dot — desktop */}
-                    <div className="hidden md:flex md:w-[10%] justify-center flex-shrink-0 pt-1">
-                      <div className="w-3.5 h-3.5 rounded-full border-2 transition-all"
-                        style={{
-                          background: item.highlight ? color : color + '30',
-                          borderColor: color,
-                          boxShadow: item.highlight ? `0 0 14px ${color}80` : 'none',
-                        }} />
-                    </div>
-
-                    {/* Spacer — desktop */}
-                    <div className="hidden md:block md:w-[45%]" />
-
-                    {/* Dot — mobile (absolute) */}
-                    <div className="absolute left-4 top-1.5 md:hidden">
-                      <div className="w-3 h-3 rounded-full border-2"
-                        style={{
-                          background: item.highlight ? color : color + '30',
-                          borderColor: color,
-                          boxShadow: item.highlight ? `0 0 10px ${color}80` : 'none',
-                        }} />
-                    </div>
-
-                  </div>
-                )
-              })}
-            </div>
-          </div>
         </div>
       </section>
 
@@ -489,11 +323,12 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="mt-8">
-            <Link to="/projects" className="btn-secondary text-sm">
-              All Projects <ArrowRight className="w-4 h-4" />
+          <p className="mt-8 text-[#8899BB] text-sm">
+            Each was shipped end-to-end — design, build, payments, and deploy.{' '}
+            <Link to="/projects" className="text-[#818CF8] hover:text-[#a5b4fc] font-semibold transition-colors">
+              See the case studies →
             </Link>
-          </div>
+          </p>
         </div>
       </section>
 
@@ -588,35 +423,37 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════ CTA ═══════════ */}
-      <section className="cta-section py-24 relative overflow-hidden">
+      {/* ═══════════ GET IN TOUCH — single LinkedIn CTA ═══════════ */}
+      <section className="cta-section py-28 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse at 50% 40%, rgba(99,102,241,0.12) 0%, transparent 60%)' }} />
+          style={{ background: 'radial-gradient(ellipse at 50% 40%, rgba(99,102,241,0.14) 0%, transparent 60%)' }} />
         <div className="cta-content max-w-3xl mx-auto px-6 text-center relative">
-          <p className="section-tag mb-4">Let's Build Together</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white mb-5">
-            Got a project?<br />
+          {/* Avatar monogram */}
+          <div className="w-16 h-16 rounded-2xl mx-auto mb-6 flex items-center justify-center text-xl font-black text-white shadow-lg"
+            style={{ background: 'linear-gradient(135deg,#6366F1,#06B6D4)', boxShadow: '0 8px 30px rgba(99,102,241,0.3)' }}>
+            JS
+          </div>
+          <p className="section-tag mb-4">Get in touch with Jay</p>
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-5 leading-tight">
+            Want to collaborate on<br />
             <span style={{ background: 'linear-gradient(135deg,#6366F1,#06B6D4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-              Let's talk.
+              a relevant project?
             </span>
           </h2>
-          <p className="text-[#8899BB] text-lg mb-10 max-w-xl mx-auto leading-relaxed">
-            Whether it's Meta Ads, a website, or a full growth strategy — I bring the full-stack
-            marketing + development perspective to every brief.
+          <p className="text-[#8899BB] text-lg mb-10 max-w-lg mx-auto leading-relaxed">
+            This isn't a pitch — it's a story. If something here resonates and you're building
+            in EdTech, D2C, content, or the web, the best place to reach me is LinkedIn.
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link to="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm text-white"
-              style={{ background: 'linear-gradient(135deg,#6366F1,#06B6D4)' }}>
-              Start a Conversation <ArrowRight className="w-4 h-4" />
-            </Link>
-            <a href="https://www.linkedin.com/in/jaysahastrabudhe/" target="_blank" rel="noopener noreferrer"
-              className="btn-secondary text-sm">
-              Connect on LinkedIn <ExternalLink className="w-4 h-4" />
-            </a>
-          </div>
+          <a href="https://www.linkedin.com/in/jaysahastrabudhe/" target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full font-bold text-base text-white transition-all hover:opacity-90"
+            style={{ background: '#0A66C2', boxShadow: '0 8px 30px rgba(10,102,194,0.35)' }}>
+            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            Connect on LinkedIn
+          </a>
           <p className="mt-8 text-[#8899BB] text-sm flex items-center justify-center gap-1.5">
-            <MapPin className="w-3.5 h-3.5" /> Pune, Maharashtra · Available for remote projects across India
+            <MapPin className="w-3.5 h-3.5" /> Pune, Maharashtra, India
           </p>
         </div>
       </section>

@@ -22,7 +22,7 @@
     color: var(--text-primary);
     font-family: 'Inter', system-ui, sans-serif;
     min-height: 100vh;
-    overflow-x: hidden;
+    overflow-x: clip; /* clip ≠ hidden: doesn't create a scroll container, keeps GSAP/sticky working */
     -webkit-font-smoothing: antialiased;
   }
 
@@ -30,6 +30,13 @@
     background: rgba(129, 140, 248, 0.25);
     color: #fff;
   }
+
+  /* Floating logo chips above silhouettes */
+  @keyframes floaty {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-9px); }
+  }
+  .animate-floaty { animation: floaty 4.5s ease-in-out infinite; }
 
   ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-track { background: var(--bg-primary); }

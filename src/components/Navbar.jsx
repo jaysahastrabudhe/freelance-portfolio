@@ -67,12 +67,14 @@ export default function Navbar() {
 
         {/* CTA + mobile toggle */}
         <div className="flex items-center gap-3">
-          <Link
-            to="/contact"
+          <a
+            href="https://www.linkedin.com/in/jaysahastrabudhe/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="hidden md:inline-flex btn-primary text-sm py-2 px-4"
           >
-            Hire Me
-          </Link>
+            Connect
+          </a>
           <button
             className="md:hidden text-[#8899BB] hover:text-white transition-colors"
             onClick={() => setOpen((p) => !p)}
@@ -105,9 +107,10 @@ export default function Navbar() {
               )
             })}
           </ul>
-          <Link to="/contact" className="mt-4 btn-primary w-full justify-center text-sm">
-            Hire Me
-          </Link>
+          <a href="https://www.linkedin.com/in/jaysahastrabudhe/" target="_blank" rel="noopener noreferrer"
+            className="mt-4 btn-primary w-full justify-center text-sm">
+            Connect on LinkedIn
+          </a>
         </div>
       )}
     </header>
