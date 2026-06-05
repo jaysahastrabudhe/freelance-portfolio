@@ -288,14 +288,14 @@ export default function Home() {
           </div>
           <p className="section-tag mb-4">Get in touch with Jay</p>
           <h2 className="text-4xl md:text-5xl font-black text-white mb-5 leading-tight">
-            Want to collaborate on<br />
+            Want to discuss something,<br />
+            get my advice, or{' '}
             <span style={{ background: 'linear-gradient(135deg,#6366F1,#06B6D4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-              a relevant project?
+              just have a chat?
             </span>
           </h2>
           <p className="text-[#8899BB] text-lg mb-10 max-w-lg mx-auto leading-relaxed">
-            This isn't a pitch — it's a story. If something here resonates and you're building
-            in EdTech, D2C, content, or the web, the best place to reach me is LinkedIn.
+            No agenda needed. If something here resonates, the best place to reach me is LinkedIn.
           </p>
           <a href="https://www.linkedin.com/in/jaysahastrabudhe/" target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full font-bold text-base text-white transition-all hover:opacity-90"
