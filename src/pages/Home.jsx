@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { ArrowRight, ExternalLink, Play, MapPin } from 'lucide-react'
+import { ExternalLink, Play, MapPin } from 'lucide-react'
 import GrowthSection from '../components/GrowthSection'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -40,46 +40,6 @@ export default function Home() {
   useEffect(() => {
     const ctx = gsap.context(() => {
 
-      /* ── Hero: words slide up ── */
-      gsap.from('.hero-word', {
-        yPercent: 110,
-        duration: 1.1,
-        stagger: 0.12,
-        ease: 'power4.out',
-        delay: 0.2,
-      })
-      gsap.from('.hero-sub', {
-        opacity: 0,
-        y: 28,
-        duration: 0.9,
-        ease: 'power3.out',
-        delay: 0.7,
-      })
-      gsap.from('.hero-tag', {
-        opacity: 0,
-        x: -16,
-        duration: 0.6,
-        stagger: 0.1,
-        ease: 'power2.out',
-        delay: 0.95,
-      })
-      gsap.from('.hero-cta', {
-        opacity: 0,
-        y: 18,
-        duration: 0.6,
-        ease: 'power2.out',
-        delay: 1.3,
-      })
-      gsap.to('.scroll-hint', {
-        opacity: 0,
-        scrollTrigger: {
-          trigger: '.hero-section',
-          start: 'top top',
-          end: '25% top',
-          scrub: true,
-        },
-      })
-
       /* ── Stats counters ── */
       document.querySelectorAll('[data-count]').forEach((el) => {
         const end = parseFloat(el.getAttribute('data-count'))
@@ -100,38 +60,6 @@ export default function Home() {
             if (isM) el.textContent = (obj.v / 1000000).toFixed(1) + 'M+'
             else if (isK) el.textContent = Math.round(obj.v / 1000) + 'K+'
             else el.textContent = Math.round(obj.v) + suffix
-          },
-        })
-      })
-
-      /* ── Timeline line drawing ── */
-      gsap.fromTo(
-        '.tl-line-fill',
-        { scaleY: 0 },
-        {
-          scaleY: 1,
-          transformOrigin: 'top center',
-          ease: 'none',
-          scrollTrigger: {
-            trigger: '.tl-container',
-            start: 'top 75%',
-            end: 'bottom 35%',
-            scrub: 0.4,
-          },
-        }
-      )
-
-      /* ── Timeline items stagger in ── */
-      gsap.utils.toArray('.tl-item').forEach((item) => {
-        gsap.from(item, {
-          opacity: 0,
-          y: 40,
-          duration: 0.75,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: item,
-            start: 'top 87%',
-            toggleActions: 'play none none none',
           },
         })
       })
@@ -187,82 +115,7 @@ export default function Home() {
   return (
     <div ref={containerRef} className="bg-[#060A14] min-h-screen" style={{ overflowX: 'clip' }}>
 
-      {/* ═══════════ HERO ═══════════ */}
-      <section className="hero-section relative min-h-screen flex flex-col justify-center pt-20 pb-16 overflow-hidden">
-        {/* Grid background */}
-        <div className="absolute inset-0 pointer-events-none"
-          style={{ backgroundImage: 'radial-gradient(rgba(99,102,241,0.07) 1px, transparent 1px)', backgroundSize: '44px 44px' }} />
-        {/* Orb: indigo top-right */}
-        <div className="absolute -top-40 -right-40 w-[700px] h-[700px] rounded-full pointer-events-none"
-          style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.13) 0%, transparent 65%)' }} />
-        {/* Orb: amber bottom-left */}
-        <div className="absolute bottom-0 -left-32 w-[500px] h-[500px] rounded-full pointer-events-none"
-          style={{ background: 'radial-gradient(circle, rgba(245,158,11,0.08) 0%, transparent 65%)' }} />
-
-        <div className="relative max-w-6xl mx-auto px-6 w-full">
-          {/* Location badge */}
-          <div className="hero-tag inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/4 mb-8">
-            <MapPin className="w-3.5 h-3.5 text-[#818CF8]" />
-            <span className="text-[#CBD5E1] text-xs font-semibold tracking-wide">Pune, Maharashtra · Content, Marketing &amp; Code</span>
-          </div>
-
-          {/* Name — word-by-word slide up */}
-          <h1 className="font-black text-white tracking-tight leading-none mb-6 text-6xl sm:text-7xl md:text-8xl lg:text-[7rem]">
-            {['Jay', 'Sahastrabudhe'].map((word, i) => (
-              <span key={word} className="inline-block overflow-hidden mr-4 last:mr-0">
-                <span className="hero-word inline-block">{word}</span>
-              </span>
-            ))}
-          </h1>
-
-          {/* Subline */}
-          <p className="hero-sub text-[#8899BB] text-lg md:text-xl max-w-2xl leading-relaxed mb-8">
-            I grew a YouTube channel to{' '}
-            <span className="text-amber-400 font-bold">23K subscribers</span> during lockdown,
-            managed{' '}
-            <span className="text-indigo-400 font-bold">8 brands</span>{' '}to 15M+ views,
-            and shipped{' '}
-            <span className="text-emerald-400 font-bold">3 live client websites</span>{' '}along the way.
-            This is that story.
-          </p>
-
-          {/* Role tags */}
-          <div className="flex flex-wrap gap-2 mb-10">
-            {[
-              { label: 'Performance Marketing', c: '#F59E0B' },
-              { label: 'Meta Ads · Lead Gen', c: '#6366F1' },
-              { label: 'Content Creator', c: '#10B981' },
-              { label: 'Web Developer', c: '#06B6D4' },
-            ].map(({ label, c }) => (
-              <span key={label} className="hero-tag px-3 py-1.5 rounded-full text-xs font-semibold border"
-                style={{ color: c, background: c + '15', borderColor: c + '40' }}>
-                {label}
-              </span>
-            ))}
-          </div>
-
-          {/* Single CTA — scroll into the story */}
-          <div className="hero-cta flex flex-wrap items-center gap-4">
-            <a href="#story"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold text-sm text-white transition-all"
-              style={{ background: 'linear-gradient(135deg,#6366F1,#06B6D4)' }}>
-              Begin the story <ArrowRight className="w-4 h-4" />
-            </a>
-            <a href="https://www.linkedin.com/in/jaysahastrabudhe/" target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#818CF8] hover:text-[#a5b4fc] transition-colors">
-              Connect on LinkedIn <ExternalLink className="w-3.5 h-3.5" />
-            </a>
-          </div>
-        </div>
-
-        {/* Scroll hint */}
-        <div className="scroll-hint absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-          <span className="text-[10px] text-[#8899BB] tracking-[0.25em] uppercase">Four chapters · one journey</span>
-          <div className="w-px h-10 bg-gradient-to-b from-indigo-400/70 to-transparent" />
-        </div>
-      </section>
-
-      {/* ═══════════ GROWTH / SILHOUETTE STORY ═══════════ */}
+      {/* ═══════════ THE STORY OPENS THE SITE ═══════════ */}
       <div id="story">
         <GrowthSection />
       </div>

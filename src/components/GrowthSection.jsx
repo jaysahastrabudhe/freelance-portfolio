@@ -7,6 +7,12 @@ gsap.registerPlugin(ScrollTrigger)
 /* ────────────────── STAGE DATA ────────────────── */
 const stages = [
   {
+    id: 'intro',
+    isIntro: true,
+    accent: '#818CF8',
+    bg: 'radial-gradient(ellipse 120% 80% at 50% 20%, #0E1330 0%, #070A1A 50%, #04060F 100%)',
+  },
+  {
     id: 'student',
     year: '2017 – 2020',
     chapter: 'Chapter 01',
@@ -409,11 +415,76 @@ export default function GrowthSection() {
   }, [])
 
   return (
-    <div ref={wrapperRef} style={{ height: '420vh' }}>
+    <div ref={wrapperRef} style={{ height: `${stages.length * 105}vh` }}>
       <div ref={innerRef} className="overflow-hidden" style={{ height: '100vh' }}>
 
         {stages.map((stage, i) => {
-          const Env = ENVS[i]
+
+          /* ── Opening title frame ── */
+          if (stage.isIntro) {
+            return (
+              <div key={stage.id} className="gs-stage absolute inset-0 flex items-center justify-center" style={{ background: stage.bg }}>
+                {/* Dot grid */}
+                <div className="absolute inset-0 pointer-events-none"
+                  style={{ backgroundImage: 'radial-gradient(rgba(129,140,248,0.08) 1px, transparent 1px)', backgroundSize: '42px 42px' }} />
+                {/* Orbs */}
+                <div className="absolute -top-32 -right-32 rounded-full pointer-events-none"
+                  style={{ width: 560, height: 560, background: 'radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 65%)' }} />
+                <div className="absolute -bottom-32 -left-24 rounded-full pointer-events-none"
+                  style={{ width: 440, height: 440, background: 'radial-gradient(circle, rgba(34,211,238,0.10) 0%, transparent 65%)' }} />
+
+                <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
+                  {/* Eyebrow */}
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/4 mb-8">
+                    <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="#818CF8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" />
+                    </svg>
+                    <span className="text-[#CBD5E1] text-xs font-semibold tracking-wide">Pune, Maharashtra · Content, Marketing &amp; Code</span>
+                  </div>
+
+                  {/* Name */}
+                  <h1 className="font-black text-white tracking-tight leading-[0.95] mb-6 text-6xl sm:text-7xl md:text-8xl">
+                    Jay<br />
+                    <span style={{ background: 'linear-gradient(135deg,#818CF8,#22D3EE)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                      Sahastrabudhe
+                    </span>
+                  </h1>
+
+                  {/* Subline */}
+                  <p className="text-[#8899BB] text-base md:text-xl max-w-2xl mx-auto leading-relaxed mb-8">
+                    A YouTube channel grown to <span className="text-amber-400 font-bold">23K</span> in lockdown.
+                    <span className="text-indigo-300 font-bold"> 8 brands</span> to 15M+ views.
+                    <span className="text-emerald-400 font-bold"> 3 websites</span> shipped.
+                    <br className="hidden md:block" />This is that story — in four chapters.
+                  </p>
+
+                  {/* Role tags */}
+                  <div className="flex flex-wrap justify-center gap-2 mb-10">
+                    {[
+                      { label: 'Performance Marketing', c: '#F59E0B' },
+                      { label: 'Meta Ads · Lead Gen', c: '#6366F1' },
+                      { label: 'Content Creator', c: '#10B981' },
+                      { label: 'Web Developer', c: '#06B6D4' },
+                    ].map(({ label, c }) => (
+                      <span key={label} className="px-3 py-1.5 rounded-full text-xs font-semibold border"
+                        style={{ color: c, background: c + '15', borderColor: c + '40' }}>
+                        {label}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Scroll cue */}
+                  <div className="flex flex-col items-center gap-2">
+                    <span className="text-[10px] text-[#8899BB] tracking-[0.3em] uppercase">Scroll to begin</span>
+                    <div className="w-px h-10 bg-gradient-to-b from-indigo-400/70 to-transparent animate-pulse" />
+                  </div>
+                </div>
+              </div>
+            )
+          }
+
+          /* ── Chapter frame (figure + logos + env) ── */
+          const Env = ENVS[i - 1]
           return (
             <div key={stage.id} className="gs-stage absolute inset-0 flex items-center" style={{ background: stage.bg }}>
               <Env />
@@ -435,14 +506,11 @@ export default function GrowthSection() {
                 {/* Silhouette + floating logos */}
                 <div className="order-1 md:order-2 flex justify-center">
                   <div className="relative" style={{ width: 280, height: 430 }}>
-                    {/* Floating logos layer (top area) */}
                     <div className="absolute inset-x-0 top-0" style={{ height: 150 }}>
                       <FloatingLogos logos={stage.logos} accent={stage.accent} />
                     </div>
-                    {/* Ground shadow */}
                     <div className="absolute bottom-0 left-1/2 -translate-x-1/2"
                       style={{ width: 120, height: 14, background: stage.accent + '30', filter: 'blur(10px)', borderRadius: '50%' }} />
-                    {/* Figure */}
                     <div className="absolute bottom-0 left-1/2 -translate-x-1/2"
                       style={{ width: 190, height: 350, color: stage.accent, filter: `drop-shadow(0 0 22px ${stage.accent}55)` }}>
                       <HumanFigure pose={stage.pose} color={stage.accent} />
