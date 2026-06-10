@@ -1,54 +1,51 @@
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
-import About from './pages/About'
-import Projects from './pages/Projects'
-import ProjectDetail from './pages/ProjectDetail'
-import Services from './pages/Services'
-import Contact from './pages/Contact'
-import Samples from './pages/Samples'
-import SampleDetail from './pages/SampleDetail'
 
-function ScrollToTop() {
-  const { pathname } = useLocation()
-  useEffect(() => { window.scrollTo(0, 0) }, [pathname])
-  return null
-}
+gsap.registerPlugin(ScrollTrigger)
 
-// Portfolio layout — with nav + footer
-function PortfolioLayout() {
+/* Thin cinematic scroll-progress bar pinned to the very top of the viewport */
+function ScrollProgress() {
+  const ref = useRef(null)
+  useEffect(() => {
+    const el = ref.current
+    const onScroll = () => {
+      const h = document.documentElement
+      const max = h.scrollHeight - h.clientHeight
+      const p = max > 0 ? h.scrollTop / max : 0
+      el.style.transform = `scaleX(${p})`
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }, [])
   return (
-    <>
-      <ScrollToTop />
-      <Navbar />
-      <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/projects/:id" element={<ProjectDetail />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/samples" element={<Samples />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="*" element={<Home />} />
-        </Routes>
-      </main>
-      <Footer />
-    </>
+    <div className="fixed top-0 left-0 right-0 z-[60] h-0.5 bg-transparent pointer-events-none">
+      <div
+        ref={ref}
+        className="h-full origin-left"
+        style={{ background: 'linear-gradient(to right,#818CF8,#22D3EE)', transform: 'scaleX(0)' }}
+      />
+    </div>
   )
 }
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* Sample detail pages are standalone — no portfolio nav/footer */}
-        <Route path="/samples/:id" element={<SampleDetail />} />
-        {/* Everything else uses the portfolio layout */}
-        <Route path="*" element={<PortfolioLayout />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <ScrollProgress />
+      <Navbar />
+      <main>
+        <Home />
+      </main>
+      <Footer />
+    </>
   )
 }

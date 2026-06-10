@@ -1,11 +1,15 @@
-import { Link } from 'react-router-dom'
-import { Github, Linkedin, Mail, ArrowUpRight } from 'lucide-react'
+import { Linkedin, Mail, ArrowUpRight } from 'lucide-react'
 
 const nav = [
-  { to: '/about', label: 'About' },
-  { to: '/projects', label: 'Projects' },
-  { to: '/services', label: 'Services' },
-  { to: '/contact', label: 'Contact' },
+  { id: 'services', label: 'Services' },
+  { id: 'work',     label: 'Work' },
+  { id: 'team',     label: 'Team' },
+  { id: 'connect',  label: 'Connect' },
+]
+
+const collective = [
+  { label: 'Jay Sahastrabudhe', href: 'https://www.linkedin.com/in/jaysahastrabudhe/' },
+  { label: 'Priyanka Bhalekar', href: 'https://www.notion.so/Priyanka-Bhalekar-25bb23cd43cb8008ab88ef7ff05f1c71' },
 ]
 
 const socials = [
@@ -14,23 +18,32 @@ const socials = [
 ]
 
 export default function Footer() {
+  const go = (id) => (e) => {
+    e.preventDefault()
+    if (id === 'top') return window.scrollTo({ top: 0, behavior: 'smooth' })
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
     <footer className="border-t border-white/5 bg-[#030712]">
       <div className="max-w-6xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+
           {/* Brand */}
           <div>
-            <Link to="/" className="flex items-center gap-2 mb-4">
+            <a href="#top" onClick={go('top')} className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black text-white"
                 style={{ background: 'linear-gradient(135deg,#6366F1,#06B6D4)' }}>
-                JS
+                s.
               </div>
-              <span className="font-bold text-white text-sm">Jay <span className="gradient-text">Sahastrabudhe</span></span>
-            </Link>
-            <p className="text-[#8899BB] text-sm leading-relaxed max-w-xs">
-              Performance Marketer · Content Creator · Web Developer. Based in Pune, Maharashtra.
+              <span className="font-black text-white text-base tracking-tight">
+                scrpt<span style={{ background: 'linear-gradient(135deg,#6366F1,#06B6D4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>.</span>
+              </span>
+            </a>
+            <p className="text-[#8899BB] text-sm leading-relaxed max-w-xs mb-6">
+              A remote creatives collective. Performance marketing, content, web development, and brand design — under one roof.
             </p>
-            <div className="flex items-center gap-3 mt-6">
+            <div className="flex items-center gap-3">
               {socials.map(({ href, icon: Icon, label }) => (
                 <a
                   key={label}
@@ -48,33 +61,30 @@ export default function Footer() {
 
           {/* Navigation */}
           <div>
-            <h3 className="text-white font-semibold text-sm mb-4">Navigation</h3>
+            <h3 className="text-white font-semibold text-sm mb-4">Navigate</h3>
             <ul className="space-y-3">
-              {nav.map(({ to, label }) => (
-                <li key={to}>
-                  <Link
-                    to={to}
+              {nav.map(({ id, label }) => (
+                <li key={id}>
+                  <a
+                    href={`#${id}`}
+                    onClick={go(id)}
                     className="text-[#8899BB] hover:text-white text-sm transition-colors duration-200"
                   >
                     {label}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Live Projects */}
+          {/* The Collective */}
           <div>
-            <h3 className="text-white font-semibold text-sm mb-4">Live Projects</h3>
+            <h3 className="text-white font-semibold text-sm mb-4">The Collective</h3>
             <ul className="space-y-3">
-              {[
-                { label: 'Jay Defence Academy', url: 'https://www.jaydefenceacademy.com' },
-                { label: 'JawanDrop', url: 'https://jawandrop.in' },
-                { label: 'BLiive', url: 'https://darkred-leopard-153534.hostingersite.com' },
-              ].map(({ label, url }) => (
+              {collective.map(({ label, href }) => (
                 <li key={label}>
                   <a
-                    href={url}
+                    href={href}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[#8899BB] hover:text-white text-sm transition-colors duration-200 flex items-center gap-1 group"
@@ -90,10 +100,10 @@ export default function Footer() {
 
         <div className="border-t border-white/5 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-[#8899BB] text-xs">
-            © {new Date().getFullYear()} Scrpt. All rights reserved.
+            © {new Date().getFullYear()} scrpt. All rights reserved.
           </p>
           <p className="text-[#8899BB] text-xs">
-            Built with React + Vite + Tailwind CSS
+            Built with React + Vite + GSAP · Remote-first · Pune, India
           </p>
         </div>
       </div>

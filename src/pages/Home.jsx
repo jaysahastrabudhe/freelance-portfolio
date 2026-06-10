@@ -1,110 +1,222 @@
 import { useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { ExternalLink, Play, MapPin } from 'lucide-react'
-import GrowthSection from '../components/GrowthSection'
+import { ExternalLink, ArrowRight, MapPin } from 'lucide-react'
 
 gsap.registerPlugin(ScrollTrigger)
 
 /* ─────────────────────────── DATA ─────────────────────────── */
-const projects = [
+
+const services = [
   {
-    title: 'JawanDrop',
-    tag: 'E-commerce · React',
-    desc: 'Tribute apparel brand with live Razorpay payments, real-time Supabase inventory, and Pan-India shipping. 2,000+ customers served.',
-    url: 'https://jawandrop.in',
+    number: '01',
+    title: 'Performance Marketing',
+    desc: 'Meta & Google Ads funnels built for measurable outcomes — awareness to conversion. We live in the data.',
+    tags: ['Meta Ads', 'Google Ads', 'CRO', 'Analytics'],
+    color: '#6366F1',
+  },
+  {
+    number: '02',
+    title: 'Content & Video',
+    desc: 'Long-form YouTube, short-form Reels, written content that ranks. Strategy-first, not just aesthetics.',
+    tags: ['YouTube', 'Reels', 'SEO Content', 'Scripting'],
+    color: '#EC4899',
+  },
+  {
+    number: '03',
+    title: 'Web Development',
+    desc: 'React apps, WordPress sites, e-commerce stores — shipped end-to-end with design, payments, and deploy.',
+    tags: ['React', 'WordPress', 'Supabase', 'Razorpay'],
     color: '#10B981',
   },
   {
-    title: 'Jay Defence Academy',
-    tag: 'Institution · WordPress',
-    desc: 'Defence exam coaching website for Dharwad. 12+ pages, local SEO, mobile-first. Ranks for defence coaching in North Karnataka.',
-    url: 'https://www.jaydefenceacademy.com',
+    number: '04',
+    title: 'Brand & Design',
+    desc: 'Visual identity, UI/UX, and communication design that makes your brand impossible to ignore.',
+    tags: ['Brand Identity', 'UI/UX', 'Figma', 'Illustration'],
     color: '#F59E0B',
-  },
-  {
-    title: 'BLiive',
-    tag: 'Consulting · WordPress',
-    desc: "Higher-education transformation platform for a retired Army Colonel's consultancy. 4 service pillars, UGC/NAAC aligned.",
-    url: 'https://darkred-leopard-153534.hostingersite.com',
-    color: '#8B5CF6',
   },
 ]
 
+const work = [
+  {
+    title: 'JawanDrop',
+    category: 'E-commerce · React',
+    desc: 'Tribute apparel brand with live Razorpay payments, real-time Supabase inventory, Pan-India shipping. 2,000+ customers served.',
+    url: 'https://jawandrop.in',
+    color: '#10B981',
+    by: 'Jay',
+  },
+  {
+    title: 'Jay Defence Academy',
+    category: 'Institution · WordPress',
+    desc: 'Defence exam coaching site for Dharwad. 12+ pages, local SEO, mobile-first. Ranks for defence coaching in North Karnataka.',
+    url: 'https://www.jaydefenceacademy.com',
+    color: '#F59E0B',
+    by: 'Jay',
+  },
+  {
+    title: 'BLiive',
+    category: 'Consulting · WordPress',
+    desc: "Higher-education transformation platform for a retired Army Colonel's consultancy. 4 service pillars, UGC/NAAC aligned.",
+    url: 'https://darkred-leopard-153534.hostingersite.com',
+    color: '#8B5CF6',
+    by: 'Jay',
+  },
+  {
+    title: "Let's Enterprise",
+    category: 'Performance Marketing',
+    desc: 'Full Meta Ads funnel for an experiential BBA program in Pune. Awareness → MQL → enrolled student. 6× ROI achieved.',
+    url: 'https://www.linkedin.com/in/jaysahastrabudhe/',
+    color: '#6366F1',
+    by: 'Jay',
+  },
+  {
+    title: 'Rom Guruji',
+    category: 'YouTube · Content Strategy',
+    desc: '23K subscribers, 15M+ views. Built from zero during lockdown 2020. Strategy, scripting, editing, SEO — all in-house.',
+    url: 'https://youtube.com/c/RomGuruji',
+    color: '#FF4444',
+    by: 'Jay',
+  },
+  {
+    title: "Priyanka's Portfolio",
+    category: 'Design · Brand · UI',
+    desc: 'A curated body of design and creative work — brand identities, UI systems, and visual storytelling across mediums.',
+    url: 'https://www.notion.so/Priyanka-Bhalekar-25bb23cd43cb8008ab88ef7ff05f1c71',
+    color: '#EC4899',
+    by: 'Priyanka',
+  },
+]
+
+const team = [
+  {
+    name: 'Jay Sahastrabudhe',
+    initials: 'JS',
+    role: 'Founder · Marketing & Dev',
+    location: 'Pune, Maharashtra',
+    bio: 'Performance marketer, web developer, and content creator. 6+ years building brands across digital — from Meta Ads funnels to full-stack apps.',
+    skills: ['Performance Marketing', 'React / WordPress', 'Content Strategy', 'SEO'],
+    linkedin: 'https://www.linkedin.com/in/jaysahastrabudhe/',
+    gradFrom: '#6366F1',
+    gradTo: '#06B6D4',
+  },
+  {
+    name: 'Priyanka Bhalekar',
+    initials: 'PB',
+    role: 'Creative · Design & Brand',
+    location: 'India · Remote',
+    bio: 'Designer and brand strategist with a sharp eye for visual communication. Turns ideas into identities — from logo to UI to campaign.',
+    skills: ['Brand Identity', 'UI/UX Design', 'Visual Design', 'Figma'],
+    linkedin: 'https://www.notion.so/Priyanka-Bhalekar-25bb23cd43cb8008ab88ef7ff05f1c71',
+    gradFrom: '#EC4899',
+    gradTo: '#F59E0B',
+  },
+]
+
+const stats = [
+  { value: '23K+', label: 'YouTube Subscribers' },
+  { value: '15M+', label: 'Total Views' },
+  { value: '8+', label: 'Brands Managed' },
+  { value: '6×', label: 'ROI on Meta Ads' },
+]
 
 /* ─────────────────────────── COMPONENT ─────────────────────────── */
+
 export default function Home() {
   const containerRef = useRef(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
 
-      /* ── Stats counters ── */
-      document.querySelectorAll('[data-count]').forEach((el) => {
-        const end = parseFloat(el.getAttribute('data-count'))
-        const suffix = el.getAttribute('data-suffix') || ''
-        const isM = end >= 1000000
-        const isK = end >= 1000 && !isM
-        const obj = { v: 0 }
-        gsap.to(obj, {
-          v: end,
-          duration: 2.2,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 88%',
-            toggleActions: 'play none none none',
-          },
-          onUpdate() {
-            if (isM) el.textContent = (obj.v / 1000000).toFixed(1) + 'M+'
-            else if (isK) el.textContent = Math.round(obj.v / 1000) + 'K+'
-            else el.textContent = Math.round(obj.v) + suffix
-          },
+      // Hero headline lines
+      gsap.from('.hero-line', {
+        opacity: 0,
+        y: 60,
+        stagger: 0.14,
+        duration: 1.1,
+        ease: 'power3.out',
+        delay: 0.2,
+      })
+
+      gsap.from('.hero-sub', {
+        opacity: 0,
+        y: 30,
+        duration: 0.9,
+        ease: 'power3.out',
+        delay: 0.7,
+      })
+
+      gsap.from('.hero-ctas', {
+        opacity: 0,
+        y: 20,
+        duration: 0.8,
+        ease: 'power3.out',
+        delay: 1.0,
+      })
+
+      // Stats strip
+      gsap.from('.stat-item', {
+        opacity: 0,
+        y: 30,
+        stagger: 0.1,
+        duration: 0.7,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: '.stats-strip', start: 'top 85%', toggleActions: 'play none none none' },
+      })
+
+      // Section labels
+      gsap.utils.toArray('.section-reveal').forEach((el) => {
+        gsap.from(el, {
+          opacity: 0,
+          y: 50,
+          duration: 0.9,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' },
         })
       })
 
-      /* ── Project cards ── */
-      gsap.utils.toArray('.proj-card').forEach((card, i) => {
+      // Service cards
+      gsap.utils.toArray('.service-card').forEach((card, i) => {
+        gsap.from(card, {
+          opacity: 0,
+          y: 40,
+          duration: 0.8,
+          ease: 'power3.out',
+          delay: i * 0.08,
+          scrollTrigger: { trigger: card, start: 'top 90%', toggleActions: 'play none none none' },
+        })
+      })
+
+      // Work cards
+      gsap.utils.toArray('.work-card').forEach((card, i) => {
         gsap.from(card, {
           opacity: 0,
           y: 50,
           duration: 0.8,
           ease: 'power3.out',
-          delay: i * 0.13,
-          scrollTrigger: {
-            trigger: card,
-            start: 'top 88%',
-            toggleActions: 'play none none none',
-          },
+          delay: (i % 3) * 0.1,
+          scrollTrigger: { trigger: card, start: 'top 90%', toggleActions: 'play none none none' },
         })
       })
 
-      /* ── Now section ── */
-      gsap.from('.now-card', {
+      // Team cards
+      gsap.from('.team-card', {
         opacity: 0,
-        y: 40,
-        stagger: 0.18,
-        duration: 0.8,
+        y: 60,
+        stagger: 0.2,
+        duration: 1.0,
         ease: 'power3.out',
-        scrollTrigger: {
-          trigger: '.now-section',
-          start: 'top 80%',
-          toggleActions: 'play none none none',
-        },
+        scrollTrigger: { trigger: '.team-grid', start: 'top 85%', toggleActions: 'play none none none' },
       })
 
-      /* ── CTA section — fade the whole block as one unit (robust: never leaves a child stuck hidden) ── */
+      // CTA
       gsap.from('.cta-content', {
         autoAlpha: 0,
         y: 30,
         duration: 0.9,
         ease: 'power3.out',
-        scrollTrigger: {
-          trigger: '.cta-section',
-          start: 'top 80%',
-          toggleActions: 'play none none none',
-        },
+        scrollTrigger: { trigger: '.cta-section', start: 'top 80%', toggleActions: 'play none none none' },
       })
 
     }, containerRef)
@@ -115,198 +227,298 @@ export default function Home() {
   return (
     <div ref={containerRef} className="bg-[#060A14] min-h-screen" style={{ overflowX: 'clip' }}>
 
-      {/* ═══════════ THE STORY OPENS THE SITE ═══════════ */}
-      <div id="story">
-        <GrowthSection />
-      </div>
+      {/* ═══════════ HERO ═══════════ */}
+      <section id="hero" className="relative min-h-screen flex flex-col justify-center pt-24 pb-20 overflow-hidden">
+        {/* Ambient glow */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div style={{ position: 'absolute', top: '15%', left: '10%', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%)', filter: 'blur(40px)' }} />
+          <div style={{ position: 'absolute', bottom: '20%', right: '5%', width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(236,72,153,0.08) 0%, transparent 70%)', filter: 'blur(40px)' }} />
+        </div>
 
-      {/* ═══════════ STATS STRIP — by the numbers ═══════════ */}
-      <section className="py-14 border-y border-white/5" style={{ background: '#040710' }}>
-        <div className="max-w-4xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          {[
-            { end: 23000, suffix: '', label: 'YouTube Subscribers' },
-            { end: 15000000, suffix: '', label: 'Total Views' },
-            { end: 8, suffix: '+', label: 'Brands Managed' },
-            { end: 6, suffix: '×', label: 'ROI on Meta Ads' },
-          ].map(({ end, suffix, label }) => (
-            <div key={label}>
-              <div data-count={end} data-suffix={suffix}
-                className="text-4xl md:text-5xl font-black"
+        <div className="max-w-6xl mx-auto px-6 relative">
+
+          {/* Eyebrow */}
+          <div className="flex items-center gap-3 mb-10">
+            <span className="w-8 h-px bg-indigo-400/60" />
+            <span className="text-indigo-400 text-xs font-bold tracking-widest uppercase">Creatives Collective · Remote Agency</span>
+          </div>
+
+          {/* Headline */}
+          <div className="mb-10">
+            <h1 className="font-black leading-[0.92] tracking-tight">
+              <span className="hero-line block text-[clamp(3rem,8vw,7rem)] text-white">We make brands</span>
+              <span className="hero-line block text-[clamp(3rem,8vw,7rem)]"
+                style={{ background: 'linear-gradient(135deg,#6366F1,#06B6D4,#EC4899)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                impossible
+              </span>
+              <span className="hero-line block text-[clamp(3rem,8vw,7rem)] text-white">to ignore.</span>
+            </h1>
+          </div>
+
+          {/* Sub-copy */}
+          <p className="hero-sub text-[#8899BB] text-lg md:text-xl max-w-xl leading-relaxed mb-10">
+            scrpt is a collective of marketers, builders, and designers working remotely across India.
+            We don't do fluff — we do performance.
+          </p>
+
+          {/* CTAs */}
+          <div className="hero-ctas flex flex-wrap items-center gap-5">
+            <a
+              href="#work"
+              onClick={(e) => { e.preventDefault(); document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' }) }}
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-bold text-base text-white transition-all hover:opacity-90"
+              style={{ background: 'linear-gradient(135deg,#6366F1,#06B6D4)', boxShadow: '0 8px 30px rgba(99,102,241,0.3)' }}
+            >
+              See our work <ArrowRight className="w-4 h-4" />
+            </a>
+            <a
+              href="#team"
+              onClick={(e) => { e.preventDefault(); document.getElementById('team')?.scrollIntoView({ behavior: 'smooth' }) }}
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-bold text-base text-[#8899BB] border border-white/10 hover:text-white hover:border-white/30 transition-all"
+            >
+              Meet the team
+            </a>
+          </div>
+
+          {/* Floating label */}
+          <div className="mt-20 flex items-center gap-4">
+            <div className="flex -space-x-2">
+              {team.map((m) => (
+                <div key={m.initials} className="w-9 h-9 rounded-full border-2 border-[#060A14] flex items-center justify-center text-xs font-black text-white"
+                  style={{ background: `linear-gradient(135deg,${m.gradFrom},${m.gradTo})` }}>
+                  {m.initials}
+                </div>
+              ))}
+            </div>
+            <p className="text-[#8899BB] text-sm">
+              <span className="text-white font-semibold">2 creatives.</span> 1 collective. Pune, India.
+            </p>
+          </div>
+        </div>
+
+        {/* Bottom scroll cue */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
+          <span className="text-white text-[10px] tracking-widest uppercase">Scroll</span>
+          <div className="w-px h-12 bg-gradient-to-b from-white/60 to-transparent" />
+        </div>
+      </section>
+
+      {/* ═══════════ STATS STRIP ═══════════ */}
+      <div className="stats-strip py-12 border-y border-white/5" style={{ background: '#040710' }}>
+        <div className="max-w-5xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
+          {stats.map(({ value, label }) => (
+            <div key={label} className="stat-item text-center">
+              <div className="text-3xl md:text-4xl font-black mb-1"
                 style={{ background: 'linear-gradient(135deg,#6366F1,#06B6D4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                {end >= 1000000 ? '15M+' : end >= 1000 ? '23K+' : end + suffix}
+                {value}
               </div>
-              <p className="text-[#8899BB] text-xs mt-2 leading-snug">{label}</p>
+              <p className="text-[#8899BB] text-xs leading-snug">{label}</p>
             </div>
           ))}
         </div>
-      </section>
+      </div>
 
-      {/* ═══════════ PROJECTS ═══════════ */}
-      <section className="py-24" style={{ background: '#040710' }}>
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="mb-14">
-            <p className="section-tag mb-3">Built During FullHouse</p>
-            <h2 className="text-4xl md:text-5xl font-black text-white leading-tight">
-              3 live websites.<br />
-              <span style={{ background: 'linear-gradient(135deg,#10B981,#06B6D4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                Real clients. Real results.
-              </span>
-            </h2>
-            <p className="text-[#8899BB] mt-4 max-w-xl text-sm leading-relaxed">
-              While heading digital at FullHouse, Jay also built full-stack websites for clients —
-              e-commerce, institutional, and consulting — shipping all three in 2024.
-            </p>
-          </div>
+      {/* ═══════════ SERVICES ═══════════ */}
+      <section id="services" className="scroll-mt-20 py-28" style={{ background: '#040710' }}>
+        <div className="max-w-6xl mx-auto px-6">
 
-          <div className="grid md:grid-cols-3 gap-5">
-            {projects.map((p) => (
-              <a key={p.title} href={p.url} target="_blank" rel="noopener noreferrer"
-                className="proj-card glass-card rounded-2xl p-6 group hover:scale-[1.02] transition-transform duration-300">
-                <div className="flex items-start justify-between mb-4">
-                  <span className="text-[11px] font-bold px-2.5 py-1 rounded-full"
-                    style={{ background: p.color + '1A', color: p.color, border: `1px solid ${p.color}40` }}>
-                    {p.tag}
-                  </span>
-                  <ExternalLink className="w-4 h-4 text-[#8899BB] group-hover:text-white transition-colors" />
-                </div>
-                <h3 className="text-white font-bold text-xl mb-2">{p.title}</h3>
-                <p className="text-[#8899BB] text-sm leading-relaxed">{p.desc}</p>
-                <p className="mt-5 text-xs font-bold" style={{ color: p.color }}>View live site →</p>
-              </a>
-            ))}
-          </div>
-
-          <p className="mt-8 text-[#8899BB] text-sm">
-            Each was shipped end-to-end — design, build, payments, and deploy.{' '}
-            <Link to="/projects" className="text-[#818CF8] hover:text-[#a5b4fc] font-semibold transition-colors">
-              See the case studies →
-            </Link>
-          </p>
-        </div>
-      </section>
-
-      {/* ═══════════ ROM GURUJI ═══════════ */}
-      <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(255,0,0,0.05) 0%, transparent 65%)' }} />
-        <div className="max-w-4xl mx-auto px-6 text-center relative">
-          {/* YouTube play button */}
-          <div className="w-16 h-16 rounded-2xl bg-[#FF0000] flex items-center justify-center mx-auto mb-6 shadow-lg"
-            style={{ boxShadow: '0 0 40px rgba(255,0,0,0.25)' }}>
-            <Play className="w-7 h-7 text-white fill-white" />
-          </div>
-          <p className="section-tag mb-3">The Channel That Started It All</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
-            Rom Guruji <span className="text-[#FF0000]">—</span><br />
-            <span className="text-[#FF4444]">23K subscribers. 5 years. 15M views.</span>
-          </h2>
-          <p className="text-[#8899BB] text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
-            April 2020. The city was locked down. Jay opened a camera.
-            What started as something to do in quarantine turned into a platform that taught him
-            content strategy, SEO, community building, and how audiences actually think.
-            Everything that came after — all the marketing, all the web work — was built on that foundation.
-          </p>
-          <a href="https://youtube.com/c/RomGuruji" target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold text-sm text-white transition-all hover:opacity-90"
-            style={{ background: '#FF0000', boxShadow: '0 4px 20px rgba(255,0,0,0.3)' }}>
-            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-            </svg>
-            Visit Rom Guruji
-          </a>
-        </div>
-      </section>
-
-      {/* ═══════════ NOW ═══════════ */}
-      <section className="now-section py-24" style={{ background: '#040710' }}>
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="text-center mb-14">
-            <p className="section-tag mb-3">Right Now · May 2026</p>
-            <h2 className="text-4xl md:text-5xl font-black text-white">
-              What I'm building<br />
-              <span style={{ background: 'linear-gradient(135deg,#6366F1,#06B6D4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                today.
+          <div className="section-reveal mb-16">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="w-8 h-px bg-indigo-400/60" />
+              <span className="text-indigo-400 text-xs font-bold tracking-widest uppercase">What We Do</span>
+            </div>
+            <h2 className="text-4xl md:text-6xl font-black text-white leading-tight">
+              Focused on results,<br />
+              <span style={{ background: 'linear-gradient(135deg,#6366F1,#EC4899)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                not just deliverables.
               </span>
             </h2>
           </div>
-          <div className="grid md:grid-cols-3 gap-5">
-            {[
-              {
-                org: "Let's Enterprise",
-                role: 'Performance Marketing Manager',
-                since: 'Jan 2026',
-                color: '#F59E0B',
-                desc: 'Building and optimizing Meta Ads funnels for an experiential BBA program in Pune. Full funnel: awareness → MQL → enrolled student. 6× ROI on Meta.',
-                active: true,
-              },
-              {
-                org: 'Symbiosis (SIMS)',
-                role: 'Executive MBA',
-                since: 'Jun 2024',
-                color: '#6366F1',
-                desc: 'Business Administration & Management. Combining a CS foundation and 6 years of hands-on marketing with formal management education.',
-                active: true,
-              },
-              {
-                org: 'Freelance',
-                role: 'Web Developer & Marketer',
-                since: 'Ongoing',
-                color: '#10B981',
-                desc: 'Selective projects — React apps, WordPress sites, Supabase backends, performance marketing audits. If you have something interesting, let\'s talk.',
-                active: true,
-              },
-            ].map((item) => (
-              <div key={item.org} className="now-card glass-card rounded-2xl p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-[11px] font-bold px-2.5 py-1 rounded-full"
-                    style={{ background: item.color + '1A', color: item.color, border: `1px solid ${item.color}40` }}>
-                    Since {item.since}
-                  </span>
-                  <span className="flex items-center gap-1.5 text-[11px] text-emerald-400 font-semibold">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    Active
-                  </span>
+
+          <div className="grid md:grid-cols-2 gap-px bg-white/5 rounded-2xl overflow-hidden border border-white/5">
+            {services.map((s) => (
+              <div key={s.number} className="service-card bg-[#040710] p-8 md:p-10 group hover:bg-[#070d1a] transition-colors duration-300">
+                <div className="flex items-start justify-between mb-6">
+                  <span className="text-[11px] font-black tracking-widest" style={{ color: s.color + 'AA' }}>{s.number}</span>
+                  <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center group-hover:border-white/30 transition-colors">
+                    <ArrowRight className="w-3.5 h-3.5 text-[#8899BB] group-hover:text-white transition-colors" />
+                  </div>
                 </div>
-                <h3 className="text-white font-bold text-lg mb-1">{item.org}</h3>
-                <p className="text-sm font-semibold mb-3" style={{ color: item.color }}>{item.role}</p>
-                <p className="text-[#8899BB] text-sm leading-relaxed">{item.desc}</p>
+                <h3 className="text-white text-2xl font-black mb-3 group-hover:opacity-90">{s.title}</h3>
+                <p className="text-[#8899BB] text-sm leading-relaxed mb-6">{s.desc}</p>
+                <div className="flex flex-wrap gap-2">
+                  {s.tags.map((tag) => (
+                    <span key={tag} className="text-[10px] font-bold px-2.5 py-1 rounded-full border"
+                      style={{ background: s.color + '12', color: s.color + 'CC', borderColor: s.color + '30' }}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ═══════════ GET IN TOUCH — single LinkedIn CTA ═══════════ */}
-      <section className="cta-section py-28 relative overflow-hidden">
+      {/* ═══════════ WORK ═══════════ */}
+      <section id="work" className="scroll-mt-20 py-28">
+        <div className="max-w-6xl mx-auto px-6">
+
+          <div className="section-reveal mb-16">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="w-8 h-px bg-pink-400/60" />
+              <span className="text-pink-400 text-xs font-bold tracking-widest uppercase">Selected Work</span>
+            </div>
+            <h2 className="text-4xl md:text-6xl font-black text-white leading-tight">
+              Built. Shipped.<br />
+              <span style={{ background: 'linear-gradient(135deg,#10B981,#06B6D4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                Performing.
+              </span>
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-5">
+            {work.map((p) => (
+              <a key={p.title} href={p.url} target="_blank" rel="noopener noreferrer"
+                className="work-card glass-card rounded-2xl p-6 group hover:scale-[1.02] transition-transform duration-300 block">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex flex-col gap-1.5">
+                    <span className="text-[10px] font-bold px-2.5 py-1 rounded-full w-fit"
+                      style={{ background: p.color + '1A', color: p.color, border: `1px solid ${p.color}40` }}>
+                      {p.category}
+                    </span>
+                    <span className="text-[10px] text-[#8899BB]">by {p.by}</span>
+                  </div>
+                  <ExternalLink className="w-4 h-4 text-[#8899BB] group-hover:text-white transition-colors mt-1" />
+                </div>
+                <h3 className="text-white font-black text-xl mb-2">{p.title}</h3>
+                <p className="text-[#8899BB] text-sm leading-relaxed">{p.desc}</p>
+                <p className="mt-5 text-xs font-bold" style={{ color: p.color }}>View →</p>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════ TEAM ═══════════ */}
+      <section id="team" className="scroll-mt-20 py-28" style={{ background: '#040710' }}>
+        <div className="max-w-6xl mx-auto px-6">
+
+          <div className="section-reveal mb-16">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="w-8 h-px bg-cyan-400/60" />
+              <span className="text-cyan-400 text-xs font-bold tracking-widest uppercase">The Collective</span>
+            </div>
+            <h2 className="text-4xl md:text-6xl font-black text-white leading-tight">
+              Small team.<br />
+              <span style={{ background: 'linear-gradient(135deg,#6366F1,#06B6D4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                Outsized output.
+              </span>
+            </h2>
+            <p className="text-[#8899BB] mt-5 text-base max-w-xl leading-relaxed">
+              We're a lean, remote-first collective — no bloat, no account managers in the middle. You work directly with the people doing the work.
+            </p>
+          </div>
+
+          <div className="team-grid grid md:grid-cols-2 gap-6">
+            {team.map((m) => (
+              <div key={m.initials} className="team-card glass-card rounded-2xl p-8 md:p-10 group">
+                <div className="flex items-start gap-5 mb-6">
+                  <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-xl font-black text-white flex-shrink-0 shadow-lg"
+                    style={{ background: `linear-gradient(135deg,${m.gradFrom},${m.gradTo})`, boxShadow: `0 8px 30px ${m.gradFrom}30` }}>
+                    {m.initials}
+                  </div>
+                  <div>
+                    <h3 className="text-white font-black text-xl mb-1">{m.name}</h3>
+                    <p className="text-sm font-semibold mb-1.5"
+                      style={{ background: `linear-gradient(135deg,${m.gradFrom},${m.gradTo})`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                      {m.role}
+                    </p>
+                    <span className="flex items-center gap-1 text-[#8899BB] text-xs">
+                      <MapPin className="w-3 h-3" /> {m.location}
+                    </span>
+                  </div>
+                </div>
+
+                <p className="text-[#8899BB] text-sm leading-relaxed mb-6">{m.bio}</p>
+
+                <div className="flex flex-wrap gap-2 mb-7">
+                  {m.skills.map((skill) => (
+                    <span key={skill} className="text-[10px] font-bold px-2.5 py-1 rounded-full border border-white/10 text-[#8899BB]">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+
+                <a href={m.linkedin} target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm font-bold text-white/60 hover:text-white transition-colors group-hover:text-white">
+                  View portfolio <ArrowRight className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            ))}
+          </div>
+
+          {/* Hiring note */}
+          <div className="section-reveal mt-8 p-6 rounded-2xl border border-dashed border-white/10 text-center">
+            <span className="text-[#8899BB] text-sm">
+              The collective is selective — we take on work that excites us.{' '}
+              <a href="#connect"
+                onClick={(e) => { e.preventDefault(); document.getElementById('connect')?.scrollIntoView({ behavior: 'smooth' }) }}
+                className="text-white font-semibold hover:text-indigo-400 transition-colors">
+                Tell us about your project →
+              </a>
+            </span>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════ CONNECT CTA ═══════════ */}
+      <section id="connect" className="cta-section scroll-mt-20 py-32 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none"
           style={{ background: 'radial-gradient(ellipse at 50% 40%, rgba(99,102,241,0.14) 0%, transparent 60%)' }} />
         <div className="cta-content max-w-3xl mx-auto px-6 text-center relative">
-          {/* Avatar monogram */}
-          <div className="w-16 h-16 rounded-2xl mx-auto mb-6 flex items-center justify-center text-xl font-black text-white shadow-lg"
-            style={{ background: 'linear-gradient(135deg,#6366F1,#06B6D4)', boxShadow: '0 8px 30px rgba(99,102,241,0.3)' }}>
-            JS
+          <div className="flex justify-center gap-3 mb-8">
+            {team.map((m) => (
+              <div key={m.initials} className="w-12 h-12 rounded-xl flex items-center justify-center text-sm font-black text-white shadow-lg"
+                style={{ background: `linear-gradient(135deg,${m.gradFrom},${m.gradTo})` }}>
+                {m.initials}
+              </div>
+            ))}
           </div>
-          <p className="section-tag mb-4">Get in touch with Jay</p>
+
+          <div className="flex items-center gap-3 justify-center mb-4">
+            <span className="w-8 h-px bg-indigo-400/60" />
+            <span className="text-indigo-400 text-xs font-bold tracking-widest uppercase">Work With Us</span>
+            <span className="w-8 h-px bg-indigo-400/60" />
+          </div>
+
           <h2 className="text-4xl md:text-5xl font-black text-white mb-5 leading-tight">
-            Want to discuss something,<br />
-            get my advice, or{' '}
+            Have a project? A brief?<br />
             <span style={{ background: 'linear-gradient(135deg,#6366F1,#06B6D4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-              just have a chat?
+              Even just an idea?
             </span>
           </h2>
           <p className="text-[#8899BB] text-lg mb-10 max-w-lg mx-auto leading-relaxed">
-            No agenda needed. If something here resonates, the best place to reach me is LinkedIn.
+            No RFPs. No formalities. Just a conversation. If there's a fit, we'll know quickly.
           </p>
-          <a href="https://www.linkedin.com/in/jaysahastrabudhe/" target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full font-bold text-base text-white transition-all hover:opacity-90"
-            style={{ background: '#0A66C2', boxShadow: '0 8px 30px rgba(10,102,194,0.35)' }}>
-            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-            </svg>
-            Connect on LinkedIn
-          </a>
-          <p className="mt-8 text-[#8899BB] text-sm flex items-center justify-center gap-1.5">
-            <MapPin className="w-3.5 h-3.5" /> Pune, Maharashtra, India
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="https://www.linkedin.com/in/jaysahastrabudhe/" target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full font-bold text-base text-white transition-all hover:opacity-90"
+              style={{ background: '#0A66C2', boxShadow: '0 8px 30px rgba(10,102,194,0.35)' }}>
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+              Reach Jay on LinkedIn
+            </a>
+            <a href="mailto:jay@scrpt.in"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-bold text-base text-[#8899BB] border border-white/10 hover:text-white hover:border-white/30 transition-all">
+              jay@scrpt.in
+            </a>
+          </div>
+
+          <p className="mt-8 text-[#8899BB] text-xs flex items-center justify-center gap-1.5">
+            <MapPin className="w-3 h-3" /> Pune, Maharashtra, India · Remote-first
           </p>
         </div>
       </section>

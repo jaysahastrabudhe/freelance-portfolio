@@ -1,20 +1,16 @@
 import { useState, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 
 const links = [
-  { to: '/', label: 'Home' },
-  { to: '/about', label: 'About' },
-  { to: '/projects', label: 'Projects' },
-  { to: '/samples', label: 'Samples' },
-  { to: '/services', label: 'Services' },
-  { to: '/contact', label: 'Contact' },
+  { id: 'services', label: 'Services' },
+  { id: 'work',     label: 'Work' },
+  { id: 'team',     label: 'Team' },
 ]
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
-  const location = useLocation()
+  const [active, setActive] = useState('hero')
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -22,7 +18,31 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  useEffect(() => setOpen(false), [location])
+  useEffect(() => {
+    const ids = ['hero', ...links.map((l) => l.id), 'connect']
+    const sections = ids.map((id) => document.getElementById(id)).filter(Boolean)
+    if (!sections.length) return
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id) })
+      },
+      { rootMargin: '-45% 0px -45% 0px', threshold: 0 }
+    )
+    sections.forEach((s) => obs.observe(s))
+    return () => obs.disconnect()
+  }, [])
+
+  const go = (id) => (e) => {
+    e.preventDefault()
+    setOpen(false)
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  const goTop = (e) => {
+    e.preventDefault()
+    setOpen(false)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   return (
     <header
@@ -34,46 +54,43 @@ export default function Navbar() {
     >
       <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 group">
+        <a href="#hero" onClick={goTop} className="flex items-center gap-2 group">
           <div className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black text-white"
             style={{ background: 'linear-gradient(135deg,#6366F1,#06B6D4)' }}>
-            JS
+            s.
           </div>
-          <span className="font-bold text-white tracking-tight text-sm">
-            Jay <span className="gradient-text">Sahastrabudhe</span>
+          <span className="font-black text-white tracking-tight text-base">
+            scrpt<span style={{ background: 'linear-gradient(135deg,#6366F1,#06B6D4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>.</span>
           </span>
-        </Link>
+        </a>
 
         {/* Desktop links */}
         <ul className="hidden md:flex items-center gap-1">
-          {links.map(({ to, label }) => {
-            const active = location.pathname === to
-            return (
-              <li key={to}>
-                <Link
-                  to={to}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                    active
-                      ? 'text-white bg-white/8'
-                      : 'text-[#8899BB] hover:text-white hover:bg-white/5'
-                  }`}
-                >
-                  {label}
-                </Link>
-              </li>
-            )
-          })}
+          {links.map(({ id, label }) => (
+            <li key={id}>
+              <a
+                href={`#${id}`}
+                onClick={go(id)}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  active === id
+                    ? 'text-white bg-white/8'
+                    : 'text-[#8899BB] hover:text-white hover:bg-white/5'
+                }`}
+              >
+                {label}
+              </a>
+            </li>
+          ))}
         </ul>
 
         {/* CTA + mobile toggle */}
         <div className="flex items-center gap-3">
           <a
-            href="https://www.linkedin.com/in/jaysahastrabudhe/"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#connect"
+            onClick={go('connect')}
             className="hidden md:inline-flex btn-primary text-sm py-2 px-4"
           >
-            Connect
+            Work with us
           </a>
           <button
             className="md:hidden text-[#8899BB] hover:text-white transition-colors"
@@ -89,27 +106,25 @@ export default function Navbar() {
       {open && (
         <div className="md:hidden bg-[#030712]/95 backdrop-blur-md border-b border-white/5 px-6 pb-6 pt-2">
           <ul className="flex flex-col gap-1">
-            {links.map(({ to, label }) => {
-              const active = location.pathname === to
-              return (
-                <li key={to}>
-                  <Link
-                    to={to}
-                    className={`block px-4 py-3 rounded-lg text-sm font-medium transition-all ${
-                      active
-                        ? 'text-white bg-white/8'
-                        : 'text-[#8899BB] hover:text-white hover:bg-white/5'
-                    }`}
-                  >
-                    {label}
-                  </Link>
-                </li>
-              )
-            })}
+            {links.map(({ id, label }) => (
+              <li key={id}>
+                <a
+                  href={`#${id}`}
+                  onClick={go(id)}
+                  className={`block px-4 py-3 rounded-lg text-sm font-medium transition-all ${
+                    active === id
+                      ? 'text-white bg-white/8'
+                      : 'text-[#8899BB] hover:text-white hover:bg-white/5'
+                  }`}
+                >
+                  {label}
+                </a>
+              </li>
+            ))}
           </ul>
-          <a href="https://www.linkedin.com/in/jaysahastrabudhe/" target="_blank" rel="noopener noreferrer"
+          <a href="#connect" onClick={go('connect')}
             className="mt-4 btn-primary w-full justify-center text-sm">
-            Connect on LinkedIn
+            Work with us
           </a>
         </div>
       )}
