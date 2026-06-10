@@ -1,9 +1,11 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { ExternalLink, ArrowRight, MapPin } from 'lucide-react'
+import { ExternalLink, ArrowRight, ArrowDownRight, MapPin, Search, PenTool, Rocket, TrendingUp } from 'lucide-react'
 
 gsap.registerPlugin(ScrollTrigger)
+
+const LIME = '#9CFE4F'
 
 /* ─────────────────────────── DATA ─────────────────────────── */
 
@@ -13,29 +15,32 @@ const services = [
     title: 'Performance Marketing',
     desc: 'Meta & Google Ads funnels built for measurable outcomes — awareness to conversion. We live in the data.',
     tags: ['Meta Ads', 'Google Ads', 'CRO', 'Analytics'],
-    color: '#6366F1',
   },
   {
     number: '02',
     title: 'Content & Video',
     desc: 'Long-form YouTube, short-form Reels, written content that ranks. Strategy-first, not just aesthetics.',
     tags: ['YouTube', 'Reels', 'SEO Content', 'Scripting'],
-    color: '#EC4899',
   },
   {
     number: '03',
     title: 'Web Development',
     desc: 'React apps, WordPress sites, e-commerce stores — shipped end-to-end with design, payments, and deploy.',
     tags: ['React', 'WordPress', 'Supabase', 'Razorpay'],
-    color: '#10B981',
   },
   {
     number: '04',
     title: 'Brand & Design',
     desc: 'Visual identity, UI/UX, and communication design that makes your brand impossible to ignore.',
     tags: ['Brand Identity', 'UI/UX', 'Figma', 'Illustration'],
-    color: '#F59E0B',
   },
+]
+
+const process = [
+  { step: '01', icon: Search,     title: 'Research',      desc: 'Deep-dive into your market, audience, and competitors before anything ships.' },
+  { step: '02', icon: PenTool,    title: 'Strategy',      desc: 'A clear plan — channels, creative direction, budgets, and the metrics that matter.' },
+  { step: '03', icon: Rocket,     title: 'Build & Launch', desc: 'Design, develop, and deploy — campaigns, content, and websites, end-to-end.' },
+  { step: '04', icon: TrendingUp, title: 'Scale',         desc: 'Measure, iterate, and double down on what performs. Growth is a loop, not a launch.' },
 ]
 
 const work = [
@@ -44,7 +49,6 @@ const work = [
     category: 'E-commerce · React',
     desc: 'Tribute apparel brand with live Razorpay payments, real-time Supabase inventory, Pan-India shipping. 2,000+ customers served.',
     url: 'https://jawandrop.in',
-    color: '#10B981',
     by: 'Jay',
   },
   {
@@ -52,7 +56,6 @@ const work = [
     category: 'Institution · WordPress',
     desc: 'Defence exam coaching site for Dharwad. 12+ pages, local SEO, mobile-first. Ranks for defence coaching in North Karnataka.',
     url: 'https://www.jaydefenceacademy.com',
-    color: '#F59E0B',
     by: 'Jay',
   },
   {
@@ -60,7 +63,6 @@ const work = [
     category: 'Consulting · WordPress',
     desc: "Higher-education transformation platform for a retired Army Colonel's consultancy. 4 service pillars, UGC/NAAC aligned.",
     url: 'https://darkred-leopard-153534.hostingersite.com',
-    color: '#8B5CF6',
     by: 'Jay',
   },
   {
@@ -68,7 +70,6 @@ const work = [
     category: 'Performance Marketing',
     desc: 'Full Meta Ads funnel for an experiential BBA program in Pune. Awareness → MQL → enrolled student. 6× ROI achieved.',
     url: 'https://www.linkedin.com/in/jaysahastrabudhe/',
-    color: '#6366F1',
     by: 'Jay',
   },
   {
@@ -76,7 +77,6 @@ const work = [
     category: 'YouTube · Content Strategy',
     desc: '23K subscribers, 15M+ views. Built from zero during lockdown 2020. Strategy, scripting, editing, SEO — all in-house.',
     url: 'https://youtube.com/c/RomGuruji',
-    color: '#FF4444',
     by: 'Jay',
   },
   {
@@ -84,7 +84,6 @@ const work = [
     category: 'SEO · Content Strategy',
     desc: "Full-scale SEO for a global market research firm — 500+ research report pages optimized, 250+ reports ranking in Google's top 10.",
     url: 'https://www.notion.so/Priyanka-Bhalekar-25bb23cd43cb8008ab88ef7ff05f1c71',
-    color: '#EC4899',
     by: 'Priyanka',
   },
   {
@@ -92,7 +91,6 @@ const work = [
     category: 'SEO · Local Search',
     desc: 'End-to-end SEO from scratch — keyword research, on-page, link building. Ranked "Top Builders in Prabhat Road" #1 on Google.',
     url: 'https://www.notion.so/Priyanka-Bhalekar-25bb23cd43cb8008ab88ef7ff05f1c71',
-    color: '#06B6D4',
     by: 'Priyanka',
   },
 ]
@@ -106,8 +104,6 @@ const team = [
     bio: 'Performance marketer, web developer, and content creator. 6+ years building brands across digital — from Meta Ads funnels to full-stack apps.',
     skills: ['Performance Marketing', 'React / WordPress', 'Content Strategy', 'SEO'],
     linkedin: 'https://www.linkedin.com/in/jaysahastrabudhe/',
-    gradFrom: '#6366F1',
-    gradTo: '#06B6D4',
   },
   {
     name: 'Priyanka Bhalekar',
@@ -117,8 +113,6 @@ const team = [
     bio: '6+ years working with Indian and international clients across digital marketing and web design. From strategy to execution — she owns the full cycle.',
     skills: ['Digital Marketing', 'Web Design', 'SEO', 'Client Management'],
     linkedin: 'https://www.linkedin.com/in/priyanka-b-794a86167',
-    gradFrom: '#EC4899',
-    gradTo: '#F59E0B',
   },
 ]
 
@@ -139,6 +133,33 @@ function MaskedLine({ children, className = '' }) {
     <span className="block overflow-hidden pb-[0.18em] -mb-[0.18em]">
       <span className={`hero-line block will-change-transform ${className}`}>{children}</span>
     </span>
+  )
+}
+
+/* Agenko text-flip button label */
+function FlipLabel({ children }) {
+  return (
+    <span className="text-flip">
+      <span>{children}</span>
+      <span aria-hidden="true">{children}</span>
+    </span>
+  )
+}
+
+/* Rotating circular text badge */
+function CircleBadge() {
+  return (
+    <div className="relative w-28 h-28 hidden md:flex items-center justify-center">
+      <svg viewBox="0 0 100 100" className="rotate-slow absolute inset-0 w-full h-full">
+        <defs>
+          <path id="circle-path" d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" />
+        </defs>
+        <text className="uppercase" style={{ fontSize: 9.5, letterSpacing: '2.5px', fill: '#9CA3AF', fontWeight: 700 }}>
+          <textPath href="#circle-path">scroll down · scrpt collective ·</textPath>
+        </text>
+      </svg>
+      <ArrowDownRight className="w-5 h-5" style={{ color: LIME }} />
+    </div>
   )
 }
 
@@ -269,6 +290,12 @@ export default function Home() {
         })
       })
 
+      /* ── Process boxes ── */
+      gsap.from('.process-box', {
+        opacity: 0, y: 40, stagger: 0.12, duration: 0.8, ease: 'power3.out',
+        scrollTrigger: { trigger: '.process-grid', start: 'top 85%', toggleActions: 'play none none none' },
+      })
+
       /* ── Work cards ── */
       gsap.utils.toArray('.work-card').forEach((card, i) => {
         gsap.from(card, {
@@ -295,94 +322,97 @@ export default function Home() {
   }, [])
 
   return (
-    <div ref={containerRef} className="bg-[#060A14] min-h-screen" style={{ overflowX: 'clip' }}>
+    <div ref={containerRef} className="min-h-screen" style={{ background: '#0E0F11', overflowX: 'clip' }}>
 
-      {/* ═══════════ HERO ═══════════ */}
+      {/* ═══════════ HERO — Agenko display type ═══════════ */}
       <section id="hero" className="relative min-h-screen flex flex-col justify-center pt-24 pb-24 overflow-hidden">
         {/* Dot grid + ambient orbs */}
-        <div className="absolute inset-0 dot-grid opacity-30 pointer-events-none"
+        <div className="absolute inset-0 dot-grid opacity-25 pointer-events-none"
           style={{ maskImage: 'radial-gradient(ellipse at 30% 40%, black 0%, transparent 70%)', WebkitMaskImage: 'radial-gradient(ellipse at 30% 40%, black 0%, transparent 70%)' }} />
         <div className="absolute inset-0 pointer-events-none">
-          <div className="orb orb-a" style={{ top: '12%', left: '8%', width: 620, height: 620, background: 'radial-gradient(circle, rgba(99,102,241,0.14) 0%, transparent 70%)' }} />
-          <div className="orb orb-b" style={{ bottom: '15%', right: '4%', width: 460, height: 460, background: 'radial-gradient(circle, rgba(236,72,153,0.10) 0%, transparent 70%)' }} />
+          <div className="orb orb-a" style={{ top: '10%', left: '6%', width: 560, height: 560, background: 'radial-gradient(circle, rgba(156,254,79,0.10) 0%, transparent 70%)' }} />
+          <div className="orb orb-b" style={{ bottom: '12%', right: '4%', width: 460, height: 460, background: 'radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%)' }} />
         </div>
 
         <div className="hero-inner max-w-6xl mx-auto px-6 relative w-full">
 
           {/* Eyebrow */}
           <div className="hero-eyebrow flex items-center gap-3 mb-10">
-            <span className="w-8 h-px bg-indigo-400/60" />
-            <span className="text-indigo-400 text-xs font-bold tracking-widest uppercase">Creatives Collective · Remote Agency</span>
+            <span className="w-8 h-px" style={{ background: 'rgba(156,254,79,0.6)' }} />
+            <span className="text-xs font-bold tracking-widest uppercase" style={{ color: LIME }}>Creatives Collective · Remote Agency</span>
           </div>
 
-          {/* Headline — masked line reveals */}
-          <h1 className="font-black leading-[0.92] tracking-tight mb-10 text-[clamp(3rem,8vw,7rem)]">
-            <MaskedLine className="text-white">We make brands</MaskedLine>
-            <MaskedLine className="gradient-anim">impossible</MaskedLine>
-            <MaskedLine className="text-white">to ignore.</MaskedLine>
+          {/* Headline — Agenko stacked display type */}
+          <h1 className="font-black leading-[0.9] tracking-tight mb-4 uppercase">
+            <MaskedLine className="text-white text-[clamp(3rem,9vw,8rem)]">We Make</MaskedLine>
+            <MaskedLine className="text-[clamp(3rem,9vw,8rem)]">
+              <span style={{ color: LIME }}>Brands</span>{' '}
+              <span className="text-white">Impossible</span>
+            </MaskedLine>
           </h1>
-
-          {/* Sub-copy */}
-          <p className="hero-sub text-[#8899BB] text-lg md:text-xl max-w-xl leading-relaxed mb-10">
-            scrpt is a collective of marketers, builders, and designers working remotely across India.
-            We don't do fluff — we do performance.
-          </p>
-
-          {/* CTAs */}
-          <div className="hero-ctas flex flex-wrap items-center gap-5">
-            <a
-              href="#work"
-              onClick={go('work')}
-              className="magnetic btn-shine inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-bold text-base text-white transition-shadow hover:shadow-[0_12px_40px_rgba(99,102,241,0.45)]"
-              style={{ background: 'linear-gradient(135deg,#6366F1,#06B6D4)', boxShadow: '0 8px 30px rgba(99,102,241,0.3)' }}
-            >
-              See our work <ArrowRight className="w-4 h-4" />
-            </a>
-            <a
-              href="#team"
-              onClick={go('team')}
-              className="magnetic inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-bold text-base text-[#8899BB] border border-white/10 hover:text-white hover:border-white/30 transition-colors"
-            >
-              Meet the team
-            </a>
-          </div>
-
-          {/* Floating label */}
-          <div className="hero-badge mt-20 flex items-center gap-4">
-            <div className="flex -space-x-2">
-              {team.map((m) => (
-                <div key={m.initials} className="w-9 h-9 rounded-full border-2 border-[#060A14] flex items-center justify-center text-xs font-black text-white"
-                  style={{ background: `linear-gradient(135deg,${m.gradFrom},${m.gradTo})` }}>
-                  {m.initials}
-                </div>
-              ))}
+          {/* Giant outline line, right-aligned like Agenko's big-text */}
+          <div className="overflow-hidden pb-[0.18em] -mb-[0.18em] mb-8">
+            <div className="hero-line outline-text font-black uppercase leading-[0.9] tracking-tight text-right text-[clamp(3.5rem,11vw,10rem)]"
+              style={{ fontFamily: 'var(--heading-font)' }}>
+              To Ignore.
             </div>
-            <p className="text-[#8899BB] text-sm">
-              <span className="text-white font-semibold">2 creatives.</span> 1 collective. Pune, India.
-            </p>
           </div>
-        </div>
 
-        {/* Bottom scroll cue */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
-          <span className="text-white text-[10px] tracking-widest uppercase">Scroll</span>
-          <div className="w-px h-12 bg-gradient-to-b from-white/70 to-transparent cue-drop" />
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-10">
+            <div>
+              {/* Sub-copy */}
+              <p className="hero-sub text-lg md:text-xl max-w-xl leading-relaxed mb-10" style={{ color: '#9CA3AF' }}>
+                scrpt is a collective of <span className="text-white font-semibold">marketers, builders, and designers</span> working
+                remotely across India. We don't do fluff — we do performance.
+              </p>
+
+              {/* CTAs */}
+              <div className="hero-ctas flex flex-wrap items-center gap-5">
+                <a href="#work" onClick={go('work')}
+                  className="magnetic btn-shine btn-primary text-base px-8 py-4">
+                  <FlipLabel>See our work</FlipLabel> <ArrowRight className="w-4 h-4" />
+                </a>
+                <a href="#team" onClick={go('team')}
+                  className="magnetic btn-outline text-base px-8 py-4">
+                  <FlipLabel>Meet the team</FlipLabel>
+                </a>
+              </div>
+
+              {/* Floating label */}
+              <div className="hero-badge mt-14 flex items-center gap-4">
+                <div className="flex -space-x-2">
+                  {team.map((m) => (
+                    <div key={m.initials} className="w-9 h-9 rounded-full border-2 flex items-center justify-center text-xs font-black"
+                      style={{ background: LIME, color: '#0E0F11', borderColor: '#0E0F11' }}>
+                      {m.initials}
+                    </div>
+                  ))}
+                </div>
+                <p className="text-sm" style={{ color: '#9CA3AF' }}>
+                  <span className="text-white font-semibold">2 creatives.</span> 1 collective. Pune, India.
+                </p>
+              </div>
+            </div>
+
+            {/* Rotating circular badge */}
+            <div className="hero-badge shrink-0 self-end">
+              <CircleBadge />
+            </div>
+          </div>
         </div>
       </section>
 
       {/* ═══════════ MARQUEE ═══════════ */}
-      <div className="marquee py-8 border-y border-white/5" style={{ background: '#040710' }} aria-hidden="true">
+      <div className="marquee py-8 border-y" style={{ background: '#0B0C0E', borderColor: 'rgba(255,255,255,0.06)' }} aria-hidden="true">
         {[0, 1].map((dup) => (
           <div key={dup} className="marquee-track">
             {marqueeWords.map((w) => (
               <span key={w} className="flex items-center shrink-0">
-                <span className="text-2xl md:text-4xl font-black tracking-tight text-white/10 hover:text-white/30 transition-colors px-6 whitespace-nowrap">
+                <span className="outline-text text-3xl md:text-5xl font-black uppercase tracking-tight px-6 whitespace-nowrap"
+                  style={{ fontFamily: 'var(--heading-font)' }}>
                   {w}
                 </span>
-                <span className="text-xl md:text-2xl shrink-0"
-                  style={{ background: 'linear-gradient(135deg,#6366F1,#06B6D4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                  ✦
-                </span>
+                <span className="text-xl md:text-2xl shrink-0" style={{ color: LIME }}>✦</span>
               </span>
             ))}
           </div>
@@ -390,56 +420,56 @@ export default function Home() {
       </div>
 
       {/* ═══════════ STATS STRIP ═══════════ */}
-      <div className="stats-strip py-14 border-b border-white/5" style={{ background: '#040710' }}>
+      <div className="stats-strip py-14 border-b" style={{ background: '#0B0C0E', borderColor: 'rgba(255,255,255,0.06)' }}>
         <div className="max-w-5xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
           {stats.map(({ end, suffix, label }) => (
             <div key={label} className="stat-item text-center">
               <div data-count={end} data-suffix={suffix}
-                className="text-3xl md:text-4xl font-black mb-1"
-                style={{ background: 'linear-gradient(135deg,#6366F1,#06B6D4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                className="text-4xl md:text-5xl font-black mb-1" style={{ color: LIME, fontFamily: 'var(--heading-font)' }}>
                 {end}{suffix}
               </div>
-              <p className="text-[#8899BB] text-xs leading-snug">{label}</p>
+              <p className="text-xs leading-snug" style={{ color: '#9CA3AF' }}>{label}</p>
             </div>
           ))}
         </div>
       </div>
 
-      {/* ═══════════ SERVICES ═══════════ */}
-      <section id="services" className="scroll-mt-20 py-28" style={{ background: '#040710' }}>
+      {/* ═══════════ SERVICES — Agenko stair grid ═══════════ */}
+      <section id="services" className="scroll-mt-20 py-28" style={{ background: '#0B0C0E' }}>
         <div className="max-w-6xl mx-auto px-6">
 
-          <div className="section-reveal mb-16">
-            <div className="reveal-rest flex items-center gap-3 mb-4">
-              <span className="w-8 h-px bg-indigo-400/60" />
-              <span className="text-indigo-400 text-xs font-bold tracking-widest uppercase">What We Do</span>
-            </div>
-            <h2 className="text-4xl md:text-6xl font-black leading-tight">
-              <span className="block overflow-hidden pb-[0.15em] -mb-[0.15em]"><span className="reveal-line block text-white">Focused on results,</span></span>
-              <span className="block overflow-hidden pb-[0.15em] -mb-[0.15em]">
-                <span className="reveal-line block"
-                  style={{ background: 'linear-gradient(135deg,#6366F1,#EC4899)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                  not just deliverables.
+          <div className="section-reveal mb-16 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+            <div>
+              <div className="reveal-rest mb-4"><span className="sub-title">Our Services</span></div>
+              <h2 className="text-4xl md:text-6xl font-black leading-tight">
+                <span className="block overflow-hidden pb-[0.15em] -mb-[0.15em]"><span className="reveal-line block text-white">Focused on results,</span></span>
+                <span className="block overflow-hidden pb-[0.15em] -mb-[0.15em]">
+                  <span className="reveal-line block" style={{ color: LIME }}>not just deliverables.</span>
                 </span>
-              </span>
-            </h2>
+              </h2>
+            </div>
+            <p className="reveal-rest max-w-sm text-sm leading-relaxed lg:text-right" style={{ color: '#9CA3AF' }}>
+              Four disciplines, one team. Every service is run by the person who actually does the work.
+            </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-px bg-white/5 rounded-2xl overflow-hidden grid-glint">
-            {services.map((s) => (
-              <div key={s.number} className="service-card spotlight-card bg-[#040710] p-8 md:p-10 group hover:bg-[#070d1a] transition-colors duration-300">
+          <div className="grid md:grid-cols-2 gap-6">
+            {services.map((s, i) => (
+              <div key={s.number}
+                className={`service-card spotlight-card glass-card rounded-2xl p-8 md:p-10 group ${i % 2 === 1 ? 'md:mt-12' : ''}`}>
                 <div className="flex items-start justify-between mb-6">
-                  <span className="text-[11px] font-black tracking-widest transition-transform duration-300 group-hover:-translate-y-0.5" style={{ color: s.color + 'AA' }}>{s.number}</span>
-                  <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center transition-all duration-300 group-hover:border-white/40 group-hover:rotate-[-45deg]">
-                    <ArrowRight className="w-3.5 h-3.5 text-[#8899BB] group-hover:text-white transition-colors" />
+                  <span className="text-5xl font-black outline-text" style={{ fontFamily: 'var(--heading-font)' }}>{s.number}</span>
+                  <div className="w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-300 group-hover:rotate-[-45deg]"
+                    style={{ borderColor: 'rgba(255,255,255,0.12)' }}>
+                    <ArrowRight className="w-4 h-4 transition-colors" style={{ color: '#9CA3AF' }} />
                   </div>
                 </div>
-                <h3 className="text-white text-2xl font-black mb-3">{s.title}</h3>
-                <p className="text-[#8899BB] text-sm leading-relaxed mb-6">{s.desc}</p>
+                <h3 className="text-white text-2xl font-black mb-3 transition-colors duration-300 group-hover:text-[#9CFE4F]">{s.title}</h3>
+                <p className="text-sm leading-relaxed mb-6" style={{ color: '#9CA3AF' }}>{s.desc}</p>
                 <div className="flex flex-wrap gap-2">
                   {s.tags.map((tag) => (
                     <span key={tag} className="text-[10px] font-bold px-2.5 py-1 rounded-full border transition-transform duration-200 hover:scale-105"
-                      style={{ background: s.color + '12', color: s.color + 'CC', borderColor: s.color + '30' }}>
+                      style={{ background: 'rgba(156,254,79,0.07)', color: 'rgba(156,254,79,0.85)', borderColor: 'rgba(156,254,79,0.2)' }}>
                       {tag}
                     </span>
                   ))}
@@ -450,24 +480,59 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════ WORK ═══════════ */}
-      <section id="work" className="scroll-mt-20 py-28">
+      {/* ═══════════ PROCESS — Agenko step row ═══════════ */}
+      <section id="process" className="scroll-mt-20 py-28">
         <div className="max-w-6xl mx-auto px-6">
-
-          <div className="section-reveal mb-16">
-            <div className="reveal-rest flex items-center gap-3 mb-4">
-              <span className="w-8 h-px bg-pink-400/60" />
-              <span className="text-pink-400 text-xs font-bold tracking-widest uppercase">Selected Work</span>
-            </div>
-            <h2 className="text-4xl md:text-6xl font-black leading-tight">
-              <span className="block overflow-hidden pb-[0.15em] -mb-[0.15em]"><span className="reveal-line block text-white">Built. Shipped.</span></span>
+          <div className="section-reveal text-center mb-16">
+            <div className="reveal-rest mb-4"><span className="sub-title no-line">How We Work</span></div>
+            <h2 className="text-4xl md:text-5xl font-black leading-tight">
               <span className="block overflow-hidden pb-[0.15em] -mb-[0.15em]">
-                <span className="reveal-line block"
-                  style={{ background: 'linear-gradient(135deg,#10B981,#06B6D4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                  Performing.
-                </span>
+                <span className="reveal-line block text-white">The process behind the magic.</span>
               </span>
             </h2>
+          </div>
+
+          <div className="process-grid relative">
+            <div className="process-line hidden lg:block" />
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {process.map(({ step, icon: Icon, title, desc }) => (
+                <div key={step} className="process-box relative text-center lg:text-left">
+                  <div className="relative inline-flex mb-6">
+                    <div className="w-20 h-20 rounded-2xl flex items-center justify-center border transition-colors duration-300"
+                      style={{ background: '#15171B', borderColor: 'rgba(255,255,255,0.08)' }}>
+                      <Icon className="w-8 h-8" style={{ color: LIME }} />
+                    </div>
+                    <span className="absolute -top-2 -right-3 text-[10px] font-black px-2 py-0.5 rounded-full"
+                      style={{ background: LIME, color: '#0E0F11' }}>
+                      {step}
+                    </span>
+                  </div>
+                  <h3 className="text-white font-black text-lg mb-2">{title}</h3>
+                  <p className="text-sm leading-relaxed" style={{ color: '#9CA3AF' }}>{desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════ WORK ═══════════ */}
+      <section id="work" className="scroll-mt-20 py-28" style={{ background: '#0B0C0E' }}>
+        <div className="max-w-6xl mx-auto px-6">
+
+          <div className="section-reveal mb-16 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+            <div>
+              <div className="reveal-rest mb-4"><span className="sub-title">Selected Work</span></div>
+              <h2 className="text-4xl md:text-6xl font-black leading-tight">
+                <span className="block overflow-hidden pb-[0.15em] -mb-[0.15em]"><span className="reveal-line block text-white">Built. Shipped.</span></span>
+                <span className="block overflow-hidden pb-[0.15em] -mb-[0.15em]">
+                  <span className="reveal-line block" style={{ color: LIME }}>Performing.</span>
+                </span>
+              </h2>
+            </div>
+            <p className="reveal-rest max-w-sm text-sm leading-relaxed lg:text-right" style={{ color: '#9CA3AF' }}>
+              Real clients, real numbers. Tap any card to see it live.
+            </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-5">
@@ -476,17 +541,17 @@ export default function Home() {
                 className="work-card spotlight-card glass-card rounded-2xl p-6 group block">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex flex-col gap-1.5">
-                    <span className="text-[10px] font-bold px-2.5 py-1 rounded-full w-fit"
-                      style={{ background: p.color + '1A', color: p.color, border: `1px solid ${p.color}40` }}>
+                    <span className="text-[10px] font-bold px-2.5 py-1 rounded-full w-fit border"
+                      style={{ background: 'rgba(156,254,79,0.07)', color: LIME, borderColor: 'rgba(156,254,79,0.25)' }}>
                       {p.category}
                     </span>
-                    <span className="text-[10px] text-[#8899BB]">by {p.by}</span>
+                    <span className="text-[10px]" style={{ color: '#9CA3AF' }}>by {p.by}</span>
                   </div>
-                  <ExternalLink className="w-4 h-4 text-[#8899BB] group-hover:text-white transition-all duration-300 mt-1 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <ExternalLink className="w-4 h-4 transition-all duration-300 mt-1 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white" style={{ color: '#9CA3AF' }} />
                 </div>
-                <h3 className="text-white font-black text-xl mb-2">{p.title}</h3>
-                <p className="text-[#8899BB] text-sm leading-relaxed">{p.desc}</p>
-                <p className="mt-5 text-xs font-bold flex items-center gap-1" style={{ color: p.color }}>
+                <h3 className="text-white font-black text-xl mb-2 transition-colors duration-300 group-hover:text-[#9CFE4F]">{p.title}</h3>
+                <p className="text-sm leading-relaxed" style={{ color: '#9CA3AF' }}>{p.desc}</p>
+                <p className="mt-5 text-xs font-bold flex items-center gap-1" style={{ color: LIME }}>
                   View <span className="inline-block transition-transform duration-300 group-hover:translate-x-1.5">→</span>
                 </p>
               </a>
@@ -496,24 +561,18 @@ export default function Home() {
       </section>
 
       {/* ═══════════ TEAM ═══════════ */}
-      <section id="team" className="scroll-mt-20 py-28" style={{ background: '#040710' }}>
+      <section id="team" className="scroll-mt-20 py-28">
         <div className="max-w-6xl mx-auto px-6">
 
           <div className="section-reveal mb-16">
-            <div className="reveal-rest flex items-center gap-3 mb-4">
-              <span className="w-8 h-px bg-cyan-400/60" />
-              <span className="text-cyan-400 text-xs font-bold tracking-widest uppercase">The Collective</span>
-            </div>
+            <div className="reveal-rest mb-4"><span className="sub-title">The Collective</span></div>
             <h2 className="text-4xl md:text-6xl font-black leading-tight">
               <span className="block overflow-hidden pb-[0.15em] -mb-[0.15em]"><span className="reveal-line block text-white">Small team.</span></span>
               <span className="block overflow-hidden pb-[0.15em] -mb-[0.15em]">
-                <span className="reveal-line block"
-                  style={{ background: 'linear-gradient(135deg,#6366F1,#06B6D4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                  Outsized output.
-                </span>
+                <span className="reveal-line block" style={{ color: LIME }}>Outsized output.</span>
               </span>
             </h2>
-            <p className="reveal-rest text-[#8899BB] mt-5 text-base max-w-xl leading-relaxed">
+            <p className="reveal-rest mt-5 text-base max-w-xl leading-relaxed" style={{ color: '#9CA3AF' }}>
               We're a lean, remote-first collective — no bloat, no account managers in the middle. You work directly with the people doing the work.
             </p>
           </div>
@@ -522,34 +581,32 @@ export default function Home() {
             {team.map((m) => (
               <div key={m.initials} className="team-card spotlight-card glass-card rounded-2xl p-8 md:p-10 group">
                 <div className="flex items-start gap-5 mb-6">
-                  <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-xl font-black text-white flex-shrink-0 shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:-rotate-3"
-                    style={{ background: `linear-gradient(135deg,${m.gradFrom},${m.gradTo})`, boxShadow: `0 8px 30px ${m.gradFrom}30` }}>
+                  <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-xl font-black flex-shrink-0 transition-transform duration-300 group-hover:scale-105 group-hover:-rotate-3"
+                    style={{ background: LIME, color: '#0E0F11', boxShadow: '0 8px 30px rgba(156,254,79,0.2)' }}>
                     {m.initials}
                   </div>
                   <div>
                     <h3 className="text-white font-black text-xl mb-1">{m.name}</h3>
-                    <p className="text-sm font-semibold mb-1.5"
-                      style={{ background: `linear-gradient(135deg,${m.gradFrom},${m.gradTo})`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                      {m.role}
-                    </p>
-                    <span className="flex items-center gap-1 text-[#8899BB] text-xs">
+                    <p className="text-sm font-semibold mb-1.5" style={{ color: LIME }}>{m.role}</p>
+                    <span className="flex items-center gap-1 text-xs" style={{ color: '#9CA3AF' }}>
                       <MapPin className="w-3 h-3" /> {m.location}
                     </span>
                   </div>
                 </div>
 
-                <p className="text-[#8899BB] text-sm leading-relaxed mb-6">{m.bio}</p>
+                <p className="text-sm leading-relaxed mb-6" style={{ color: '#9CA3AF' }}>{m.bio}</p>
 
                 <div className="flex flex-wrap gap-2 mb-7">
                   {m.skills.map((skill) => (
-                    <span key={skill} className="text-[10px] font-bold px-2.5 py-1 rounded-full border border-white/10 text-[#8899BB] transition-colors duration-200 hover:border-white/30 hover:text-white">
+                    <span key={skill} className="text-[10px] font-bold px-2.5 py-1 rounded-full border transition-colors duration-200 hover:text-white"
+                      style={{ borderColor: 'rgba(255,255,255,0.1)', color: '#9CA3AF' }}>
                       {skill}
                     </span>
                   ))}
                 </div>
 
                 <a href={m.linkedin} target="_blank" rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm font-bold text-white/60 hover:text-white transition-colors group-hover:text-white">
+                  className="inline-flex items-center gap-2 text-sm font-bold transition-colors text-white/60 hover:text-white group-hover:text-white">
                   View portfolio <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
                 </a>
               </div>
@@ -557,11 +614,11 @@ export default function Home() {
           </div>
 
           {/* Hiring note */}
-          <div className="section-reveal mt-8 p-6 rounded-2xl border border-dashed border-white/10 text-center">
-            <span className="reveal-rest block text-[#8899BB] text-sm">
+          <div className="section-reveal mt-8 p-6 rounded-2xl border border-dashed text-center" style={{ borderColor: 'rgba(255,255,255,0.12)' }}>
+            <span className="reveal-rest block text-sm" style={{ color: '#9CA3AF' }}>
               The collective is selective — we take on work that excites us.{' '}
               <a href="#connect" onClick={go('connect')}
-                className="text-white font-semibold hover:text-indigo-400 transition-colors">
+                className="text-white font-semibold transition-colors hover:text-[#9CFE4F]">
                 Tell us about your project →
               </a>
             </span>
@@ -570,50 +627,48 @@ export default function Home() {
       </section>
 
       {/* ═══════════ CONNECT CTA ═══════════ */}
-      <section id="connect" className="cta-section scroll-mt-20 py-32 relative overflow-hidden">
+      <section id="connect" className="cta-section scroll-mt-20 py-32 relative overflow-hidden" style={{ background: '#0B0C0E' }}>
         <div className="absolute inset-0 pointer-events-none glow-breathe"
-          style={{ background: 'radial-gradient(ellipse at 50% 40%, rgba(99,102,241,0.16) 0%, transparent 60%)' }} />
+          style={{ background: 'radial-gradient(ellipse at 50% 40%, rgba(156,254,79,0.08) 0%, transparent 60%)' }} />
         <div className="cta-content max-w-3xl mx-auto px-6 text-center relative">
           <div className="flex justify-center gap-3 mb-8">
             {team.map((m, i) => (
               <div key={m.initials}
-                className="w-12 h-12 rounded-xl flex items-center justify-center text-sm font-black text-white shadow-lg animate-floaty"
-                style={{ background: `linear-gradient(135deg,${m.gradFrom},${m.gradTo})`, animationDelay: `${i * 0.7}s` }}>
+                className="w-12 h-12 rounded-xl flex items-center justify-center text-sm font-black animate-floaty"
+                style={{ background: LIME, color: '#0E0F11', animationDelay: `${i * 0.7}s` }}>
                 {m.initials}
               </div>
             ))}
           </div>
 
           <div className="flex items-center gap-3 justify-center mb-4">
-            <span className="w-8 h-px bg-indigo-400/60" />
-            <span className="text-indigo-400 text-xs font-bold tracking-widest uppercase">Work With Us</span>
-            <span className="w-8 h-px bg-indigo-400/60" />
+            <span className="w-8 h-px" style={{ background: 'rgba(156,254,79,0.5)' }} />
+            <span className="text-xs font-bold tracking-widest uppercase" style={{ color: LIME }}>Work With Us</span>
+            <span className="w-8 h-px" style={{ background: 'rgba(156,254,79,0.5)' }} />
           </div>
 
           <h2 className="text-4xl md:text-5xl font-black text-white mb-5 leading-tight">
             Have a project? A brief?<br />
-            <span className="gradient-anim">Even just an idea?</span>
+            <span style={{ color: LIME }}>Even just an idea?</span>
           </h2>
-          <p className="text-[#8899BB] text-lg mb-10 max-w-lg mx-auto leading-relaxed">
+          <p className="text-lg mb-10 max-w-lg mx-auto leading-relaxed" style={{ color: '#9CA3AF' }}>
             No RFPs. No formalities. Just a conversation. If there's a fit, we'll know quickly.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a href="https://www.linkedin.com/in/jaysahastrabudhe/" target="_blank" rel="noopener noreferrer"
-              className="magnetic btn-shine inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full font-bold text-base text-white transition-shadow hover:shadow-[0_12px_40px_rgba(10,102,194,0.5)]"
-              style={{ background: '#0A66C2', boxShadow: '0 8px 30px rgba(10,102,194,0.35)' }}>
+              className="magnetic btn-shine btn-primary text-base px-8 py-4">
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
               </svg>
-              Reach Jay on LinkedIn
+              <FlipLabel>Reach Jay on LinkedIn</FlipLabel>
             </a>
-            <a href="mailto:jay@scrpt.in"
-              className="magnetic inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-bold text-base text-[#8899BB] border border-white/10 hover:text-white hover:border-white/30 transition-colors">
-              jay@scrpt.in
+            <a href="mailto:jay@scrpt.in" className="magnetic btn-outline text-base px-8 py-4">
+              <FlipLabel>jay@scrpt.in</FlipLabel>
             </a>
           </div>
 
-          <p className="mt-8 text-[#8899BB] text-xs flex items-center justify-center gap-1.5">
+          <p className="mt-8 text-xs flex items-center justify-center gap-1.5" style={{ color: '#9CA3AF' }}>
             <MapPin className="w-3 h-3" /> Pune, Maharashtra, India · Remote-first
           </p>
         </div>

@@ -25,7 +25,7 @@ export default function Footer() {
   }
 
   return (
-    <footer className="border-t border-white/5 bg-[#030712]">
+    <footer className="border-t border-white/5 bg-[#0B0C0E]">
       <div className="max-w-6xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
 
@@ -33,14 +33,14 @@ export default function Footer() {
           <div>
             <a href="#top" onClick={go('top')} className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black text-white"
-                style={{ background: 'linear-gradient(135deg,#6366F1,#06B6D4)' }}>
+                style={{ background: '#9CFE4F', color: '#0E0F11' }}>
                 s.
               </div>
               <span className="font-black text-white text-base tracking-tight">
-                scrpt<span style={{ background: 'linear-gradient(135deg,#6366F1,#06B6D4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>.</span>
+                scrpt<span style={{ color: '#9CFE4F' }}>.</span>
               </span>
             </a>
-            <p className="text-[#8899BB] text-sm leading-relaxed max-w-xs mb-6">
+            <p className="text-[#9CA3AF] text-sm leading-relaxed max-w-xs mb-6">
               A remote creatives collective. Performance marketing, content, web development, and brand design — under one roof.
             </p>
             <div className="flex items-center gap-3">
@@ -51,7 +51,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="w-9 h-9 rounded-lg border border-white/8 flex items-center justify-center text-[#8899BB] hover:text-white hover:border-indigo-500/50 transition-all duration-200"
+                  className="w-9 h-9 rounded-lg border border-white/8 flex items-center justify-center text-[#9CA3AF] hover:text-white hover:border-[#9CFE4F]/60 transition-all duration-200"
                 >
                   <Icon className="w-4 h-4" />
                 </a>
@@ -68,7 +68,7 @@ export default function Footer() {
                   <a
                     href={`#${id}`}
                     onClick={go(id)}
-                    className="text-[#8899BB] hover:text-white text-sm transition-colors duration-200"
+                    className="text-[#9CA3AF] hover:text-white text-sm transition-colors duration-200"
                   >
                     {label}
                   </a>
@@ -87,7 +87,7 @@ export default function Footer() {
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[#8899BB] hover:text-white text-sm transition-colors duration-200 flex items-center gap-1 group"
+                    className="text-[#9CA3AF] hover:text-white text-sm transition-colors duration-200 flex items-center gap-1 group"
                   >
                     {label}
                     <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -99,10 +99,10 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-white/5 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-[#8899BB] text-xs">
+          <p className="text-[#9CA3AF] text-xs">
             © {new Date().getFullYear()} scrpt. All rights reserved.
           </p>
-          <p className="text-[#8899BB] text-xs">
+          <p className="text-[#9CA3AF] text-xs">
             Built with React + Vite + GSAP · Remote-first · Pune, India
           </p>
         </div>

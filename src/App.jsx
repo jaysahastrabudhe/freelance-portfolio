@@ -31,7 +31,7 @@ function ScrollProgress() {
       <div
         ref={ref}
         className="h-full origin-left"
-        style={{ background: 'linear-gradient(to right,#818CF8,#22D3EE)', transform: 'scaleX(0)' }}
+        style={{ background: '#9CFE4F', transform: 'scaleX(0)' }}
       />
     </div>
   )

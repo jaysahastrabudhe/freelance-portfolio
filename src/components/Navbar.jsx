@@ -48,19 +48,19 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-[#030712]/90 backdrop-blur-md border-b border-white/5'
+          ? 'bg-[#0E0F11]/90 backdrop-blur-md border-b border-white/5'
           : 'bg-transparent'
       }`}
     >
       <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <a href="#hero" onClick={goTop} className="flex items-center gap-2 group">
-          <div className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black text-white"
-            style={{ background: 'linear-gradient(135deg,#6366F1,#06B6D4)' }}>
+          <div className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black"
+            style={{ background: '#9CFE4F', color: '#0E0F11' }}>
             s.
           </div>
           <span className="font-black text-white tracking-tight text-base">
-            scrpt<span style={{ background: 'linear-gradient(135deg,#6366F1,#06B6D4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>.</span>
+            scrpt<span style={{ color: '#9CFE4F' }}>.</span>
           </span>
         </a>
 
@@ -74,7 +74,7 @@ export default function Navbar() {
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   active === id
                     ? 'text-white bg-white/8'
-                    : 'text-[#8899BB] hover:text-white hover:bg-white/5'
+                    : 'text-[#9CA3AF] hover:text-white hover:bg-white/5'
                 }`}
               >
                 {label}
@@ -93,7 +93,7 @@ export default function Navbar() {
             Work with us
           </a>
           <button
-            className="md:hidden text-[#8899BB] hover:text-white transition-colors"
+            className="md:hidden text-[#9CA3AF] hover:text-white transition-colors"
             onClick={() => setOpen((p) => !p)}
             aria-label="Toggle menu"
           >
@@ -104,7 +104,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden bg-[#030712]/95 backdrop-blur-md border-b border-white/5 px-6 pb-6 pt-2">
+        <div className="md:hidden bg-[#0E0F11]/95 backdrop-blur-md border-b border-white/5 px-6 pb-6 pt-2">
           <ul className="flex flex-col gap-1">
             {links.map(({ id, label }) => (
               <li key={id}>
@@ -114,7 +114,7 @@ export default function Navbar() {
                   className={`block px-4 py-3 rounded-lg text-sm font-medium transition-all ${
                     active === id
                       ? 'text-white bg-white/8'
-                      : 'text-[#8899BB] hover:text-white hover:bg-white/5'
+                      : 'text-[#9CA3AF] hover:text-white hover:bg-white/5'
                   }`}
                 >
                   {label}
