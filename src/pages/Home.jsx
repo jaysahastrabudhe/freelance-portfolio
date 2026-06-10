@@ -5,7 +5,7 @@ import { ExternalLink, ArrowRight, ArrowDownRight, MapPin, Search, PenTool, Rock
 
 gsap.registerPlugin(ScrollTrigger)
 
-const LIME = '#9CFE4F'
+const LIME = '#FFD60A'
 
 /* ─────────────────────────── DATA ─────────────────────────── */
 
@@ -99,19 +99,30 @@ const team = [
   {
     name: 'Jay Sahastrabudhe',
     initials: 'JS',
-    role: 'Founder · Marketing & Dev',
+    role: 'Performance Marketing · Web Dev · Content',
     location: 'Pune, Maharashtra',
-    bio: 'Performance marketer, web developer, and content creator. 6+ years building brands across digital — from Meta Ads funnels to full-stack apps.',
+    bio: 'Opened a camera in lockdown 2020 and built Rom Guruji to 23K subscribers and 15M views. That foundation grew into performance marketing, full-stack web development, and an Executive MBA. Builds Meta Ads funnels by day, ships React and WordPress sites end-to-end — design, payments, deploy.',
+    experience: [
+      { period: '2026 — Now', role: 'Performance Marketing Manager', org: "Let's Enterprise · 6× ROI on Meta Ads" },
+      { period: '2024 — Now', role: 'Executive MBA', org: 'Symbiosis (SIMS), Pune' },
+      { period: '2024', role: 'Head of Digital', org: 'FullHouse · 8+ brands · shipped 3 client sites' },
+      { period: '2020 — Now', role: 'Creator, Rom Guruji', org: 'YouTube · 23K subs · 15M+ views' },
+    ],
     skills: ['Performance Marketing', 'React / WordPress', 'Content Strategy', 'SEO'],
     linkedin: 'https://www.linkedin.com/in/jaysahastrabudhe/',
   },
   {
     name: 'Priyanka Bhalekar',
     initials: 'PB',
-    role: 'Digital Marketing & Web Design',
+    role: 'Digital Marketing · Web Design · SEO',
     location: 'India · Remote',
-    bio: '6+ years working with Indian and international clients across digital marketing and web design. From strategy to execution — she owns the full cycle.',
-    skills: ['Digital Marketing', 'Web Design', 'SEO', 'Client Management'],
+    bio: '6+ years delivering digital marketing and web design for Indian and international clients. Runs SEO end-to-end from scratch — keyword research, on-page, content optimization, backlinking, and link-building campaigns — and pairs it with web design that converts. From strategy to execution, she owns the full cycle.',
+    experience: [
+      { period: 'SEO Lead', role: 'DataGuru Research Partners', org: "500+ pages optimized · 250+ reports in Google's top 10" },
+      { period: 'SEO', role: 'Pune Real Estate Brand', org: '"Top Builders in Prabhat Road" ranked #1 on Google' },
+      { period: '6+ Years', role: 'Digital Marketing & Web Design', org: 'Indian & international clients' },
+    ],
+    skills: ['Digital Marketing', 'Web Design', 'SEO', 'Content Optimization', 'Link Building'],
     linkedin: 'https://www.linkedin.com/in/priyanka-b-794a86167',
   },
 ]
@@ -324,13 +335,19 @@ export default function Home() {
   return (
     <div ref={containerRef} className="min-h-screen" style={{ background: '#0E0F11', overflowX: 'clip' }}>
 
-      {/* ═══════════ HERO — Agenko display type ═══════════ */}
+      {/* ═══════════ HERO — yellow/black display type ═══════════ */}
       <section id="hero" className="relative min-h-screen flex flex-col justify-center pt-24 pb-24 overflow-hidden">
+        {/* Vertical hairline grid columns */}
+        <div className="absolute inset-0 pointer-events-none max-w-6xl mx-auto px-6 hidden md:flex justify-between" aria-hidden="true">
+          {[...Array(5)].map((_, i) => (
+            <span key={i} className="w-px h-full" style={{ background: 'rgba(255,255,255,0.04)' }} />
+          ))}
+        </div>
         {/* Dot grid + ambient orbs */}
-        <div className="absolute inset-0 dot-grid opacity-25 pointer-events-none"
+        <div className="absolute inset-0 dot-grid opacity-20 pointer-events-none"
           style={{ maskImage: 'radial-gradient(ellipse at 30% 40%, black 0%, transparent 70%)', WebkitMaskImage: 'radial-gradient(ellipse at 30% 40%, black 0%, transparent 70%)' }} />
         <div className="absolute inset-0 pointer-events-none">
-          <div className="orb orb-a" style={{ top: '10%', left: '6%', width: 560, height: 560, background: 'radial-gradient(circle, rgba(156,254,79,0.10) 0%, transparent 70%)' }} />
+          <div className="orb orb-a" style={{ top: '10%', left: '6%', width: 560, height: 560, background: 'radial-gradient(circle, rgba(255,214,10,0.09) 0%, transparent 70%)' }} />
           <div className="orb orb-b" style={{ bottom: '12%', right: '4%', width: 460, height: 460, background: 'radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%)' }} />
         </div>
 
@@ -338,22 +355,22 @@ export default function Home() {
 
           {/* Eyebrow */}
           <div className="hero-eyebrow flex items-center gap-3 mb-10">
-            <span className="w-8 h-px" style={{ background: 'rgba(156,254,79,0.6)' }} />
-            <span className="text-xs font-bold tracking-widest uppercase" style={{ color: LIME }}>Creatives Collective · Remote Agency</span>
+            <span className="rotate-slow inline-block text-lg leading-none" style={{ color: LIME }}>✦</span>
+            <span className="text-xs font-bold tracking-[0.25em] uppercase" style={{ color: LIME }}>Creatives Collective · Remote Agency</span>
           </div>
 
-          {/* Headline — Agenko stacked display type */}
-          <h1 className="font-black leading-[0.9] tracking-tight mb-4 uppercase">
+          {/* Headline — stacked display type */}
+          <h1 className="font-bold leading-[0.92] mb-4 uppercase" style={{ fontFamily: 'var(--heading-font)', letterSpacing: '-0.03em' }}>
             <MaskedLine className="text-white text-[clamp(3rem,9vw,8rem)]">We Make</MaskedLine>
             <MaskedLine className="text-[clamp(3rem,9vw,8rem)]">
-              <span style={{ color: LIME }}>Brands</span>{' '}
+              <span className="px-3 inline-block" style={{ background: LIME, color: '#0E0F11' }}>Brands</span>{' '}
               <span className="text-white">Impossible</span>
             </MaskedLine>
           </h1>
-          {/* Giant outline line, right-aligned like Agenko's big-text */}
+          {/* Giant outline line, right-aligned */}
           <div className="overflow-hidden pb-[0.18em] -mb-[0.18em] mb-8">
-            <div className="hero-line outline-text font-black uppercase leading-[0.9] tracking-tight text-right text-[clamp(3.5rem,11vw,10rem)]"
-              style={{ fontFamily: 'var(--heading-font)' }}>
+            <div className="hero-line outline-text font-bold uppercase leading-[0.92] text-right text-[clamp(3.5rem,11vw,10rem)]"
+              style={{ fontFamily: 'var(--heading-font)', letterSpacing: '-0.03em' }}>
               To Ignore.
             </div>
           </div>
@@ -464,12 +481,12 @@ export default function Home() {
                     <ArrowRight className="w-4 h-4 transition-colors" style={{ color: '#9CA3AF' }} />
                   </div>
                 </div>
-                <h3 className="text-white text-2xl font-black mb-3 transition-colors duration-300 group-hover:text-[#9CFE4F]">{s.title}</h3>
+                <h3 className="text-white text-2xl font-black mb-3 transition-colors duration-300 group-hover:text-[#FFD60A]">{s.title}</h3>
                 <p className="text-sm leading-relaxed mb-6" style={{ color: '#9CA3AF' }}>{s.desc}</p>
                 <div className="flex flex-wrap gap-2">
                   {s.tags.map((tag) => (
                     <span key={tag} className="text-[10px] font-bold px-2.5 py-1 rounded-full border transition-transform duration-200 hover:scale-105"
-                      style={{ background: 'rgba(156,254,79,0.07)', color: 'rgba(156,254,79,0.85)', borderColor: 'rgba(156,254,79,0.2)' }}>
+                      style={{ background: 'rgba(255,214,10,0.07)', color: 'rgba(255,214,10,0.85)', borderColor: 'rgba(255,214,10,0.2)' }}>
                       {tag}
                     </span>
                   ))}
@@ -542,14 +559,14 @@ export default function Home() {
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex flex-col gap-1.5">
                     <span className="text-[10px] font-bold px-2.5 py-1 rounded-full w-fit border"
-                      style={{ background: 'rgba(156,254,79,0.07)', color: LIME, borderColor: 'rgba(156,254,79,0.25)' }}>
+                      style={{ background: 'rgba(255,214,10,0.07)', color: LIME, borderColor: 'rgba(255,214,10,0.25)' }}>
                       {p.category}
                     </span>
                     <span className="text-[10px]" style={{ color: '#9CA3AF' }}>by {p.by}</span>
                   </div>
                   <ExternalLink className="w-4 h-4 transition-all duration-300 mt-1 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white" style={{ color: '#9CA3AF' }} />
                 </div>
-                <h3 className="text-white font-black text-xl mb-2 transition-colors duration-300 group-hover:text-[#9CFE4F]">{p.title}</h3>
+                <h3 className="text-white font-black text-xl mb-2 transition-colors duration-300 group-hover:text-[#FFD60A]">{p.title}</h3>
                 <p className="text-sm leading-relaxed" style={{ color: '#9CA3AF' }}>{p.desc}</p>
                 <p className="mt-5 text-xs font-bold flex items-center gap-1" style={{ color: LIME }}>
                   View <span className="inline-block transition-transform duration-300 group-hover:translate-x-1.5">→</span>
@@ -582,7 +599,7 @@ export default function Home() {
               <div key={m.initials} className="team-card spotlight-card glass-card rounded-2xl p-8 md:p-10 group">
                 <div className="flex items-start gap-5 mb-6">
                   <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-xl font-black flex-shrink-0 transition-transform duration-300 group-hover:scale-105 group-hover:-rotate-3"
-                    style={{ background: LIME, color: '#0E0F11', boxShadow: '0 8px 30px rgba(156,254,79,0.2)' }}>
+                    style={{ background: LIME, color: '#0E0F11', boxShadow: '0 8px 30px rgba(255,214,10,0.2)' }}>
                     {m.initials}
                   </div>
                   <div>
@@ -595,6 +612,23 @@ export default function Home() {
                 </div>
 
                 <p className="text-sm leading-relaxed mb-6" style={{ color: '#9CA3AF' }}>{m.bio}</p>
+
+                {/* Experience timeline — Agenko award-list rows */}
+                <div className="mb-7 border-t" style={{ borderColor: 'rgba(255,255,255,0.07)' }}>
+                  {m.experience.map((x) => (
+                    <div key={x.role + x.period}
+                      className="flex flex-col sm:flex-row sm:items-baseline gap-0.5 sm:gap-4 py-3 border-b transition-colors duration-200 hover:bg-white/[0.02]"
+                      style={{ borderColor: 'rgba(255,255,255,0.07)' }}>
+                      <span className="shrink-0 sm:w-24 text-[11px] font-bold uppercase tracking-wider" style={{ color: LIME }}>
+                        {x.period}
+                      </span>
+                      <div className="min-w-0">
+                        <span className="block text-white text-sm font-bold">{x.role}</span>
+                        <span className="block text-xs mt-0.5" style={{ color: '#9CA3AF' }}>{x.org}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
 
                 <div className="flex flex-wrap gap-2 mb-7">
                   {m.skills.map((skill) => (
@@ -618,7 +652,7 @@ export default function Home() {
             <span className="reveal-rest block text-sm" style={{ color: '#9CA3AF' }}>
               The collective is selective — we take on work that excites us.{' '}
               <a href="#connect" onClick={go('connect')}
-                className="text-white font-semibold transition-colors hover:text-[#9CFE4F]">
+                className="text-white font-semibold transition-colors hover:text-[#FFD60A]">
                 Tell us about your project →
               </a>
             </span>
@@ -629,7 +663,7 @@ export default function Home() {
       {/* ═══════════ CONNECT CTA ═══════════ */}
       <section id="connect" className="cta-section scroll-mt-20 py-32 relative overflow-hidden" style={{ background: '#0B0C0E' }}>
         <div className="absolute inset-0 pointer-events-none glow-breathe"
-          style={{ background: 'radial-gradient(ellipse at 50% 40%, rgba(156,254,79,0.08) 0%, transparent 60%)' }} />
+          style={{ background: 'radial-gradient(ellipse at 50% 40%, rgba(255,214,10,0.08) 0%, transparent 60%)' }} />
         <div className="cta-content max-w-3xl mx-auto px-6 text-center relative">
           <div className="flex justify-center gap-3 mb-8">
             {team.map((m, i) => (
@@ -642,9 +676,9 @@ export default function Home() {
           </div>
 
           <div className="flex items-center gap-3 justify-center mb-4">
-            <span className="w-8 h-px" style={{ background: 'rgba(156,254,79,0.5)' }} />
+            <span className="w-8 h-px" style={{ background: 'rgba(255,214,10,0.5)' }} />
             <span className="text-xs font-bold tracking-widest uppercase" style={{ color: LIME }}>Work With Us</span>
-            <span className="w-8 h-px" style={{ background: 'rgba(156,254,79,0.5)' }} />
+            <span className="w-8 h-px" style={{ background: 'rgba(255,214,10,0.5)' }} />
           </div>
 
           <h2 className="text-4xl md:text-5xl font-black text-white mb-5 leading-tight">

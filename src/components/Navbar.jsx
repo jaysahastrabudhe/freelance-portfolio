@@ -56,11 +56,11 @@ export default function Navbar() {
         {/* Logo */}
         <a href="#hero" onClick={goTop} className="flex items-center gap-2 group">
           <div className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black"
-            style={{ background: '#9CFE4F', color: '#0E0F11' }}>
+            style={{ background: '#FFD60A', color: '#0E0F11' }}>
             s.
           </div>
           <span className="font-black text-white tracking-tight text-base">
-            scrpt<span style={{ color: '#9CFE4F' }}>.</span>
+            scrpt<span style={{ color: '#FFD60A' }}>.</span>
           </span>
         </a>
 

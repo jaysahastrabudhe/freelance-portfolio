@@ -33,11 +33,11 @@ export default function Footer() {
           <div>
             <a href="#top" onClick={go('top')} className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black text-white"
-                style={{ background: '#9CFE4F', color: '#0E0F11' }}>
+                style={{ background: '#FFD60A', color: '#0E0F11' }}>
                 s.
               </div>
               <span className="font-black text-white text-base tracking-tight">
-                scrpt<span style={{ color: '#9CFE4F' }}>.</span>
+                scrpt<span style={{ color: '#FFD60A' }}>.</span>
               </span>
             </a>
             <p className="text-[#9CA3AF] text-sm leading-relaxed max-w-xs mb-6">
@@ -51,7 +51,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="w-9 h-9 rounded-lg border border-white/8 flex items-center justify-center text-[#9CA3AF] hover:text-white hover:border-[#9CFE4F]/60 transition-all duration-200"
+                  className="w-9 h-9 rounded-lg border border-white/8 flex items-center justify-center text-[#9CA3AF] hover:text-white hover:border-[#FFD60A]/60 transition-all duration-200"
                 >
                   <Icon className="w-4 h-4" />
                 </a>
