@@ -9,7 +9,7 @@ const nav = [
 
 const collective = [
   { label: 'Jay Sahastrabudhe', href: 'https://www.linkedin.com/in/jaysahastrabudhe/' },
-  { label: 'Priyanka Bhalekar', href: 'https://www.notion.so/Priyanka-Bhalekar-25bb23cd43cb8008ab88ef7ff05f1c71' },
+  { label: 'Priyanka Bhalekar', href: 'https://www.linkedin.com/in/priyanka-b-794a86167' },
 ]
 
 const socials = [
