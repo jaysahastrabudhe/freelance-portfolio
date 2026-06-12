@@ -712,16 +712,7 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Hiring note */}
-          <div className="section-reveal mt-8 px-8 py-5 rounded-2xl border border-dashed flex flex-col sm:flex-row items-center justify-between gap-3" style={{ borderColor: 'rgba(255,255,255,0.12)' }}>
-            <span className="reveal-rest text-sm" style={{ color: '#9CA3AF' }}>
-              The collective is selective — we take on work that excites us.
-            </span>
-            <a href="#connect" onClick={go('connect')}
-              className="reveal-rest shrink-0 text-sm font-semibold transition-colors text-white hover:text-[#FFD60A] whitespace-nowrap">
-              Tell us about your project →
-            </a>
-          </div>
+
         </div>
       </section>
 
