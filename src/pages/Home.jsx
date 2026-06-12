@@ -105,7 +105,7 @@ const team = [
     experience: [
       { period: '2026 — Now', role: 'Performance Marketing Manager', org: "Let's Enterprise · 6× ROI on Meta Ads" },
       { period: '2024 — Now', role: 'Executive MBA', org: 'Symbiosis (SIMS), Pune' },
-      { period: '2024', role: 'Head of Digital', org: 'Sitashree Laxminarayan · Nirva Health · Macmerise · +5 brands' },
+      { period: '2024', role: 'Head of Digital', org: 'Sitashree Laxminarayan · Nirva Health · Macmerise' },
       { period: '2020 — Now', role: 'Creator, Rom Guruji', org: 'YouTube · 23K subs · 15M+ views' },
     ],
     skills: ['Performance Marketing', 'React / WordPress', 'Content Strategy', 'SEO'],
