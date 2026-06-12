@@ -40,6 +40,7 @@ function ScrollProgress() {
 export default function App() {
   return (
     <>
+      <div className="grain-overlay" aria-hidden="true" />
       <ScrollProgress />
       <Navbar />
       <main>

@@ -1,7 +1,7 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { ExternalLink, ArrowRight, ArrowDownRight, MapPin, Search, PenTool, Rocket, TrendingUp } from 'lucide-react'
+import { ExternalLink, ArrowRight, ArrowDownRight, MapPin, Search, PenTool, Rocket, TrendingUp, Send, CheckCircle } from 'lucide-react'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -114,15 +114,16 @@ const team = [
   {
     name: 'Priyanka Bhalekar',
     initials: 'PB',
-    role: 'Digital Marketing · Web Design · SEO',
+    role: 'Performance Marketing · Web Design · SEO',
     location: 'India · Remote',
-    bio: '6+ years delivering digital marketing and web design for Indian and international clients. Runs SEO end-to-end from scratch — keyword research, on-page, content optimization, backlinking, and link-building campaigns — and pairs it with web design that converts. From strategy to execution, she owns the full cycle.',
+    bio: '6+ years driving performance marketing, SEO, and web design for Indian and international clients. Runs full-funnel digital campaigns — from Meta Ads and Google to organic SEO — owning strategy through execution. Delivered lowest CPL in real estate while ranking competitive keywords at #1 on Google.',
     experience: [
-      { period: 'SEO Lead', role: 'DataGuru Research Partners', org: "500+ pages optimized · 250+ reports in Google's top 10" },
-      { period: 'SEO', role: 'Pune Real Estate Brand', org: '"Top Builders in Prabhat Road" ranked #1 on Google' },
+      { period: 'Performance', role: 'Meta & Google Ads', org: 'Lowest CPL delivered for real estate client' },
+      { period: 'SEO Lead', role: 'Research & Content Client', org: "500+ pages optimized · 250+ reports in Google's top 10" },
+      { period: 'SEO', role: 'Real Estate Client', org: 'Competitive keyword ranked #1 on Google' },
       { period: '6+ Years', role: 'Digital Marketing & Web Design', org: 'Indian & international clients' },
     ],
-    skills: ['Digital Marketing', 'Web Design', 'SEO', 'Content Optimization', 'Link Building'],
+    skills: ['Performance Marketing', 'Meta & Google Ads', 'SEO', 'Web Design', 'Content Optimization'],
     linkedin: 'https://www.linkedin.com/in/priyanka-b-794a86167',
   },
 ]
@@ -135,6 +136,20 @@ const stats = [
 ]
 
 const marqueeWords = ['Performance', 'Content', 'Web', 'Brand', 'Strategy', 'Design']
+
+const brands = [
+  { name: 'JawanDrop',              category: 'E-commerce' },
+  { name: 'Jay Defence Academy',    category: 'Education' },
+  { name: 'BLiive',                 category: 'Consulting' },
+  { name: "Let's Enterprise",       category: 'Higher Ed' },
+  { name: 'Rom Guruji',             category: 'YouTube' },
+  { name: 'DataGuru Research',      category: 'B2B Research' },
+  { name: 'Real Estate Client',     category: 'Real Estate' },
+  { name: 'FullHouse',              category: 'Multi-brand' },
+  { name: 'International Clients',  category: 'Global' },
+]
+
+const budgetOptions = ['< ₹25K', '₹25K – ₹75K', '₹75K – ₹2L', '₹2L+', 'Let\'s talk']
 
 /* ─────────────────────────── HELPERS ─────────────────────────── */
 
@@ -183,6 +198,18 @@ const go = (id) => (e) => {
 
 export default function Home() {
   const containerRef = useRef(null)
+  const [form, setForm] = useState({ name: '', email: '', budget: '', message: '' })
+  const [submitted, setSubmitted] = useState(false)
+
+  const handleFormChange = (e) => setForm((p) => ({ ...p, [e.target.name]: e.target.value }))
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const subject = encodeURIComponent(`Project Inquiry from ${form.name}`)
+    const body = encodeURIComponent(`Hi Jay & Priyanka,\n\nName: ${form.name}\nEmail: ${form.email}\nBudget: ${form.budget}\n\nMessage:\n${form.message}`)
+    window.open(`mailto:jay@scrpt.in?subject=${subject}&body=${body}`)
+    setSubmitted(true)
+  }
 
   /* Cursor-tracking spotlight on every .spotlight-card (single delegated listener) */
   useEffect(() => {
@@ -321,10 +348,20 @@ export default function Home() {
         scrollTrigger: { trigger: '.team-grid', start: 'top 85%', toggleActions: 'play none none none' },
       })
 
-      /* ── CTA ── */
-      gsap.from('.cta-content', {
-        autoAlpha: 0, y: 36, scale: 0.97, duration: 1.0, ease: 'power3.out',
-        scrollTrigger: { trigger: '.cta-section', start: 'top 78%', toggleActions: 'play none none none' },
+      /* ── Brand scroll entrance ── */
+      gsap.from('.brand-scroll-section', {
+        opacity: 0, y: 24, duration: 0.8, ease: 'power3.out',
+        scrollTrigger: { trigger: '.brand-scroll-section', start: 'top 90%', toggleActions: 'play none none none' },
+      })
+
+      /* ── Contact form ── */
+      gsap.from('.contact-left', {
+        opacity: 0, x: -40, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: '.contact-section', start: 'top 80%', toggleActions: 'play none none none' },
+      })
+      gsap.from('.contact-right', {
+        opacity: 0, x: 40, duration: 0.9, ease: 'power3.out', delay: 0.1,
+        scrollTrigger: { trigger: '.contact-section', start: 'top 80%', toggleActions: 'play none none none' },
       })
 
     }, containerRef)
@@ -446,6 +483,32 @@ export default function Home() {
                 {end}{suffix}
               </div>
               <p className="text-xs leading-snug" style={{ color: '#9CA3AF' }}>{label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ═══════════ BRAND SCROLL ═══════════ */}
+      <div className="brand-scroll-section py-16 border-b" style={{ background: '#0E0F11', borderColor: 'rgba(255,255,255,0.06)' }}>
+        <div className="max-w-6xl mx-auto px-6 mb-8 flex items-center gap-4">
+          <span className="text-xs font-bold tracking-[0.22em] uppercase" style={{ color: '#9CA3AF' }}>Brands & Clients</span>
+          <span className="flex-1 h-px" style={{ background: 'rgba(255,255,255,0.06)' }} />
+          <span className="text-xs font-bold tracking-[0.22em] uppercase" style={{ color: '#9CA3AF' }}>9 served</span>
+        </div>
+        <div className="marquee" aria-hidden="true">
+          {[0, 1].map((dup) => (
+            <div key={dup} className="marquee-track" style={{ animationDuration: '36s', animationDirection: dup === 1 ? 'normal' : 'normal' }}>
+              {brands.map((b) => (
+                <span key={b.name + dup} className="flex items-center shrink-0 px-8">
+                  <span className="flex flex-col items-center gap-0.5">
+                    <span className="text-white font-black text-base md:text-lg whitespace-nowrap tracking-tight" style={{ fontFamily: 'var(--heading-font)' }}>
+                      {b.name}
+                    </span>
+                    <span className="text-[9px] font-bold uppercase tracking-[0.18em]" style={{ color: 'rgba(255,214,10,0.6)' }}>{b.category}</span>
+                  </span>
+                  <span className="ml-8 text-lg" style={{ color: 'rgba(255,255,255,0.12)' }}>·</span>
+                </span>
+              ))}
             </div>
           ))}
         </div>
@@ -660,51 +723,151 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════ CONNECT CTA ═══════════ */}
-      <section id="connect" className="cta-section scroll-mt-20 py-32 relative overflow-hidden" style={{ background: '#0B0C0E' }}>
-        <div className="absolute inset-0 pointer-events-none glow-breathe"
-          style={{ background: 'radial-gradient(ellipse at 50% 40%, rgba(255,214,10,0.08) 0%, transparent 60%)' }} />
-        <div className="cta-content max-w-3xl mx-auto px-6 text-center relative">
-          <div className="flex justify-center gap-3 mb-8">
-            {team.map((m, i) => (
-              <div key={m.initials}
-                className="w-12 h-12 rounded-xl flex items-center justify-center text-sm font-black animate-floaty"
-                style={{ background: LIME, color: '#0E0F11', animationDelay: `${i * 0.7}s` }}>
-                {m.initials}
+      {/* ═══════════ CONNECT — split layout with form ═══════════ */}
+      <section id="connect" className="contact-section cta-section scroll-mt-20 py-28 relative overflow-hidden" style={{ background: '#0B0C0E' }}>
+        <div className="absolute inset-0 pointer-events-none"
+          style={{ background: 'radial-gradient(ellipse at 30% 60%, rgba(255,214,10,0.06) 0%, transparent 55%)' }} />
+
+        <div className="max-w-6xl mx-auto px-6 relative">
+          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+
+            {/* Left — copy + contact methods */}
+            <div className="contact-left">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="w-8 h-px" style={{ background: 'rgba(255,214,10,0.5)' }} />
+                <span className="text-xs font-bold tracking-widest uppercase" style={{ color: LIME }}>Work With Us</span>
               </div>
-            ))}
+
+              <h2 className="text-4xl md:text-5xl font-black text-white mb-6 leading-tight" style={{ fontFamily: 'var(--heading-font)' }}>
+                Have a project?<br />
+                <span style={{ color: LIME }}>Let's talk.</span>
+              </h2>
+              <p className="text-base leading-relaxed mb-10" style={{ color: '#9CA3AF' }}>
+                No RFPs. No formalities. Just a conversation about what you're building and how we can help. If there's a fit, we'll know quickly.
+              </p>
+
+              {/* Contact methods */}
+              <div className="space-y-4 mb-10">
+                <a href="mailto:jay@scrpt.in"
+                  className="flex items-center gap-4 p-4 rounded-xl border group transition-all duration-200 hover:border-[#FFD60A]/40"
+                  style={{ borderColor: 'rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.02)' }}>
+                  <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors"
+                    style={{ background: 'rgba(255,214,10,0.1)' }}>
+                    <Send className="w-4 h-4" style={{ color: LIME }} />
+                  </div>
+                  <div>
+                    <p className="text-white font-semibold text-sm">Email us</p>
+                    <p className="text-xs" style={{ color: '#9CA3AF' }}>jay@scrpt.in</p>
+                  </div>
+                  <ArrowRight className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-all group-hover:translate-x-1" style={{ color: LIME }} />
+                </a>
+                <a href="https://www.linkedin.com/in/jaysahastrabudhe/" target="_blank" rel="noopener noreferrer"
+                  className="flex items-center gap-4 p-4 rounded-xl border group transition-all duration-200 hover:border-[#FFD60A]/40"
+                  style={{ borderColor: 'rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.02)' }}>
+                  <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
+                    style={{ background: 'rgba(255,214,10,0.1)' }}>
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill={LIME}>
+                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-white font-semibold text-sm">LinkedIn</p>
+                    <p className="text-xs" style={{ color: '#9CA3AF' }}>Jay Sahastrabudhe</p>
+                  </div>
+                  <ArrowRight className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-all group-hover:translate-x-1" style={{ color: LIME }} />
+                </a>
+              </div>
+
+              {/* Team avatars */}
+              <div className="flex items-center gap-4">
+                <div className="flex -space-x-2">
+                  {team.map((m, i) => (
+                    <div key={m.initials}
+                      className="w-10 h-10 rounded-full border-2 flex items-center justify-center text-xs font-black animate-floaty"
+                      style={{ background: LIME, color: '#0E0F11', borderColor: '#0B0C0E', animationDelay: `${i * 0.7}s` }}>
+                      {m.initials}
+                    </div>
+                  ))}
+                </div>
+                <p className="text-sm" style={{ color: '#9CA3AF' }}>
+                  <span className="text-white font-semibold">Usually reply same day.</span>
+                </p>
+              </div>
+
+              <p className="mt-8 text-xs flex items-center gap-1.5" style={{ color: '#6B7280' }}>
+                <MapPin className="w-3 h-3" /> Pune, Maharashtra, India · Remote-first
+              </p>
+            </div>
+
+            {/* Right — contact form */}
+            <div className="contact-right">
+              <div className="rounded-2xl border p-8 md:p-10" style={{ background: '#15171B', borderColor: 'rgba(255,255,255,0.08)' }}>
+                {submitted ? (
+                  <div className="flex flex-col items-center justify-center py-12 text-center">
+                    <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6 animate-floaty"
+                      style={{ background: 'rgba(255,214,10,0.12)' }}>
+                      <CheckCircle className="w-8 h-8" style={{ color: LIME }} />
+                    </div>
+                    <h3 className="text-white font-black text-2xl mb-3">Message ready!</h3>
+                    <p className="text-sm leading-relaxed" style={{ color: '#9CA3AF' }}>
+                      Your email client opened with everything filled in. We typically respond within a few hours.
+                    </p>
+                    <button onClick={() => setSubmitted(false)}
+                      className="mt-8 text-sm font-semibold transition-colors hover:text-white"
+                      style={{ color: '#9CA3AF' }}>
+                      Send another →
+                    </button>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-5">
+                    <div>
+                      <label className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#9CA3AF' }}>Your name</label>
+                      <input
+                        type="text" name="name" required value={form.name} onChange={handleFormChange}
+                        placeholder="Rahul Sharma"
+                        className="w-full rounded-xl px-4 py-3 text-sm text-white outline-none transition-all duration-200 focus:border-[#FFD60A]/50"
+                        style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', fontFamily: 'Inter, sans-serif' }}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#9CA3AF' }}>Email</label>
+                      <input
+                        type="email" name="email" required value={form.email} onChange={handleFormChange}
+                        placeholder="rahul@yourcompany.com"
+                        className="w-full rounded-xl px-4 py-3 text-sm text-white outline-none transition-all duration-200 focus:border-[#FFD60A]/50"
+                        style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', fontFamily: 'Inter, sans-serif' }}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#9CA3AF' }}>Budget range</label>
+                      <select name="budget" value={form.budget} onChange={handleFormChange}
+                        className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all duration-200 focus:border-[#FFD60A]/50 appearance-none"
+                        style={{ background: '#1C1E23', border: '1px solid rgba(255,255,255,0.1)', color: form.budget ? '#fff' : '#6B7280', fontFamily: 'Inter, sans-serif' }}>
+                        <option value="" style={{ color: '#6B7280' }}>Select a range…</option>
+                        {budgetOptions.map((o) => <option key={o} value={o} style={{ color: '#fff', background: '#1C1E23' }}>{o}</option>)}
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#9CA3AF' }}>Tell us about your project</label>
+                      <textarea
+                        name="message" required value={form.message} onChange={handleFormChange} rows={4}
+                        placeholder="What are you building? What's the challenge?"
+                        className="w-full rounded-xl px-4 py-3 text-sm text-white outline-none transition-all duration-200 focus:border-[#FFD60A]/50 resize-none"
+                        style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', fontFamily: 'Inter, sans-serif' }}
+                      />
+                    </div>
+                    <button type="submit"
+                      className="magnetic btn-shine btn-primary w-full justify-center text-sm py-4 font-bold">
+                      <Send className="w-4 h-4" />
+                      <FlipLabel>Send message</FlipLabel>
+                    </button>
+                    <p className="text-center text-xs" style={{ color: '#6B7280' }}>Opens your email client — no data stored.</p>
+                  </form>
+                )}
+              </div>
+            </div>
+
           </div>
-
-          <div className="flex items-center gap-3 justify-center mb-4">
-            <span className="w-8 h-px" style={{ background: 'rgba(255,214,10,0.5)' }} />
-            <span className="text-xs font-bold tracking-widest uppercase" style={{ color: LIME }}>Work With Us</span>
-            <span className="w-8 h-px" style={{ background: 'rgba(255,214,10,0.5)' }} />
-          </div>
-
-          <h2 className="text-4xl md:text-5xl font-black text-white mb-5 leading-tight">
-            Have a project? A brief?<br />
-            <span style={{ color: LIME }}>Even just an idea?</span>
-          </h2>
-          <p className="text-lg mb-10 max-w-lg mx-auto leading-relaxed" style={{ color: '#9CA3AF' }}>
-            No RFPs. No formalities. Just a conversation. If there's a fit, we'll know quickly.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="https://www.linkedin.com/in/jaysahastrabudhe/" target="_blank" rel="noopener noreferrer"
-              className="magnetic btn-shine btn-primary text-base px-8 py-4">
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-              </svg>
-              <FlipLabel>Reach Jay on LinkedIn</FlipLabel>
-            </a>
-            <a href="mailto:jay@scrpt.in" className="magnetic btn-outline text-base px-8 py-4">
-              <FlipLabel>jay@scrpt.in</FlipLabel>
-            </a>
-          </div>
-
-          <p className="mt-8 text-xs flex items-center justify-center gap-1.5" style={{ color: '#9CA3AF' }}>
-            <MapPin className="w-3 h-3" /> Pune, Maharashtra, India · Remote-first
-          </p>
         </div>
       </section>
 
