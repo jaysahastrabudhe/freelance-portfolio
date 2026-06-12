@@ -105,7 +105,7 @@ const team = [
     experience: [
       { period: '2026 — Now', role: 'Performance Marketing Manager', org: "Let's Enterprise · 6× ROI on Meta Ads" },
       { period: '2024 — Now', role: 'Executive MBA', org: 'Symbiosis (SIMS), Pune' },
-      { period: '2024', role: 'Head of Digital', org: 'FullHouse · 8+ brands · shipped 3 client sites' },
+      { period: '2024', role: 'Head of Digital', org: 'Sitashree Laxminarayan · Nirva Health · Macmerise · +5 brands' },
       { period: '2020 — Now', role: 'Creator, Rom Guruji', org: 'YouTube · 23K subs · 15M+ views' },
     ],
     skills: ['Performance Marketing', 'React / WordPress', 'Content Strategy', 'SEO'],
@@ -145,7 +145,9 @@ const brands = [
   { name: 'Rom Guruji',             category: 'YouTube' },
   { name: 'DataGuru Research',      category: 'B2B Research' },
   { name: 'Real Estate Client',     category: 'Real Estate' },
-  { name: 'FullHouse',              category: 'Multi-brand' },
+  { name: 'Sitashree Laxminarayan', category: 'Brand' },
+  { name: 'Nirva Health',           category: 'Health' },
+  { name: 'Macmerise',              category: 'E-commerce' },
   { name: 'International Clients',  category: 'Global' },
 ]
 
@@ -493,7 +495,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-6 mb-8 flex items-center gap-4">
           <span className="text-xs font-bold tracking-[0.22em] uppercase" style={{ color: '#9CA3AF' }}>Brands & Clients</span>
           <span className="flex-1 h-px" style={{ background: 'rgba(255,255,255,0.06)' }} />
-          <span className="text-xs font-bold tracking-[0.22em] uppercase" style={{ color: '#9CA3AF' }}>9 served</span>
+          <span className="text-xs font-bold tracking-[0.22em] uppercase" style={{ color: '#9CA3AF' }}>11 served</span>
         </div>
         <div className="marquee" aria-hidden="true">
           {[0, 1].map((dup) => (
