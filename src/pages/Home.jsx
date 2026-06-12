@@ -155,6 +155,26 @@ const budgetOptions = ['< ₹25K', '₹25K – ₹75K', '₹75K – ₹2L', '₹
 
 /* ─────────────────────────── HELPERS ─────────────────────────── */
 
+/* Scramble text reveal — randomises chars then resolves left→right */
+function scrambleText(el, finalText, { duration = 900, delay = 0 } = {}) {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ·—/\\'
+  const totalFrames = Math.floor(duration / 16)
+  let frame = 0, raf, timeout
+  const tick = () => {
+    const progress = frame / totalFrames
+    el.textContent = finalText.split('').map((char, i) => {
+      if (char === ' ') return ' '
+      if (i / finalText.length < progress * 1.35) return char
+      return chars[Math.floor(Math.random() * chars.length)]
+    }).join('')
+    frame++
+    if (frame <= totalFrames) raf = requestAnimationFrame(tick)
+    else el.textContent = finalText
+  }
+  timeout = setTimeout(() => { raf = requestAnimationFrame(tick) }, delay)
+  return () => { clearTimeout(timeout); cancelAnimationFrame(raf) }
+}
+
 /* Masked line reveal — wraps each headline line in an overflow-hidden strip */
 function MaskedLine({ children, className = '' }) {
   return (
@@ -257,6 +277,9 @@ export default function Home() {
       )
 
       gsap.from('.hero-eyebrow', { opacity: 0, x: -24, duration: 0.9, ease: 'power3.out', delay: 0.1 })
+      /* Text scramble on eyebrow label after it fades in */
+      const eyebrowLabel = document.querySelector('.hero-scramble')
+      if (eyebrowLabel) scrambleText(eyebrowLabel, eyebrowLabel.dataset.text || eyebrowLabel.textContent, { duration: 1100, delay: 350 })
       gsap.from('.hero-sub',     { opacity: 0, y: 28, duration: 0.9, ease: 'power3.out', delay: 0.75 })
       gsap.from('.hero-ctas',    { opacity: 0, y: 20, duration: 0.8, ease: 'power3.out', delay: 0.95 })
       gsap.from('.hero-badge',   { opacity: 0, y: 16, duration: 0.8, ease: 'power3.out', delay: 1.15 })
@@ -395,7 +418,7 @@ export default function Home() {
           {/* Eyebrow */}
           <div className="hero-eyebrow flex items-center gap-3 mb-10">
             <span className="rotate-slow inline-block text-lg leading-none" style={{ color: LIME }}>✦</span>
-            <span className="text-xs font-bold tracking-[0.25em] uppercase" style={{ color: LIME }}>Creatives Collective · Remote Agency</span>
+            <span className="hero-scramble text-xs font-bold tracking-[0.25em] uppercase" data-text="CREATIVES COLLECTIVE · REMOTE AGENCY" style={{ color: LIME }}>CREATIVES COLLECTIVE · REMOTE AGENCY</span>
           </div>
 
           {/* Headline — stacked display type */}
@@ -516,12 +539,13 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ═══════════ SERVICES — Agenko stair grid ═══════════ */}
+      {/* ═══════════ SERVICES — bento grid ═══════════ */}
       <section id="services" className="scroll-mt-20 py-28" style={{ background: '#0B0C0E' }}>
         <div className="max-w-6xl mx-auto px-6">
 
           <div className="section-reveal mb-16 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
-            <div>
+            <div className="relative">
+              <span className="section-num" aria-hidden="true">01</span>
               <div className="reveal-rest mb-4"><span className="sub-title">Our Services</span></div>
               <h2 className="text-4xl md:text-6xl font-black leading-tight">
                 <span className="block overflow-hidden pb-[0.15em] -mb-[0.15em]"><span className="reveal-line block text-white">Focused on results,</span></span>
@@ -535,29 +559,38 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            {services.map((s, i) => (
-              <div key={s.number}
-                className={`service-card spotlight-card glass-card rounded-2xl p-8 md:p-10 group ${i % 2 === 1 ? 'md:mt-12' : ''}`}>
-                <div className="flex items-start justify-between mb-6">
-                  <span className="text-5xl font-black outline-text" style={{ fontFamily: 'var(--heading-font)' }}>{s.number}</span>
-                  <div className="w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-300 group-hover:rotate-[-45deg]"
-                    style={{ borderColor: 'rgba(255,255,255,0.12)' }}>
-                    <ArrowRight className="w-4 h-4 transition-colors" style={{ color: '#9CA3AF' }} />
+          {/* Bento grid: [2/3 | 1/3] top row, [1/3 | 2/3] bottom row */}
+          <div className="grid md:grid-cols-3 gap-5">
+            {services.map((s, i) => {
+              const isBig = i === 0 || i === 3
+              return (
+                <div key={s.number}
+                  className={`service-card spotlight-card glass-card rounded-2xl p-8 md:p-10 group flex flex-col justify-between ${isBig ? 'bento-lg' : 'bento-sm'}`}>
+                  <div>
+                    <div className="flex items-start justify-between mb-6">
+                      <span className="text-6xl font-black outline-text leading-none" style={{ fontFamily: 'var(--heading-font)' }}>{s.number}</span>
+                      <div className="w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-300 group-hover:rotate-[-45deg] group-hover:border-[#FFD60A]/40"
+                        style={{ borderColor: 'rgba(255,255,255,0.12)' }}>
+                        <ArrowRight className="w-4 h-4" style={{ color: '#9CA3AF' }} />
+                      </div>
+                    </div>
+                    <h3 className="text-white font-black mb-3 transition-colors duration-300 group-hover:text-[#FFD60A]"
+                      style={{ fontSize: isBig ? 'clamp(1.4rem,2.5vw,2rem)' : '1.25rem' }}>
+                      {s.title}
+                    </h3>
+                    <p className="text-sm leading-relaxed" style={{ color: '#9CA3AF' }}>{s.desc}</p>
+                  </div>
+                  <div className="flex flex-wrap gap-2 mt-6">
+                    {s.tags.map((tag) => (
+                      <span key={tag} className="text-[10px] font-bold px-2.5 py-1 rounded-full border transition-transform duration-200 hover:scale-105"
+                        style={{ background: 'rgba(255,214,10,0.07)', color: 'rgba(255,214,10,0.85)', borderColor: 'rgba(255,214,10,0.2)' }}>
+                        {tag}
+                      </span>
+                    ))}
                   </div>
                 </div>
-                <h3 className="text-white text-2xl font-black mb-3 transition-colors duration-300 group-hover:text-[#FFD60A]">{s.title}</h3>
-                <p className="text-sm leading-relaxed mb-6" style={{ color: '#9CA3AF' }}>{s.desc}</p>
-                <div className="flex flex-wrap gap-2">
-                  {s.tags.map((tag) => (
-                    <span key={tag} className="text-[10px] font-bold px-2.5 py-1 rounded-full border transition-transform duration-200 hover:scale-105"
-                      style={{ background: 'rgba(255,214,10,0.07)', color: 'rgba(255,214,10,0.85)', borderColor: 'rgba(255,214,10,0.2)' }}>
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </section>
@@ -566,7 +599,10 @@ export default function Home() {
       <section id="process" className="scroll-mt-20 py-28">
         <div className="max-w-6xl mx-auto px-6">
           <div className="section-reveal text-center mb-16">
-            <div className="reveal-rest mb-4"><span className="sub-title no-line">How We Work</span></div>
+            <div className="reveal-rest mb-4 relative inline-block">
+              <span className="section-num" style={{ right: 'auto', left: '50%', transform: 'translateX(-50%)' }} aria-hidden="true">03</span>
+              <span className="sub-title no-line">How We Work</span>
+            </div>
             <h2 className="text-4xl md:text-5xl font-black leading-tight">
               <span className="block overflow-hidden pb-[0.15em] -mb-[0.15em]">
                 <span className="reveal-line block text-white">The process behind the magic.</span>
@@ -598,12 +634,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════ WORK ═══════════ */}
+      {/* ═══════════ WORK — editorial list ═══════════ */}
       <section id="work" className="scroll-mt-20 py-28" style={{ background: '#0B0C0E' }}>
         <div className="max-w-6xl mx-auto px-6">
 
-          <div className="section-reveal mb-16 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
-            <div>
+          <div className="section-reveal mb-14 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+            <div className="relative">
+              <span className="section-num" aria-hidden="true">02</span>
               <div className="reveal-rest mb-4"><span className="sub-title">Selected Work</span></div>
               <h2 className="text-4xl md:text-6xl font-black leading-tight">
                 <span className="block overflow-hidden pb-[0.15em] -mb-[0.15em]"><span className="reveal-line block text-white">Built. Shipped.</span></span>
@@ -613,29 +650,36 @@ export default function Home() {
               </h2>
             </div>
             <p className="reveal-rest max-w-sm text-sm leading-relaxed lg:text-right" style={{ color: '#9CA3AF' }}>
-              Real clients, real numbers. Tap any card to see it live.
+              Real clients, real numbers. Click any row to see it live.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-5">
-            {work.map((p) => (
+          <div>
+            {work.map((p, i) => (
               <a key={p.title} href={p.url} target="_blank" rel="noopener noreferrer"
-                className="work-card spotlight-card glass-card rounded-2xl p-6 group block">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex flex-col gap-1.5">
-                    <span className="text-[10px] font-bold px-2.5 py-1 rounded-full w-fit border"
-                      style={{ background: 'rgba(255,214,10,0.07)', color: LIME, borderColor: 'rgba(255,214,10,0.25)' }}>
-                      {p.category}
+                className="work-card work-row group flex items-start gap-5 md:gap-10 py-6 md:py-7 block">
+                <span className="text-[11px] font-black mt-1.5 w-6 shrink-0 tabular-nums"
+                  style={{ color: 'rgba(255,214,10,0.45)', fontFamily: 'var(--heading-font)' }}>
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <div className="flex-1 min-w-0">
+                  <div className="flex flex-wrap items-center gap-2 mb-1">
+                    <h3 className="text-white font-black text-xl md:text-2xl transition-colors duration-200 group-hover:text-[#FFD60A]"
+                      style={{ fontFamily: 'var(--heading-font)' }}>
+                      {p.title}
+                    </h3>
+                    <span className="text-[9px] font-bold px-2 py-0.5 rounded-full border"
+                      style={{ background: 'rgba(255,214,10,0.07)', color: 'rgba(255,214,10,0.7)', borderColor: 'rgba(255,214,10,0.18)' }}>
+                      {p.by}
                     </span>
-                    <span className="text-[10px]" style={{ color: '#9CA3AF' }}>by {p.by}</span>
                   </div>
-                  <ExternalLink className="w-4 h-4 transition-all duration-300 mt-1 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white" style={{ color: '#9CA3AF' }} />
+                  <p className="text-[11px] font-bold uppercase tracking-wider mb-2" style={{ color: 'rgba(255,214,10,0.55)' }}>{p.category}</p>
+                  <p className="text-sm leading-relaxed max-w-2xl" style={{ color: '#6B7280' }}>{p.desc}</p>
                 </div>
-                <h3 className="text-white font-black text-xl mb-2 transition-colors duration-300 group-hover:text-[#FFD60A]">{p.title}</h3>
-                <p className="text-sm leading-relaxed" style={{ color: '#9CA3AF' }}>{p.desc}</p>
-                <p className="mt-5 text-xs font-bold flex items-center gap-1" style={{ color: LIME }}>
-                  View <span className="inline-block transition-transform duration-300 group-hover:translate-x-1.5">→</span>
-                </p>
+                <div className="shrink-0 mt-1.5 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0">
+                  <span className="text-xs font-bold" style={{ color: LIME }}>View</span>
+                  <ExternalLink className="w-3.5 h-3.5" style={{ color: LIME }} />
+                </div>
               </a>
             ))}
           </div>
@@ -647,7 +691,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-6">
 
           <div className="section-reveal mb-16">
-            <div className="reveal-rest mb-4"><span className="sub-title">The Collective</span></div>
+            <div className="reveal-rest mb-4 relative"><span className="sub-title">The Collective</span></div>
             <h2 className="text-4xl md:text-6xl font-black leading-tight">
               <span className="block overflow-hidden pb-[0.15em] -mb-[0.15em]"><span className="reveal-line block text-white">Small team.</span></span>
               <span className="block overflow-hidden pb-[0.15em] -mb-[0.15em]">
