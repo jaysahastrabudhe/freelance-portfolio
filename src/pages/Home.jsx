@@ -870,7 +870,7 @@ export default function Home() {
                         type="text" name="name" required value={form.name} onChange={handleFormChange}
                         placeholder="Rahul Sharma"
                         className="w-full rounded-xl px-4 py-3 text-sm text-white outline-none transition-all duration-200 focus:border-[#FFD60A]/50"
-                        style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', fontFamily: 'Inter, sans-serif' }}
+                        style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', fontFamily: 'var(--body-font)' }}
                       />
                     </div>
                     <div>
@@ -879,14 +879,14 @@ export default function Home() {
                         type="email" name="email" required value={form.email} onChange={handleFormChange}
                         placeholder="rahul@yourcompany.com"
                         className="w-full rounded-xl px-4 py-3 text-sm text-white outline-none transition-all duration-200 focus:border-[#FFD60A]/50"
-                        style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', fontFamily: 'Inter, sans-serif' }}
+                        style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', fontFamily: 'var(--body-font)' }}
                       />
                     </div>
                     <div>
                       <label className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#9CA3AF' }}>Budget range</label>
                       <select name="budget" value={form.budget} onChange={handleFormChange}
                         className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all duration-200 focus:border-[#FFD60A]/50 appearance-none"
-                        style={{ background: '#1C1E23', border: '1px solid rgba(255,255,255,0.1)', color: form.budget ? '#fff' : '#6B7280', fontFamily: 'Inter, sans-serif' }}>
+                        style={{ background: '#1C1E23', border: '1px solid rgba(255,255,255,0.1)', color: form.budget ? '#fff' : '#6B7280', fontFamily: 'var(--body-font)' }}>
                         <option value="" style={{ color: '#6B7280' }}>Select a range…</option>
                         {budgetOptions.map((o) => <option key={o} value={o} style={{ color: '#fff', background: '#1C1E23' }}>{o}</option>)}
                       </select>
@@ -897,7 +897,7 @@ export default function Home() {
                         name="message" required value={form.message} onChange={handleFormChange} rows={4}
                         placeholder="What are you building? What's the challenge?"
                         className="w-full rounded-xl px-4 py-3 text-sm text-white outline-none transition-all duration-200 focus:border-[#FFD60A]/50 resize-none"
-                        style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', fontFamily: 'Inter, sans-serif' }}
+                        style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', fontFamily: 'var(--body-font)' }}
                       />
                     </div>
                     <button type="submit"
