@@ -231,15 +231,31 @@ export default function Home() {
   const containerRef = useRef(null)
   const [form, setForm] = useState({ name: '', email: '', budget: '', message: '' })
   const [submitted, setSubmitted] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [sendError, setSendError] = useState(null)
 
   const handleFormChange = (e) => setForm((p) => ({ ...p, [e.target.name]: e.target.value }))
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    const subject = encodeURIComponent(`Project Inquiry from ${form.name}`)
-    const body = encodeURIComponent(`Hi Jay & Priyanka,\n\nName: ${form.name}\nEmail: ${form.email}\nBudget: ${form.budget}\n\nMessage:\n${form.message}`)
-    window.open(`mailto:jay@scrpt.in?subject=${subject}&body=${body}`)
-    setSubmitted(true)
+    setSending(true)
+    setSendError(null)
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}))
+        throw new Error(data.error || 'Something went wrong')
+      }
+      setSubmitted(true)
+    } catch (err) {
+      setSendError(err.message)
+    } finally {
+      setSending(false)
+    }
   }
 
   /* Cursor-tracking spotlight on every .spotlight-card (single delegated listener) */
@@ -971,12 +987,15 @@ export default function Home() {
                         style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', fontFamily: 'var(--body-font)' }}
                       />
                     </div>
-                    <button type="submit"
-                      className="magnetic btn-shine btn-primary w-full justify-center text-sm py-4 font-bold">
+                    <button type="submit" disabled={sending}
+                      className="magnetic btn-shine btn-primary w-full justify-center text-sm py-4 font-bold disabled:opacity-60 disabled:cursor-not-allowed">
                       <Send className="w-4 h-4" />
-                      <FlipLabel>Send message</FlipLabel>
+                      <FlipLabel>{sending ? 'Sending…' : 'Send message'}</FlipLabel>
                     </button>
-                    <p className="text-center text-xs" style={{ color: '#6B7280' }}>Opens your email client — no data stored.</p>
+                    {sendError && (
+                      <p className="text-center text-xs" style={{ color: '#F87171' }}>{sendError}</p>
+                    )}
+                    <p className="text-center text-xs" style={{ color: '#6B7280' }}>We'll reply within 24 hours.</p>
                   </form>
                 )}
               </div>
