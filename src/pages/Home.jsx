@@ -116,16 +116,17 @@ const team = [
   {
     name: 'Priyanka Bhalekar',
     initials: 'PB',
-    role: 'Performance Marketing · Web Design · SEO',
-    location: 'India · Remote',
-    bio: '6+ years driving performance marketing, SEO, and web design for Indian and international clients. Runs full-funnel digital campaigns — from Meta Ads and Google to organic SEO — owning strategy through execution. Delivered lowest CPL in real estate while ranking competitive keywords at #1 on Google.',
+    role: 'Brand Strategy · Performance Marketing · D2C',
+    location: 'Pune, Maharashtra',
+    bio: '134M+ reach. 7X growth. 5.29X ROAS. Brand strategist and senior performance marketer with 5+ years scaling D2C, FMCG, Healthcare, EV, and Real Estate brands. Led celebrity campaigns with Saif Ali Khan and Kareena Kapoor Khan. Generated 50K+ qualified leads across industries.',
     experience: [
-      { period: 'Performance', role: 'Meta & Google Ads', org: 'Lowest CPL delivered for real estate client' },
-      { period: 'SEO Lead', role: 'Research & Content Client', org: "500+ pages optimized · 250+ reports in Google's top 10" },
-      { period: 'SEO', role: 'Real Estate Client', org: 'Competitive keyword ranked #1 on Google' },
-      { period: '6+ Years', role: 'Digital Marketing & Web Design', org: 'Indian & international clients' },
+      { period: '2024 — Now', role: 'Brand Architect', org: 'Sthira Naturals · D2C wellness · 7X business growth' },
+      { period: '2023 – 2024', role: 'Sr. Social Media Strategist', org: 'Joy e Bike · EV industry · B2B & B2C dealer strategy' },
+      { period: '2021 – 2023', role: 'Sr. Digital Marketeer', org: 'AppBell Technologies · USA & India · full-funnel campaigns' },
+      { period: '2020 — Now', role: 'Growth Marketing Consultant', org: 'Freelance · 134M+ reach · 5.29X ROAS · celebrity campaigns' },
+      { period: '2018 – 2019', role: 'SEO Analyst', org: 'DecisionDatabases.com · 500+ pages · top 10 rankings' },
     ],
-    skills: ['Performance Marketing', 'Meta & Google Ads', 'SEO', 'Web Design', 'Content Optimization'],
+    skills: ['Brand Strategy', 'D2C Growth', 'Performance Marketing', 'Meta · Google · Amazon Ads', 'AI Marketing', 'SEO · SEM'],
     linkedin: 'https://www.linkedin.com/in/priyanka-b-794a86167',
   },
 ]
@@ -141,16 +142,17 @@ const marqueeWords = ['Performance', 'Content', 'Web', 'Brand', 'Strategy', 'Des
 
 const brands = [
   { name: 'JawanDrop',              category: 'E-commerce' },
+  { name: 'Sthira Naturals',        category: 'D2C · FMCG' },
   { name: 'Jay Defence Academy',    category: 'Education' },
-  { name: 'BLiive',                 category: 'Consulting' },
+  { name: 'Joy e Bike',             category: 'EV · Mobility' },
   { name: "Let's Enterprise",       category: 'Higher Ed' },
-  { name: 'Rom Guruji',             category: 'YouTube' },
-  { name: 'DataGuru Research',      category: 'B2B Research' },
-  { name: 'Real Estate Client',     category: 'Real Estate' },
   { name: 'Sitashree Laxminarayan', category: 'Brand' },
   { name: 'Nirva Health',           category: 'Health' },
   { name: 'Macmerise',              category: 'E-commerce' },
-  { name: 'International Clients',  category: 'Global' },
+  { name: 'Rom Guruji',             category: 'YouTube' },
+  { name: 'DataGuru Research',      category: 'B2B Research' },
+  { name: 'BLiive',                 category: 'Consulting' },
+  { name: 'Real Estate Client',     category: 'Real Estate' },
 ]
 
 const budgetOptions = ['< ₹25K', '₹25K – ₹75K', '₹75K – ₹2L', '₹2L+', 'Let\'s talk']
@@ -520,7 +522,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-6 mb-8 flex items-center gap-4">
           <span className="text-xs font-bold tracking-[0.22em] uppercase" style={{ color: '#9CA3AF' }}>Brands & Clients</span>
           <span className="flex-1 h-px" style={{ background: 'rgba(255,255,255,0.06)' }} />
-          <span className="text-xs font-bold tracking-[0.22em] uppercase" style={{ color: '#9CA3AF' }}>11 served</span>
+          <span className="text-xs font-bold tracking-[0.22em] uppercase" style={{ color: '#9CA3AF' }}>12 served</span>
         </div>
         <div className="marquee" aria-hidden="true">
           {[0, 1].map((dup) => (
