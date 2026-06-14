@@ -66,13 +66,6 @@ const work = [
     by: 'Jay',
   },
   {
-    title: "Let's Enterprise",
-    category: 'Performance Marketing',
-    desc: 'Full Meta Ads funnel for an experiential BBA program in Pune. Awareness → MQL → enrolled student. 6× ROI achieved.',
-    url: 'https://www.linkedin.com/in/jaysahastrabudhe/',
-    by: 'Jay',
-  },
-  {
     title: 'Rom Guruji',
     category: 'YouTube · Content Strategy',
     desc: '23K subscribers, 15M+ views. Built from zero during lockdown 2020. Strategy, scripting, editing, SEO — all in-house.',
@@ -93,6 +86,18 @@ const work = [
     url: 'https://www.notion.so/Priyanka-Bhalekar-25bb23cd43cb8008ab88ef7ff05f1c71',
     by: 'Priyanka',
   },
+]
+
+/* Gradient placeholders — swap src with real image paths once assets are ready */
+const creatives = [
+  { id: 1,  title: 'Meta Ad — EdTech',          category: 'Paid Social',       by: 'Jay',      src: null, grad: 'from #0E0F11 to #1a1a2e', span: 'row' },
+  { id: 2,  title: 'D2C Brand Campaign',         category: 'Performance',       by: 'Priyanka', src: null, grad: 'from #111 to #1C1E23',    span: 'tall' },
+  { id: 3,  title: 'YouTube Thumbnail Series',   category: 'Content Design',    by: 'Jay',      src: null, grad: 'from #0f0f0f to #1a1200',  span: 'normal' },
+  { id: 4,  title: 'Sthira Naturals — Branding', category: 'Brand Identity',    by: 'Priyanka', src: null, grad: 'from #0a1a0a to #0E0F11',  span: 'normal' },
+  { id: 5,  title: 'Celebrity Campaign',         category: 'Social Media',      by: 'Priyanka', src: null, grad: 'from #1a0a0a to #0E0F11',  span: 'row' },
+  { id: 6,  title: 'JawanDrop — Web Design',     category: 'Web · UI',          by: 'Jay',      src: null, grad: 'from #0E0F11 to #141414',  span: 'normal' },
+  { id: 7,  title: 'EV Brand — Joy e Bike',      category: 'Social · Content',  by: 'Priyanka', src: null, grad: 'from #080d12 to #0E0F11',  span: 'normal' },
+  { id: 8,  title: 'Rom Guruji — Visual Brand',  category: 'Content Design',    by: 'Jay',      src: null, grad: 'from #1a1500 to #0E0F11',  span: 'tall' },
 ]
 
 const team = [
@@ -145,7 +150,7 @@ const brands = [
   { name: 'Sthira Naturals',        category: 'D2C · FMCG' },
   { name: 'Jay Defence Academy',    category: 'Education' },
   { name: 'Joy e Bike',             category: 'EV · Mobility' },
-  { name: "Let's Enterprise",       category: 'Higher Ed' },
+  { name: 'Pruthvi Motors',          category: 'EV · Automotive' },
   { name: 'Sitashree Laxminarayan', category: 'Brand' },
   { name: 'Nirva Health',           category: 'Health' },
   { name: 'Macmerise',              category: 'E-commerce' },
@@ -368,6 +373,15 @@ export default function Home() {
         gsap.from(card, {
           opacity: 0, y: 52, duration: 0.85, ease: 'power3.out', delay: (i % 3) * 0.1,
           scrollTrigger: { trigger: card, start: 'top 92%', toggleActions: 'play none none none' },
+        })
+      })
+
+      /* ── Creatives grid ── */
+      gsap.utils.toArray('.creative-item').forEach((el, i) => {
+        gsap.from(el, {
+          opacity: 0, y: 48, scale: 0.96, duration: 0.85, ease: 'power3.out',
+          delay: (i % 3) * 0.08,
+          scrollTrigger: { trigger: el, start: 'top 92%', toggleActions: 'play none none none' },
         })
       })
 
@@ -687,6 +701,81 @@ export default function Home() {
               </a>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ═══════════ CREATIVES PORTFOLIO ═══════════ */}
+      <section id="creatives" className="scroll-mt-20 py-28" style={{ background: '#0E0F11' }}>
+        <div className="max-w-6xl mx-auto px-6">
+
+          <div className="section-reveal mb-14 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+            <div className="relative">
+              <div className="reveal-rest mb-4"><span className="sub-title">Creative Portfolio</span></div>
+              <h2 className="text-4xl md:text-6xl font-black leading-tight">
+                <span className="block overflow-hidden pb-[0.15em] -mb-[0.15em]"><span className="reveal-line block text-white">The work</span></span>
+                <span className="block overflow-hidden pb-[0.15em] -mb-[0.15em]">
+                  <span className="reveal-line block" style={{ color: LIME }}>speaks for itself.</span>
+                </span>
+              </h2>
+            </div>
+            <p className="reveal-rest max-w-sm text-sm leading-relaxed lg:text-right" style={{ color: '#9CA3AF' }}>
+              Ad creatives, brand campaigns, web design, and content — a curated sample of what we ship.
+            </p>
+          </div>
+
+          {/* Masonry-style grid */}
+          <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+            {creatives.map((c) => (
+              <div key={c.id}
+                className="creative-item break-inside-avoid group relative overflow-hidden rounded-2xl border cursor-pointer"
+                style={{
+                  borderColor: 'rgba(255,255,255,0.07)',
+                  aspectRatio: c.span === 'tall' ? '3/4' : c.span === 'row' ? '16/9' : '4/3',
+                }}>
+
+                {/* Image or gradient placeholder */}
+                {c.src ? (
+                  <img src={c.src} alt={c.title} className="w-full h-full object-cover" />
+                ) : (
+                  <div className="absolute inset-0 flex flex-col items-center justify-center"
+                    style={{ background: 'linear-gradient(135deg, #15171B 0%, #1C1E23 100%)' }}>
+                    {/* Dot pattern */}
+                    <div className="absolute inset-0 opacity-30"
+                      style={{ backgroundImage: 'radial-gradient(rgba(255,214,10,0.12) 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
+                    {/* Upload hint */}
+                    <div className="relative flex flex-col items-center gap-3 opacity-30 group-hover:opacity-60 transition-opacity duration-300">
+                      <div className="w-10 h-10 rounded-full border-2 border-dashed flex items-center justify-center"
+                        style={{ borderColor: LIME }}>
+                        <span className="text-xl font-black leading-none" style={{ color: LIME }}>+</span>
+                      </div>
+                      <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: LIME }}>Add creative</span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Hover overlay */}
+                <div className="absolute inset-0 flex flex-col justify-end p-5 opacity-0 group-hover:opacity-100 transition-all duration-300"
+                  style={{ background: 'linear-gradient(to top, rgba(14,15,17,0.95) 0%, rgba(14,15,17,0.4) 60%, transparent 100%)' }}>
+                  <div className="translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full"
+                        style={{ background: 'rgba(255,214,10,0.15)', color: LIME }}>
+                        {c.category}
+                      </span>
+                      <span className="text-[9px] font-bold uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.35)' }}>
+                        {c.by}
+                      </span>
+                    </div>
+                    <h3 className="text-white font-black text-base leading-tight">{c.title}</h3>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <p className="mt-10 text-center text-xs" style={{ color: '#6B7280' }}>
+            Drop your creative files and they'll replace the placeholders instantly.
+          </p>
         </div>
       </section>
 
