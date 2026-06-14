@@ -90,7 +90,7 @@ const work = [
 
 /* Gradient placeholders — swap src with real image paths once assets are ready */
 const creatives = [
-  { id: 1,  title: 'Meta Ad — EdTech',          category: 'Paid Social',       by: 'Jay',      src: null, grad: 'from #0E0F11 to #1a1a2e', span: 'row' },
+  { id: 1,  title: '20M+ Views — Why It Worked', category: 'LinkedIn Posts',    by: 'Jay',      src: '/creatives/c1-linkedin-why-it-worked.png', grad: 'from #0E0F11 to #1a1a2e', span: 'row' },
   { id: 2,  title: 'D2C Brand Campaign',         category: 'Performance',       by: 'Priyanka', src: null, grad: 'from #111 to #1C1E23',    span: 'tall' },
   { id: 3,  title: 'YouTube Thumbnail Series',   category: 'Content Design',    by: 'Jay',      src: null, grad: 'from #0f0f0f to #1a1200',  span: 'normal' },
   { id: 4,  title: 'Sthira Naturals — Branding', category: 'Brand Identity',    by: 'Priyanka', src: null, grad: 'from #0a1a0a to #0E0F11',  span: 'normal' },
