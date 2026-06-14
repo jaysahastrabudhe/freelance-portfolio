@@ -1,4 +1,4 @@
-import { Linkedin, Mail, ArrowUpRight } from 'lucide-react'
+import { Mail } from 'lucide-react'
 
 const nav = [
   { id: 'services', label: 'Services' },
@@ -8,13 +8,12 @@ const nav = [
 ]
 
 const collective = [
-  { label: 'Jay Sahastrabudhe', href: 'https://www.linkedin.com/in/jaysahastrabudhe/' },
-  { label: 'Priyanka Bhalekar', href: 'https://www.linkedin.com/in/priyanka-b-794a86167' },
+  { label: 'Jay Sahastrabudhe' },
+  { label: 'Priyanka Bhalekar' },
 ]
 
 const socials = [
-  { href: 'https://www.linkedin.com/in/jaysahastrabudhe/', icon: Linkedin, label: 'LinkedIn' },
-  { href: 'mailto:jay@scrpt.in', icon: Mail, label: 'Email' },
+  { href: 'mailto:info@scrpt.in', icon: Mail, label: 'Email' },
 ]
 
 export default function Footer() {
@@ -48,8 +47,6 @@ export default function Footer() {
                 <a
                   key={label}
                   href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   aria-label={label}
                   className="w-9 h-9 rounded-lg border border-white/8 flex items-center justify-center text-[#9CA3AF] hover:text-white hover:border-[#FFD60A]/60 transition-all duration-200"
                 >
@@ -81,17 +78,9 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-semibold text-sm mb-4">The Collective</h3>
             <ul className="space-y-3">
-              {collective.map(({ label, href }) => (
+              {collective.map(({ label }) => (
                 <li key={label}>
-                  <a
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#9CA3AF] hover:text-white text-sm transition-colors duration-200 flex items-center gap-1 group"
-                  >
-                    {label}
-                    <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </a>
+                  <span className="text-[#9CA3AF] text-sm">{label}</span>
                 </li>
               ))}
             </ul>
