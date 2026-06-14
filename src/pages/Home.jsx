@@ -97,7 +97,6 @@ const creatives = [
   { id: 5,  title: 'Celebrity Campaign',         category: 'Social Media',      by: 'Priyanka', src: '/creatives/c5-celebrity-campaign.jpg', grad: 'from #1a0a0a to #0E0F11', span: 'row' },
   { id: 6,  title: 'JawanDrop — Web Design',     category: 'Web · UI',          by: 'Jay',      src: '/creatives/c6-jawandrop-web.jpg', grad: 'from #0E0F11 to #141414', span: 'normal' },
   { id: 7,  title: 'UGC — Laptop Skin Content',  category: 'UGC Content',       by: 'Priyanka', src: '/creatives/c7-ugc-laptop-skin.jpg', grad: 'from #080d12 to #0E0F11', span: 'normal' },
-  { id: 8,  title: 'Rom Guruji — Visual Brand',  category: 'Content Design',    by: 'Jay',      src: null, grad: 'from #1a1500 to #0E0F11',  span: 'tall' },
 ]
 
 const team = [
@@ -233,6 +232,13 @@ export default function Home() {
   const [submitted, setSubmitted] = useState(false)
   const [sending, setSending] = useState(false)
   const [sendError, setSendError] = useState(null)
+  const [lightbox, setLightbox] = useState(null)
+
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape') setLightbox(null) }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
 
   const handleFormChange = (e) => setForm((p) => ({ ...p, [e.target.name]: e.target.value }))
 
@@ -739,61 +745,71 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Masonry-style grid */}
-          <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+          {/* Uniform grid — all 7 visible up front */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
             {creatives.map((c) => (
               <div key={c.id}
-                className="creative-item break-inside-avoid group relative overflow-hidden rounded-2xl border cursor-pointer"
+                onClick={() => c.src && setLightbox(c)}
+                className="creative-item group relative overflow-hidden rounded-2xl border"
                 style={{
                   borderColor: 'rgba(255,255,255,0.07)',
-                  aspectRatio: c.span === 'tall' ? '3/4' : c.span === 'row' ? '16/9' : '4/3',
+                  aspectRatio: '4/3',
+                  cursor: c.src ? 'zoom-in' : 'default',
                 }}>
 
-                {/* Image or gradient placeholder */}
                 {c.src ? (
-                  <img src={c.src} alt={c.title} className="w-full h-full object-cover" />
+                  <img src={c.src} alt={c.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                 ) : (
                   <div className="absolute inset-0 flex flex-col items-center justify-center"
                     style={{ background: 'linear-gradient(135deg, #15171B 0%, #1C1E23 100%)' }}>
-                    {/* Dot pattern */}
                     <div className="absolute inset-0 opacity-30"
                       style={{ backgroundImage: 'radial-gradient(rgba(255,214,10,0.12) 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
-                    {/* Upload hint */}
-                    <div className="relative flex flex-col items-center gap-3 opacity-30 group-hover:opacity-60 transition-opacity duration-300">
-                      <div className="w-10 h-10 rounded-full border-2 border-dashed flex items-center justify-center"
-                        style={{ borderColor: LIME }}>
-                        <span className="text-xl font-black leading-none" style={{ color: LIME }}>+</span>
-                      </div>
-                      <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: LIME }}>Add creative</span>
-                    </div>
                   </div>
                 )}
 
                 {/* Hover overlay */}
-                <div className="absolute inset-0 flex flex-col justify-end p-5 opacity-0 group-hover:opacity-100 transition-all duration-300"
-                  style={{ background: 'linear-gradient(to top, rgba(14,15,17,0.95) 0%, rgba(14,15,17,0.4) 60%, transparent 100%)' }}>
+                <div className="absolute inset-0 flex flex-col justify-end p-4 opacity-0 group-hover:opacity-100 transition-all duration-300"
+                  style={{ background: 'linear-gradient(to top, rgba(14,15,17,0.95) 0%, rgba(14,15,17,0.3) 60%, transparent 100%)' }}>
                   <div className="translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full"
-                        style={{ background: 'rgba(255,214,10,0.15)', color: LIME }}>
-                        {c.category}
-                      </span>
-                      <span className="text-[9px] font-bold uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.35)' }}>
-                        {c.by}
-                      </span>
-                    </div>
-                    <h3 className="text-white font-black text-base leading-tight">{c.title}</h3>
+                    <span className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full inline-block mb-1.5"
+                      style={{ background: 'rgba(255,214,10,0.15)', color: LIME }}>
+                      {c.category}
+                    </span>
+                    <h3 className="text-white font-black text-sm leading-tight">{c.title}</h3>
+                    <p className="text-[10px] mt-0.5" style={{ color: 'rgba(255,255,255,0.4)' }}>{c.by}</p>
                   </div>
                 </div>
               </div>
             ))}
           </div>
-
-          <p className="mt-10 text-center text-xs" style={{ color: '#6B7280' }}>
-            Drop your creative files and they'll replace the placeholders instantly.
-          </p>
         </div>
       </section>
+
+      {/* ═══════════ LIGHTBOX ═══════════ */}
+      {lightbox && (
+        <div
+          className="fixed inset-0 z-[9000] flex items-center justify-center p-4 md:p-10"
+          style={{ background: 'rgba(0,0,0,0.88)', backdropFilter: 'blur(12px)' }}
+          onClick={() => setLightbox(null)}>
+          <button
+            onClick={() => setLightbox(null)}
+            className="absolute top-5 right-6 text-white/60 hover:text-white text-3xl font-light leading-none transition-colors"
+            aria-label="Close">×</button>
+          <div onClick={(e) => e.stopPropagation()}
+            className="relative max-w-4xl w-full rounded-2xl overflow-hidden shadow-2xl"
+            style={{ border: '1px solid rgba(255,255,255,0.1)' }}>
+            <img src={lightbox.src} alt={lightbox.title} className="w-full h-auto block max-h-[80vh] object-contain" style={{ background: '#0E0F11' }} />
+            <div className="p-4 flex items-center justify-between" style={{ background: '#15171B' }}>
+              <div>
+                <h3 className="text-white font-black text-base">{lightbox.title}</h3>
+                <p className="text-xs mt-0.5" style={{ color: '#9CA3AF' }}>{lightbox.category} · {lightbox.by}</p>
+              </div>
+              <span className="text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full"
+                style={{ background: 'rgba(255,214,10,0.12)', color: LIME }}>{lightbox.category}</span>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ═══════════ TEAM ═══════════ */}
       <section id="team" className="scroll-mt-20 py-28">
