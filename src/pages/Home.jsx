@@ -96,7 +96,7 @@ const creatives = [
   { id: 4,  title: 'BLiieve — Web Development',   category: 'Web Development',   by: 'Jay',      src: '/creatives/c4-bliieve-web.jpg', grad: 'from #0a1a0a to #0E0F11',  span: 'normal' },
   { id: 5,  title: 'Celebrity Campaign',         category: 'Social Media',      by: 'Priyanka', src: '/creatives/c5-celebrity-campaign.jpg', grad: 'from #1a0a0a to #0E0F11', span: 'row' },
   { id: 6,  title: 'JawanDrop — Web Design',     category: 'Web · UI',          by: 'Jay',      src: '/creatives/c6-jawandrop-web.jpg', grad: 'from #0E0F11 to #141414', span: 'normal' },
-  { id: 7,  title: 'EV Brand — Joy e Bike',      category: 'Social · Content',  by: 'Priyanka', src: null, grad: 'from #080d12 to #0E0F11',  span: 'normal' },
+  { id: 7,  title: 'UGC — Laptop Skin Content',  category: 'UGC Content',       by: 'Priyanka', src: '/creatives/c7-ugc-laptop-skin.jpg', grad: 'from #080d12 to #0E0F11', span: 'normal' },
   { id: 8,  title: 'Rom Guruji — Visual Brand',  category: 'Content Design',    by: 'Jay',      src: null, grad: 'from #1a1500 to #0E0F11',  span: 'tall' },
 ]
 
