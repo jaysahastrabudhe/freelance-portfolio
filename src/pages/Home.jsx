@@ -92,7 +92,7 @@ const work = [
 const creatives = [
   { id: 1,  title: '20M+ Views — Why It Worked', category: 'LinkedIn Posts',    by: 'Jay',      src: '/creatives/c1-linkedin-why-it-worked.png', grad: 'from #0E0F11 to #1a1a2e', span: 'row' },
   { id: 2,  title: 'Sitashree Laxminarayan',      category: 'Social Media',      by: 'Priyanka', src: '/creatives/c2-sitashree-social.png', grad: 'from #111 to #1C1E23', span: 'tall' },
-  { id: 3,  title: 'YouTube Thumbnail Series',   category: 'Content Design',    by: 'Jay',      src: '/creatives/c3-youtube-thumbnail.jpg', grad: 'from #0f0f0f to #1a1200', span: 'normal' },
+  { id: 3,  title: 'YouTube Thumbnail Series',   category: 'Web Design',        by: 'Jay',      src: '/creatives/c3-youtube-thumbnail.jpg', grad: 'from #0f0f0f to #1a1200', span: 'normal' },
   { id: 4,  title: 'Sthira Naturals — Branding', category: 'Brand Identity',    by: 'Priyanka', src: null, grad: 'from #0a1a0a to #0E0F11',  span: 'normal' },
   { id: 5,  title: 'Celebrity Campaign',         category: 'Social Media',      by: 'Priyanka', src: null, grad: 'from #1a0a0a to #0E0F11',  span: 'row' },
   { id: 6,  title: 'JawanDrop — Web Design',     category: 'Web · UI',          by: 'Jay',      src: null, grad: 'from #0E0F11 to #141414',  span: 'normal' },
