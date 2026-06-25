@@ -544,7 +544,7 @@ export default function Home() {
           {stats.map(({ end, suffix, label }) => (
             <div key={label} className="stat-item text-center">
               <div data-count={end} data-suffix={suffix}
-                className="text-4xl md:text-5xl font-black mb-1" style={{ color: LIME, fontFamily: 'var(--heading-font)' }}>
+                className="text-5xl md:text-6xl font-black mb-1" style={{ color: LIME, fontFamily: 'var(--heading-font)' }}>
                 {end}{suffix}
               </div>
               <p className="text-xs leading-snug" style={{ color: '#9CA3AF' }}>{label}</p>
@@ -745,15 +745,17 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Uniform grid — all 7 visible up front */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-            {creatives.map((c) => (
+          {/* Compositional grid — featured first + last items, 3-col */}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            {creatives.map((c, idx) => {
+              const isFeatured = idx === 0 || idx === 6;
+              return (
               <div key={c.id}
                 onClick={() => c.src && setLightbox(c)}
-                className="creative-item group relative overflow-hidden rounded-2xl border"
+                className={`creative-item group relative overflow-hidden rounded-2xl border${isFeatured ? ' col-span-2 creative-featured' : ''}`}
                 style={{
                   borderColor: 'rgba(255,255,255,0.07)',
-                  aspectRatio: '4/3',
+                  aspectRatio: isFeatured ? undefined : '4/3',
                   cursor: c.src ? 'zoom-in' : 'default',
                 }}>
 
@@ -780,7 +782,8 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -818,9 +821,9 @@ export default function Home() {
           <div className="section-reveal mb-16">
             <div className="reveal-rest mb-4 relative"><span className="sub-title">The Collective</span></div>
             <h2 className="text-4xl md:text-6xl font-black leading-tight">
-              <span className="block overflow-hidden pb-[0.15em] -mb-[0.15em]"><span className="reveal-line block text-white">Small team.</span></span>
+              <span className="block overflow-hidden pb-[0.15em] -mb-[0.15em]"><span className="reveal-line block" style={{ color: LIME }}>Small team.</span></span>
               <span className="block overflow-hidden pb-[0.15em] -mb-[0.15em]">
-                <span className="reveal-line block" style={{ color: LIME }}>Outsized output.</span>
+                <span className="reveal-line block text-white">Outsized output.</span>
               </span>
             </h2>
             <p className="reveal-rest mt-5 text-base max-w-xl leading-relaxed" style={{ color: '#9CA3AF' }}>
@@ -955,9 +958,9 @@ export default function Home() {
                       style={{ background: 'rgba(255,214,10,0.12)' }}>
                       <CheckCircle className="w-8 h-8" style={{ color: LIME }} />
                     </div>
-                    <h3 className="text-white font-black text-2xl mb-3">Message ready!</h3>
+                    <h3 className="text-white font-black text-2xl mb-3">Message sent!</h3>
                     <p className="text-sm leading-relaxed" style={{ color: '#9CA3AF' }}>
-                      Your email client opened with everything filled in. We typically respond within a few hours.
+                      We've got your message. Jay or Priyanka will personally reply within 24 hours.
                     </p>
                     <button onClick={() => setSubmitted(false)}
                       className="mt-8 text-sm font-semibold transition-colors hover:text-white"
